@@ -1,0 +1,31 @@
+%html
+  %head
+    %title Berlin...
+    %meta{:content => "Lukas Abegg", :name => "author"}
+    %meta{:content => "Berlin...is a great Feature for...", :name => "description"}
+    %meta{:content => "Berlin Tours", :name => "keywords"}
+    %meta{:content => "text/html; charset=US-ASCII", "http-equiv" => "content-type"}
+    %meta{:content => "index, follow", :name => "robots"}
+    %meta{:content => "width=device-width,initial-scale=1", :name => "viewport"}
+
+    / CSS
+    = stylesheet_link_tag "application", :media => "all"
+    = stylesheet_link_tag "grayscale"
+    = stylesheet_link_tag "header/main_base"
+    = stylesheet_link_tag "header/main_nav"
+
+    = stylesheet_link_tag "text_styles"
+
+    = stylesheet_link_tag "http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic"
+    = stylesheet_link_tag "http://fonts.googleapis.com/css?family=Montserrat:400,700"
+
+    / Javascript
+    = javascript_include_tag "application"
+    = javascript_include_tag "http://code.jquery.com/jquery-latest.min.js"
+    = javascript_include_tag "grayscale"
+    = javascript_include_tag "animatescroll"
+
+    = csrf_meta_tags
+    = favicon_link_tag 'favicon.ico'
+
+    =render 'layouts/tourist_header'

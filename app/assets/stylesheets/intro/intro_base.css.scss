@@ -1,0 +1,95 @@
+/* Intro Base Styles */
+
+/* Font */
+@import url(http://fonts.googleapis.com/css?family=Playfair+Display+SC);
+@import url(http://fonts.googleapis.com/css?family=EB+Garamond);
+@import url(http://fonts.googleapis.com/css?family=Raleway:300);
+@import url(http://fonts.googleapis.com/css?family=Lobster);
+
+html {
+  width: 100%;
+  height: 100%;
+}
+
+/* Body */
+body {
+  width: 100%;
+  height: 100%;
+  height: auto;
+  text-align: center;
+  color: white;
+  background: url(../intro.jpg) no-repeat;
+  background-color: #000;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  background-size: cover;
+  -o-background-size: cover;
+  font-family: 'Lobster', cursive;
+}
+
+body a:focus {
+  outline: none;
+}
+
+.container {
+  padding: 7.5% 80px 80px;
+  height: auto;
+}
+
+.header {
+  position: relative;
+  margin: 0 auto;
+  text-align: center;
+  height: auto;
+  max-width: 100%;
+}
+
+.header a {
+  outline: none;
+  color: #fff;
+  text-decoration: none;
+  opacity: 0.7;
+
+}
+
+.header a:hover,
+.header a:focus {
+  opacity: 1;
+}
+
+.header h1 {
+  display: inline-block;
+  margin: 0;
+  font-weight: 300;
+  font-size: 5em;
+}
+
+#header_logo {
+  border-top-style: solid ;
+  border-bottom-style: solid;
+  border-width: 5px;
+
+  padding-bottom: 10px;
+
+  @extend h1;
+}
+
+.header h1 span {
+  display: block;
+  padding: 0.4em 1em 1em;
+}
+
+.header h2 {
+  display: inline-block;
+  margin: 0;
+  font-weight: 300;
+  font-size: 3.5em;
+  line-height: 3;
+}
+
+section {
+  position: relative;
+  text-align: center;
+  font-family: 'Raleway', sans-serif;
+  line-height: 1.5;
+}

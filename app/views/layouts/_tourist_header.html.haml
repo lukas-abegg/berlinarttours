@@ -1,0 +1,64 @@
+%body#page-top
+  / Navigation
+  %nav.navbar.navbar-custom.navbar-fixed-top{:role => "navigation"}
+    .container
+      .navbar-header
+        %button.navbar-toggle{"data-target" => ".navbar-main-collapse", "data-toggle" => "collapse", :type => "button"}
+          %i.fa.fa-bars.fa-lg
+
+        / Title
+        %a.page-scroll{:href => "#page-top"}
+          %span.tourist_title
+            =t("intro.title")
+            =image_tag "tourist_site.svg" , alt: "Du bist Tourist", width: "100px"
+            %a{:href => "index.html"}
+
+
+      / Collect the nav links, forms, and other content for toggling
+      .collapse.navbar-collapse.navbar-right.navbar-main-collapse
+        %ul.nav.navbar-nav
+          / Hidden li included to remove active class from about link when scrolled up past about section
+          %li.hidden
+            %a{:href => "#page-top"}
+          %li
+            %a.page-scroll{:href => "tourist_home"}
+              =t("header.letsstart")
+          %li
+            %a.page-scroll{:href => "tourist_profile"}
+              =t("header.myprofile")
+          %li
+            %a.page-scroll{:href => "tourist_tours"}
+              =t("header.tour_booking")
+
+
+        %ul.nav.navbar-nav
+          - if user_signed_in?
+            = link_to image_tag("loggedIn.svg", :width=>"75px"), :href=>destroy_user_session_path, :method=>'delete'
+          - else
+            = link_to image_tag("loggedOut.svg", :width=>"75px"), new_user_session_path
+
+  / Header
+  %header{class: getHeader(request.path_info)}
+    .intro-body
+      .container
+        .row
+          .col-md-8.col-md-offset-2
+            %h1.brand-heading
+              = t(getHeaderText(request.path_info))
+            %a.btn.btn-circle.page-scroll{:href => "#about"}
+              %i.fa.fa-angle-double-down.animated
+  / About Section
+  %body
+    %section#about.container.content-section.text-center
+      .container_content
+
+        - flash.each do |name, msg|
+          - if msg.is_a?(String)
+            %div{:class => "alert alert-#{name == :notice ? "success" : "error"}"}
+            %a.close{"data-dismiss" => "alert"}
+              &times;&nbsp
+            = content_tag :div, msg, :id => "flash_#{name}"
+
+        =yield
+
+        =render 'layouts/footer'

@@ -1,0 +1,40 @@
+/* Tourist Base Styles */
+/* Font */
+@import url(http://fonts.googleapis.com/css?family=Playfair+Display+SC);
+@import url(http://fonts.googleapis.com/css?family=EB+Garamond);
+@import url(http://fonts.googleapis.com/css?family=Raleway:400,100,200,300,500,600,700,800,900);
+@import url(http://fonts.googleapis.com/css?family=Lobster);
+
+
+/* Gradient */
+hr.footer {
+  border: 0;
+  height: 1px;
+  background-image: -webkit-linear-gradient(left, #b57800, #7a0103, #ccc);
+  background-image: -moz-linear-gradient(left, #b57800, #7a0103, #ccc);
+  background-image: -ms-linear-gradient(left, #b57800, #7a0103, #ccc);
+  background-image: -o-linear-gradient(left, #b57800, #7a0103, #ccc);
+  margin-left: 15%;
+  margin-right: 15%;
+}
+
+footer {
+  width:100%;
+  height: 10%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  margin: 0;
+  padding: 0;
+
+}
+
+footer p {
+  float: right;
+  font-size: 0.75em;
+  font-family: 'Helvetica', sans-serif;
+  font-weight: lighter;
+  margin-left: 15%;
+  margin-right: 15%;
+}
+

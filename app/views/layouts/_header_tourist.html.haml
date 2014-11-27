@@ -1,0 +1,37 @@
+%header
+  %h1
+    Berlin Art Tours
+    %a{:href => "index.html"}
+      =image_tag "tourist_site.svg" , width: "100"
+
+  %nav.navEffect{:style => "left:5%"}
+    %a{:href => "tourist_index.html"}
+      =t("header.letsstart")
+    .navPoint
+      =t("|")
+    %a{:href => "tourist_profile.html"}
+      =t("header.myprofile")
+    .navPoint
+      =t("|")
+    %a{:href => "tourist_tour_search.html"}
+      =t("header.tour_booking")
+    .navPoint
+      =t("|")
+    %a{:href => "tourist_wish_list.html"}
+      =t("header.wishlist")
+    .navPoint
+      =t("|")
+    %a{:href => "tourist_bookings.html"}
+      =t("header.bookings")
+
+  %section.socialLinksEffect
+    %a{:href => "#"}
+      =image_tag "twitter.svg" , width: "75"
+    %a{:href => "#"}
+      =image_tag "facebook.svg", width: "75"
+    %a{:href => "#"}
+      =image_tag "googleplus.svg", width: "75"
+    %a{:href => "#", :style => "padding-left: 50px"}
+      =image_tag "mail.svg", width: "75"
+    %a{:href => "#"}
+      =image_tag "loggedIn.svg", width: "75"

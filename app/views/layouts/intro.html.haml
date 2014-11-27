@@ -1,0 +1,21 @@
+%html
+  %head
+    %title Berlin...
+    %meta{:content => "Lukas Abegg", :name => "author"}
+    %meta{:content => "Berlin...is a great Feature for...", :name => "description"}
+    %meta{:content => "Berlin Tours", :name => "keywords"}
+    %meta{:content => "text/html; charset=US-ASCII", "http-equiv" => "content-type"}
+    %meta{:content => "index, follow", :name => "robots"}
+
+    / CSS
+    = stylesheet_link_tag "application", :media => "all"
+    = stylesheet_link_tag "intro/intro_base", :media => "all"
+    = stylesheet_link_tag "intro/intro_body", :media => "all"
+    = stylesheet_link_tag "intro/intro_effects", :media => "all"
+
+    = csrf_meta_tags
+    = favicon_link_tag 'favicon.ico'
+
+  %body
+    .container
+      =yield

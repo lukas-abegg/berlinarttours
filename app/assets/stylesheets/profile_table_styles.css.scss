@@ -1,0 +1,28 @@
+/* Table Styles */
+
+.table {
+    display: table;
+    width: 100%;
+}
+
+.row {
+    display: table-row;
+}
+
+.cell {
+    display: table-cell;
+    vertical-align: middle;
+    width: 50%;
+}
+
+.cell p {
+    display: inline-block;
+    min-width: 150px;
+}
+
+.cell-bind {
+    display: table-cell;
+    vertical-align: top;
+    width: 100%;
+}
+
