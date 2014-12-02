@@ -24,7 +24,6 @@ body {
   font-family: 'Raleway', sans-serif;
   margin: 0;
   background-size: 100%;
-  background: #ffffff;
 }
 
 header {
@@ -33,11 +32,12 @@ header {
 }
 
 .tourist_title{
+  color: #760002;
   text-transform: none;
   font-style: normal;
-  color: #ffffff;
   font-family: 'Lobster', cursive;
-  font-size: 2.5em;
+  font-weight: 300;
+  font-size: 3em;
 }
 
 nav a {

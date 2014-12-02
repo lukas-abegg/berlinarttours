@@ -1,0 +1,14 @@
+= form_for(resource, as: resource_name, url: password_path(resource_name), :html => {class:"form-signIn larger", method: :post }) do |f|
+  %h2.text-red
+    ="Forgot your password?"
+  %div.text-red
+    = devise_error_messages!
+    .field
+    = f.label :email, class:'label-large text-red'
+    %div{:id => 'emailcontent'}
+    = f.email_field :email, :id => 'email', :autofocus => true, class:'input-block-level text-red', placeholder: 'email@adresse.com', :onkeyUp => "checkEmail()"
+
+  .actions
+    = f.submit "Send me reset password instructions", class:'btn btn-large btn-primary'
+  %hr
+  = render "devise/shared/links"

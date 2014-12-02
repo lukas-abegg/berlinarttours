@@ -1,0 +1,15 @@
+= form_for(resource, :as => resource_name, :html => {class:"form-signin"}, :url => session_path(resource_name)) do |f|
+  %h2.text-red
+    ="Please sign in"
+  %br
+  %div{:id => 'emailcontent'}
+  = f.email_field :email, :id => 'email', :autofocus => true, class:'input-block-level text-red', placeholder: 'email@adresse.com', :onkeyUp => "checkEmail()"
+  %br
+  %div{:id => 'keycontent'}
+  = f.password_field :password, :id => 'key', class:'input-block-level text-red', placeholder: 'Password', :onkeyUp => "checkPassword()"
+  .checkbox
+    %span.character-checkbox{:onclick => "showPassword()"}
+    %span.label Show password
+  = f.submit 'Sign in', class:'btn btn-large btn-primary'
+  %hr
+    = render 'devise/shared/links'

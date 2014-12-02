@@ -60,6 +60,13 @@ de:
         other: "%{count} errors prohibited this %{resource} from being saved:"
   mongoid:
     errors:
+      models:
+        user:
+          attributes:
+            email:
+              blank: "E-Mail Adresse fehlt"
+            password:
+              blank: "Passwort ist leer"
       messages:
         blank_in_locale:
           "can't be blank in %{location}"

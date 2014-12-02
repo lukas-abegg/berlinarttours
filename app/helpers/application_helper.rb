@@ -8,7 +8,20 @@ module ApplicationHelper
     elsif current_page.start_with?('/tourist_tours')
       return 'intro imageTouristToursBG'
     else
-      return 'intro imageTouristIntroBG'
+      return 'hidden'
+    end
+  end
+
+  def getBackground(current_page)
+
+    if current_page.start_with?('/tourist_home')
+      return ''
+    elsif current_page.start_with?('/tourist_profile')
+      return ''
+    elsif current_page.start_with?('/tourist_tours')
+      return ''
+    else
+      return 'bg-body imageTouristProfileBG'
     end
   end
 
@@ -21,7 +34,22 @@ module ApplicationHelper
     elsif current_page.start_with?('/tourist_tours')
       return 'header_texts.tours'
     else
-      return 'header_texts.home'
+      #return 'header_texts.home'
+    end
+  end
+
+  def bootstrap_class_for flash_type
+    case flash_type
+      when :success
+        "alert-success"
+      when :error
+        "alert-error"
+      when :alert
+        "alert-block"
+      when :notice
+        "alert-info"
+      else
+        flash_type.to_s
     end
   end
 end

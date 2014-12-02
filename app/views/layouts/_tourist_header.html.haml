@@ -33,7 +33,7 @@
 
         %ul.nav.navbar-nav
           - if user_signed_in?
-            = link_to image_tag("loggedIn.svg", :width=>"75px"), :href=>destroy_user_session_path, :method=>'delete'
+            = link_to image_tag("loggedIn.svg", :width=>"75px"), destroy_user_session_path, :method=>'delete'
           - else
             = link_to image_tag("loggedOut.svg", :width=>"75px"), new_user_session_path
 
@@ -45,20 +45,14 @@
           .col-md-8.col-md-offset-2
             %h1.brand-heading
               = t(getHeaderText(request.path_info))
-            %a.btn.btn-circle.page-scroll{:href => "#about"}
+            %a.btn.btn-circle.page-scroll{:href => "#body"}
               %i.fa.fa-angle-double-down.animated
-  / About Section
-  %body
-    %section#about.container.content-section.text-center
+  / Body Section
+
+  %body{class: getBackground(request.path_info)}
+    %section#body.container.content-section.text-center
       .container_content
 
-        - flash.each do |name, msg|
-          - if msg.is_a?(String)
-            %div{:class => "alert alert-#{name == :notice ? "success" : "error"}"}
-            %a.close{"data-dismiss" => "alert"}
-              &times;&nbsp
-            = content_tag :div, msg, :id => "flash_#{name}"
-
+        //= render partial: "shared/flash_messages", flash: flash
         =yield
-
-        =render 'layouts/footer'
+      =render 'layouts/footer'
