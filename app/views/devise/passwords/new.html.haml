@@ -5,7 +5,10 @@
     = devise_error_messages!
     .field
     = f.label :email, class:'label-large text-red'
-    %div{:id => 'emailcontent'}
+    %div
+      %span.fa.fa-check.text-success.hidden{:id => 'emailsuccess'}
+      %span.fa.fa-remove.text-red.hidden{:id => 'emailwrong'}
+      %span{:id => 'emailcontent'}
     = f.email_field :email, :id => 'email', :autofocus => true, class:'input-block-level text-red', placeholder: 'email@adresse.com', :onkeyUp => "checkEmail()"
 
   .actions

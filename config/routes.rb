@@ -1,7 +1,6 @@
 Berlinarttours::Application.routes.draw do
 
 
-  get "users/show"
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
@@ -14,15 +13,29 @@ Berlinarttours::Application.routes.draw do
   root :to => "intro#index", :locale => "de"
 
 
-  get 'tourist_home' => 'tourist_home#index'
+  get "tourist_home", :to => "tourist_home#index"
 
-  get 'tourist_profile' => 'tourist_profile#index'
-
-  get 'tourist_tours' => 'tourist_tours#index'
+  get "tourist_tours", :to => "tourist_tours#index"
 
 
   devise_for :users
   resources :users
+
+  %w( 404 422 500 ).each do |code|
+    get code, :to => "errors#show", :code => code
+  end
+
+  resources :profiles do
+    member do
+      #get "load_profile_content"
+    end
+  end
+
+  get "profiles/new"
+  get "profiles/create"
+  get "profiles/show"
+  get "profiles/edit", to: 'users#edit'
+
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

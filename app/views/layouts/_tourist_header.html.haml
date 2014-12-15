@@ -4,8 +4,7 @@
     .container
       .navbar-header
         %button.navbar-toggle{"data-target" => ".navbar-main-collapse", "data-toggle" => "collapse", :type => "button"}
-          %i.fa.fa-bars.fa-lg
-
+          %i.padding-top.fa.fa-bars.fa-2x.text-white
         / Title
         %a.page-scroll{:href => "#page-top"}
           %span.tourist_title
@@ -17,23 +16,23 @@
       / Collect the nav links, forms, and other content for toggling
       .collapse.navbar-collapse.navbar-right.navbar-main-collapse
         %ul.nav.navbar-nav
-          / Hidden li included to remove active class from about link when scrolled up past about section
+          / Hidden li included to remove active class from about link when scrolled up
           %li.hidden
             %a{:href => "#page-top"}
           %li
-            %a.page-scroll{:href => "tourist_home"}
+            %a.page-scroll{:href => tourist_home_path}
               =t("header.letsstart")
           %li
-            %a.page-scroll{:href => "tourist_profile"}
+            %a.page-scroll{:href => profiles_show_path}
               =t("header.myprofile")
           %li
-            %a.page-scroll{:href => "tourist_tours"}
+            %a.page-scroll{:href => tourist_tours_path}
               =t("header.tour_booking")
 
 
         %ul.nav.navbar-nav
           - if user_signed_in?
-            = link_to image_tag("loggedIn.svg", :width=>"75px"), destroy_user_session_path, :method=>'delete'
+            = link_to image_tag(get_profile(current_user), :class =>"img-thumbnail img-circle", :style => "width: 55px; height:55px;"), destroy_user_session_path, :method=>'delete'
           - else
             = link_to image_tag("loggedOut.svg", :width=>"75px"), new_user_session_path
 
@@ -47,12 +46,11 @@
               = t(getHeaderText(request.path_info))
             %a.btn.btn-circle.page-scroll{:href => "#body"}
               %i.fa.fa-angle-double-down.animated
-  / Body Section
 
+  / Body Section
   %body{class: getBackground(request.path_info)}
     %section#body.container.content-section.text-center
       .container_content
-
-        //= render partial: "shared/flash_messages", flash: flash
+        =render partial: "layouts/flash_messages", flash: flash
         =yield
       =render 'layouts/footer'

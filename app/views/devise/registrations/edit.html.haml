@@ -1,17 +1,15 @@
-%h2
-  Edit #{resource_name.to_s.humanize}
-= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
+
+= form_for(resource, as: resource_name, url: registration_path(resource_name), :html => {class:"form-signIn larger", method: :put }) do |f|
   %div.text-red
     = devise_error_messages!
   %h2.text-red
     ="Please edit your registration"
   .field
-    = f.label :name, class:'label-large text-red'
-    %br/
-    = f.text_field :name, autofocus: true, class:'input-block-level text-red'
-  .field
     = f.label :email, class:'label-large text-red'
-    %div{:id => 'emailcontent'}
+    %div
+      %span.fa.fa-check.text-success.hidden{:id => 'emailsuccess'}
+      %span.fa.fa-remove.text-red.hidden{:id => 'emailwrong'}
+      %span{:id => 'emailcontent'}
     = f.email_field :email, :id => 'email', :autofocus => true, class:'input-block-level text-red', placeholder: 'email@adresse.com', :onkeyUp => "checkEmail()"
   %br
   - if devise_mapping.confirmable? && resource.pending_reconfirmation?
@@ -21,7 +19,10 @@
     = f.label :password, class:'label-large text-red'
     %i (leave blank if you don't want to change it)
     %br/
-    %div{:id => 'keycontent'}
+    %div
+      %span.fa.fa-check.text-success.hidden{:id => 'keysuccess'}
+      %span.fa.fa-remove.text-red.hidden{:id => 'keywrong'}
+      %span{:id => 'keycontent'}
     = f.password_field :password, :id => 'key', class:'input-block-level text-red', placeholder: 'Password', :onkeyUp => "checkPassword()"
     .checkbox
       %span.character-checkbox{:onclick => "showPassword()"}

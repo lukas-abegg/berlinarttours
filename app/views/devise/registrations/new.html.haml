@@ -4,12 +4,12 @@
   %h2.text-red
     ="Please register"
   .field
-    = f.label :name, class:'label-large text-red'
-    %br
-    = f.text_field :name, autofocus: true, class:'input-block-level text-red'
-  .field
     = f.label :email, class:'label-large text-red'
-    %div{:id => 'emailcontent'}
+    %div
+      %span.fa.fa-check.text-success.hidden{:id => 'emailsuccess'}
+      %span.fa.fa-remove.text-red.hidden{:id => 'emailwrong'}
+      %span{:id => 'emailcontent'}
+  .field
     = f.email_field :email, :id => 'email', :autofocus => true, class:'input-block-level text-red', placeholder: 'email@adresse.com', :onkeyUp => "checkEmail()"
   %br
   .field
@@ -18,15 +18,20 @@
       %em
         (#{@minimum_password_length} characters minimum)
 
-  %div{:id => 'keycontent'}
-  = f.password_field :password, :id => 'key', class:'input-block-level text-red', placeholder: 'Password', :onkeyUp => "checkPassword()"
+  %div
+    %span.fa.fa-check.text-success.hidden{:id => 'keysuccess'}
+    %span.fa.fa-remove.text-red.hidden{:id => 'keywrong'}
+    %span{:id => 'keycontent'}
+  .field
+    = f.password_field :password, :id => 'key', class:'input-block-level text-red', placeholder: 'Password', :onkeyUp => "checkPassword()"
   .checkbox
     %span.character-checkbox{:onclick => "showPassword()"}
     %span.label Show password
 
   .field
     = f.label :password_confirmation, class:'input-block-level text-red'
-    %br/
+    %br
+  .field
     = f.password_field :password_confirmation, autocomplete: "off" , class:'input-block-level text-red'
   .actions
     = f.submit 'Register', class:'btn btn-large btn-primary'

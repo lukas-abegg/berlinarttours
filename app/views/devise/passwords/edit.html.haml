@@ -1,0 +1,26 @@
+= form_for(resource, as: resource_name, url: password_path(resource_name), :html => {class:"form-signIn larger", method: :put }) do |f|
+  %h2.text-red
+    ="Change your password"
+  %div.text-red
+    = devise_error_messages!
+    = f.hidden_field :reset_password_token
+    .field
+      = f.label :password, "New password", class:'label-large text-red'
+      %div
+        %span.fa.fa-check.text-success.hidden{:id => 'keysuccess'}
+        %span.fa.fa-remove.text-red.hidden{:id => 'keywrong'}
+        %span{:id => 'keycontent'}
+    .field
+      = f.password_field :password, :id => 'key', class:'input-block-level text-red', placeholder: 'Password', :onkeyUp => "checkPassword()"
+      .checkbox
+        %span.character-checkbox{:onclick => "showPassword()"}
+        %span.label Show password
+    .field
+      = f.label :password_confirmation, "Confirm new password", class:'label-large text-red'
+      %br/
+      = f.password_field :password_confirmation, autocomplete: "off", class:'input-block-level text-red'
+
+  .actions
+    = f.submit "Change my password", class:'btn btn-large btn-primary'
+  %hr
+  = render "devise/shared/links"

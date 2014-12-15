@@ -1,0 +1,39 @@
+= form_for(@profile, :html => {class:"form-signin larger"}) do |f|
+  %h2.text-red
+    ="Please add a profile"
+  %br
+  .field.hidden
+    = f.email_field :email, :value => @user.email
+  .field
+    = f.file_field :avatar
+  .field
+    = f.file_field :profile_bg
+  %br
+  .field
+    = f.label :first_name, class:'label-large text-red'
+  .field
+    = f.text_field :first_name, class:'input-block-level text-red', placeholder: 'Vorname', :required => true
+  .field
+    = f.label :last_name, class:'label-large text-red'
+  .field
+    = f.text_field :last_name, class:'input-block-level text-red', placeholder: 'Nachname', :required => true
+  .field
+    = f.label :street, class:'label-large text-red'
+    = "/"
+    = f.label :house_number, class:'label-large text-red'
+  .field
+    = f.text_field :street, class:'input-block-level text-red', placeholder: 'Strasse', :required => true
+    = f.text_field :house_number, class:'input-block-level text-red', placeholder: 'Hausnr.', :required => true
+  .field
+    = f.label :postcode, class:'label-large text-red'
+  .field
+    = f.text_field :postcode, class:'input-block-level text-red', placeholder: 'PLZ', :required => true
+  .field
+    = f.label :city, class:'label-large text-red'
+    ="/"
+    = f.label :country, class:'label-large text-red'
+  .field
+    = f.text_field :city, class:'input-block-level text-red', placeholder: 'Stadt', :required => true
+    = f.text_field :country, class:'input-block-level text-red', placeholder: 'Land', :required => true
+  .actions
+    = f.submit 'Create', class:'btn btn-large btn-primary'

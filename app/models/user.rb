@@ -7,7 +7,6 @@ class User
 
 
   ## Database authenticatable
-  field :name,               type: String, default: ""
   field :email,              type: String, default: ""
   field :encrypted_password, type: String, default: ""
 
@@ -35,4 +34,10 @@ class User
   # field :failed_attempts, type: Integer, default: 0 # Only if lock strategy is :failed_attempts
   # field :unlock_token,    type: String # Only if unlock strategy is :email or :both
   # field :locked_at,       type: Time
+
+  after_create :send_registration_confirmation
+
+  def send_registration_confirmation
+    UserMailer.registration_confirmation(self).deliver
+  end
 end

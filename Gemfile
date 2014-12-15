@@ -22,6 +22,8 @@ group :development do
   gem 'test-unit', '= 2.5.5'
 end
 
+#Mailer
+gem 'mail'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
@@ -82,3 +84,8 @@ gem 'autoprefixer-rails'
 gem 'font-awesome-sass'
 
 gem 'protected_attributes'
+
+# file upload
+gem 'jack_up'
+gem 'mongoid-paperclip', :require => 'mongoid_paperclip'
+# gem 'aws-s3', :require => 'aws/s3'

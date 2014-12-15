@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
 
   def default_url_options(options={})
     logger.debug "default_url_options is passed options: #{options.inspect}\n"
-    { locale: I18n.locale }
+    {locale: I18n.locale}
   end
 
   def respond_to_not_found(*types)
@@ -17,21 +17,52 @@ class ApplicationController < ActionController::Base
 
     respond_to do |format|
       format.html { redirect_to :action => :index }
-      format.js   { render(:update) { |page| page.reload } }
+      format.js { render(:update) { |page| page.reload } }
       format.json { render :text => flash[:warning], :status => :not_found }
-      format.xml  { render :text => flash[:warning], :status => :not_found }
+      format.xml { render :text => flash[:warning], :status => :not_found }
     end
   end
 
   private
 
-  def render_not_found(exception)
-    #log_error(exception)
-    render :template => "/error/404.html.haml", :status => 404
+  #devise routing
+  after_filter :store_location
+
+  def store_location
+    # store last url - this is needed for post-login redirect to whatever the user last visited.
+    return unless request.get?
+    if (request.path != "/users/sign_in" &&
+        request.path != "/users/sign_up" &&
+        request.path != "/users/password/new" &&
+        request.path != "/users/password/edit" &&
+        request.path != "/users/confirmation" &&
+        request.path != "/users/sign_out" &&
+        !request.xhr?) # don't store ajax calls
+      session[:previous_url] = request.fullpath
+    end
   end
 
-  def render_error(exception)
-    #log_error(exception)
-    render :template => "/error/500.html.haml", :status => 500
+  def after_sign_in_path_for(resource)
+    if Profile.where(:email => current_user.email).blank?
+      new_profile_path
+    else
+      profiles_show_path
+    end
+  end
+
+  def after_sign_up_path_for(resource)
+    if Profile.where(:email => current_user.email).blank?
+      new_profile_path
+    else
+      profiles_show_path
+    end
+  end
+
+  def after_sign_out_path_for(resource)
+    tourist_home_path
+  end
+
+  def after_user_edit_path_for(resource)
+    tourist_home_path
   end
 end

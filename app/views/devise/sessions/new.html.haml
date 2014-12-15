@@ -2,10 +2,16 @@
   %h2.text-red
     ="Please sign in"
   %br
-  %div{:id => 'emailcontent'}
+  %div
+    %span.fa.fa-check.text-success.hidden{:id => 'emailsuccess'}
+    %span.fa.fa-remove.text-red.hidden{:id => 'emailwrong'}
+    %span{:id => 'emailcontent'}
   = f.email_field :email, :id => 'email', :autofocus => true, class:'input-block-level text-red', placeholder: 'email@adresse.com', :onkeyUp => "checkEmail()"
   %br
-  %div{:id => 'keycontent'}
+  %div
+    %span.fa.fa-check.text-success.hidden{:id => 'keysuccess'}
+    %span.fa.fa-remove.text-red.hidden{:id => 'keywrong'}
+    %span{:id => 'keycontent'}
   = f.password_field :password, :id => 'key', class:'input-block-level text-red', placeholder: 'Password', :onkeyUp => "checkPassword()"
   .checkbox
     %span.character-checkbox{:onclick => "showPassword()"}

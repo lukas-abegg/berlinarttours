@@ -1,5 +1,5 @@
 # Additional translations at https://github.com/plataformatec/devise/wiki/I18n
- 
+
 de:
   devise:
     confirmations:
@@ -44,6 +44,10 @@ de:
       signed_in: "Signed in successfully."
       signed_out: "Signed out successfully."
       already_signed_out: "Signed out successfully."
+      user:
+        signed_in: 'Welcome user, you are signed in.'
+      admin:
+        signed_in: 'Hello admin!'
     unlocks:
       send_instructions: "You will receive an email with instructions for how to unlock your account in a few minutes."
       send_paranoid_instructions: "If your account exists, you will receive an email with instructions for how to unlock it in a few minutes."
@@ -67,6 +71,11 @@ de:
               blank: "E-Mail Adresse fehlt"
             password:
               blank: "Passwort ist leer"
+              too_short: "ist zu kurz"
+            password_confirmation:
+              confirmation: "ist ungleich dem Passwort"
+            reset_password_token:
+              invalid: "ist ungültig"
       messages:
         blank_in_locale:
           "can't be blank in %{location}"

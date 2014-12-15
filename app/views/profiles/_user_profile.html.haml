@@ -1,0 +1,47 @@
+.col-xs-12.col-sm-12.col-md-12.col-lg-12
+  .row
+    .col-md-2
+    .col-md-8
+      .h1
+        = "Profildaten"
+    .col-md-2
+  .row
+    .col-md-3
+    .col-md-6.col-xs-12
+      .panel.panel-default.container-50
+        .panel-heading
+          %h3.panel-title Userdaten
+        .panel-body
+          %table.table.table-user-information
+            %tbody
+              %tr
+                %td Name
+                %td
+                  = profile.first_name
+                  &nbsp;
+                  = profile.last_name
+              %tr
+                %td Email:
+                %td
+                  = profile.email
+
+      .panel.panel-default.container-50
+        .panel-heading
+          %h3.panel-title Kontaktdaten
+        .panel-body
+          %table.table.table-user-information
+            %tbody
+              %tr
+                %td Adresse
+                %td
+                  = profile.street
+                  &nbsp
+                  = profile.house_number
+              %tr
+                %td Ort:
+                %td
+                  = profile.postcode
+                  = "/"
+                  = profile.city
+                  , &nbsp;
+                  = profile.country

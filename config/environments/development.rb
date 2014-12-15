@@ -10,7 +10,7 @@ Berlinarttours::Application.configure do
   config.eager_load = false
 
   # Show full error reports and disable caching.
-  config.consider_all_requests_local       = true
+  config.consider_all_requests_local       = false
   config.action_controller.perform_caching = false
 
   # Don't care if the mailer can't send.
@@ -20,9 +20,18 @@ Berlinarttours::Application.configure do
   config.action_mailer.default_url_options = { :host => 'localhost:3000' }
   # A dummy setup for development - no deliveries, but logged
   config.action_mailer.delivery_method = :smtp
-  config.action_mailer.perform_deliveries = false
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.default :charset => "utf-8"
+
+  ActionMailer::Base.smtp_settings = {
+      :address        => 'smtp.gmail.com',
+      :domain         => 'mail.google.com',
+      :port           => 587,
+      :user_name      => 'lukas.abegg1@gmail.com',
+      :password       => 'jahlive89',
+      :authentication => :plain,
+      :enable_starttls_auto => true
+  }
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
@@ -32,5 +41,7 @@ Berlinarttours::Application.configure do
   # This option may cause significant delays in view rendering with a large
   # number of complex assets.
   config.assets.debug = true
+
+  Paperclip.options[:command_path] = "/Applications/MAMP/Library/bin/convert"
 
 end

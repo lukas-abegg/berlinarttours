@@ -1,0 +1,25 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  id: 
+  first_name: MyString
+  last_name: MyString
+  street: MyString
+  house_number: 1
+  postcode: 1
+  photo_filename: MyString
+  photo_content_type: MyString
+  photo_data: 
+  edited: 2014-12-06 23:39:14
+
+two:
+  id: 
+  first_name: MyString
+  last_name: MyString
+  street: MyString
+  house_number: 1
+  postcode: 1
+  photo_filename: MyString
+  photo_content_type: MyString
+  photo_data: 
+  edited: 2014-12-06 23:39:14
