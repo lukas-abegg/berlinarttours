@@ -28,7 +28,9 @@ de:
     bookings: "Meine Buchungen"
   header_texts:
     profile: "Dein Profil"
-    home: "Let's start"
+    tourist_home: "Welcome Tourist"
+    guide_home: "Welcome Guide"
+    poi_home: "Welcome Point of Interest"
     tours: "Get your Tour"
   intro:
     title: "Berlin Special - Tours"

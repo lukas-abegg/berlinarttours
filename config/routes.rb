@@ -14,6 +14,8 @@ Berlinarttours::Application.routes.draw do
 
 
   get "tourist_home", :to => "tourist_home#index"
+  get "guide_home", :to => "guide_home#index"
+  get "poi_home", :to => "poi_home#index"
 
   get "tourist_tours", :to => "tourist_tours#index"
 

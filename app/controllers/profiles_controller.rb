@@ -2,8 +2,9 @@ class ProfilesController < ApplicationController
   before_filter :authenticate_user!
 
   def new
-    @profile = Profile.new
     @user = current_user
+    @profile = Profile.new
+    @profile.account_type = session[:account_type]
 
     respond_to do |format|
       format.html # index.html.erb
@@ -37,6 +38,7 @@ class ProfilesController < ApplicationController
   def edit
     @user = current_user
     @profile = Profile.find_by(:email => @user.email)
+    @profile.account_type = session[:account_type]
 
     respond_to do |format|
       format.html # index.html.erb
@@ -45,7 +47,6 @@ class ProfilesController < ApplicationController
   end
 
   def update
-
     @profile = Profile.update(params[:profile])
 
     if @profile

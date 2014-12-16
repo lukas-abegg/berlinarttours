@@ -5,21 +5,21 @@
     %h2
       =t("intro.title2")
     %nav.navlinks
-      %a.navlinks-content{:href => "tourist_home"}
+      %a.navlinks-content{:href => tourist_home_path}
         %h1{:style => "left: 80px;"}
           =t("intro.tourist")
           %br
           =image_tag "tourist.svg"
         %p{:style => "top:63px"}
           =t("intro.tourist_t")
-      %a.navlinks-content{:href => "tourist_home"}
+      %a.navlinks-content{:href => guide_home_path}
         %h1{:style => "left:78px;"}
           =t("intro.guide")
           %br
           =image_tag "guide.svg"
         %p{:style => "top:70px"}
           =t("intro.guide_t")
-      %a.navlinks-content{:href => "tourist_home"}
+      %a.navlinks-content{:href => poi_home_path}
         %h1{:style => "left:40px;"}
           =t("intro.poi")
           %br

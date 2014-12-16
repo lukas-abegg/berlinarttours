@@ -24,6 +24,10 @@
                 %td Email:
                 %td
                   = profile.email
+              %tr
+                %td Account Type:
+                %td
+                  = profile.account_type
 
       .panel.panel-default.container-50
         .panel-heading
@@ -43,5 +47,34 @@
                   = profile.postcode
                   = "/"
                   = profile.city
-                  , &nbsp;
+              %tr
+                %td Land:
+                %td
                   = profile.country
+
+      .panel.panel-default.container-50
+        .panel-heading
+          %h3.panel-title Logindaten
+        .panel-body
+          %table.table.table-user-information
+            %tbody
+              %tr
+                %td Profile erstellt
+                %td
+                  = profile.created_at
+              %tr
+                %td Last Update
+                %td
+                  = profile.updated_at
+              %tr
+                %td Anzahl Logins
+                %td
+                  = user.sign_in_count
+              %tr
+                %td Letztes Login
+                %td
+                  = user.last_sign_in_at
+              %tr
+                %td Aktueller Login
+                %td
+                  = user.current_sign_in_at

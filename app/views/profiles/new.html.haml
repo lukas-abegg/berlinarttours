@@ -4,10 +4,42 @@
   %br
   .field.hidden
     = f.email_field :email, :value => @user.email
+  .field.hidden
+    = f.text_field :account_type, :value => @profile.account_type
   .field
-    = f.file_field :avatar
+    %b.label-large.text-red
+      = "Füge deinen eigenen Avatar hinzu"
+    %br
+    %br
   .field
-    = f.file_field :profile_bg
+    .fileinput.fileinput-new{"data-provides" => "fileinput"}
+      .fileinput-new.thumbnail{:style => "width: 200px; height: 150px;"}
+        =image_tag "blank-profile.png"
+      .fileinput-preview.fileinput-exists.thumbnail.img-circle{:style => "width: 200px; height: 150px;"}
+      %div
+        %span.btn.btn-large.btn-primary.btn-file
+          %span.fileinput-new Select image
+          %span.fileinput-exists Change
+          = f.file_field :avatar, :required => true
+        %a.btn.btn-large.btn-primary.fileinput-exists{"data-dismiss" => "fileinput", :href => "#"} Remove
+  .field
+    %br
+    %b.label-large.text-red
+      = "Wähle deinen Profile Hintergrund aus"
+    %br
+    %br
+  .field
+    .fileinput.fileinput-new{"data-provides" => "fileinput"}
+      .fileinput-new.thumbnail{:style => "width: 200px; height: 120px;"}
+        =image_tag "blank_landscape.jpg"
+      .fileinput-preview.fileinput-exists.thumbnail{:style => "width: 200px; height: 150px;"}
+      %div
+        %span.btn.btn-large.btn-primary.btn-file
+          %span.fileinput-new Select image
+          %span.fileinput-exists Change
+          = f.file_field :profile_bg, :required => true
+        %a.btn.btn-large.btn-primary.fileinput-exists{"data-dismiss" => "fileinput", :href => "#"} Remove
+  %br
   %br
   .field
     = f.label :first_name, class:'label-large text-red'

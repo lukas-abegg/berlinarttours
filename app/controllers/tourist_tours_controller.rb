@@ -4,4 +4,5 @@ class TouristToursController < ApplicationController
   def index
 
   end
+
 end

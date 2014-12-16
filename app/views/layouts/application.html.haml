@@ -25,8 +25,11 @@
     = javascript_include_tag "grayscale"
     = javascript_include_tag "animatescroll"
     = javascript_include_tag "bootstrap_forms"
+    = javascript_include_tag "jasny-bootstrap"
+
 
     = csrf_meta_tags
     = favicon_link_tag 'favicon.ico'
 
-    =render 'layouts/tourist_header'
+    =render get_current_home(current_user)
+    //=render 'layouts/footer'

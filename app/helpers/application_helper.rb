@@ -1,7 +1,7 @@
 module ApplicationHelper
   def getHeader(current_page)
 
-    if current_page.start_with?('/tourist_home')
+    if current_page?(tourist_home_path) || current_page?(poi_home_path) || current_page?(guide_home_path)
       return 'intro imageTouristIntroBG'
     elsif current_page?(profiles_show_url)
       return 'intro imageTouristProfileBG'
@@ -14,7 +14,7 @@ module ApplicationHelper
 
   def getBackground(current_page)
 
-    if current_page.start_with?('/tourist_home')
+    if current_page?(tourist_home_path) || current_page?(poi_home_path) || current_page?(guide_home_path)
       return ''
     elsif current_page?(profiles_show_url)
       return ''
@@ -27,10 +27,12 @@ module ApplicationHelper
 
   def getHeaderText(current_page)
 
-    printf(current_page)
-
-    if current_page.start_with?('/tourist_home')
-      return 'header_texts.home'
+    if current_page?(tourist_home_path)
+      return 'header_texts.tourist_home'
+    elsif current_page?(poi_home_path)
+      return 'header_texts.poi_home'
+    elsif current_page?(guide_home_path)
+      return 'header_texts.guide_home'
     elsif current_page?(profiles_show_url)
       return 'header_texts.profile'
     elsif current_page.start_with?('/tourist_tours')
@@ -40,20 +42,36 @@ module ApplicationHelper
     end
   end
 
+  def get_current_home(current_user)
+    @session_type = session[:account_type]
+    case @session_type
+      when "tourist" then
+        return 'layouts/tourist_header'
+      when "guide" then
+        return 'layouts/guide_header'
+      else
+        return 'layouts/poi_header'
+    end
+  end
+
   def get_profile(current_user)
     @user = current_user
-    @profile = Profile.find_by(:email => @user.email)
-    return @profile.avatar.url
+    if Profile.where(:email => @user.email).blank?
+      return "loggedIn.svg"
+    else
+      @profile = Profile.find_by(:email => @user.email)
+      return @profile.avatar.url
+    end
   end
 
   def bootstrap_class_for flash_type
-    { success: "alert-success", error: "alert-danger", alert: "alert-warning", notice: "alert-info" }[flash_type] || flash_type.to_s
+    {success: "alert-success", error: "alert-danger", alert: "alert-warning", notice: "alert-info"}[flash_type] || flash_type.to_s
   end
 
   def flash_messages(opts = {})
     flash.each do |msg_type, message|
       concat(content_tag(:div, message, class: "alert #{bootstrap_class_for(msg_type)} fade in") do
-               concat content_tag(:button, 'x', class: "close", data: { dismiss: 'alert' })
+               concat content_tag(:button, 'x', class: "close", data: {dismiss: 'alert'})
                concat message
              end)
     end

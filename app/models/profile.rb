@@ -13,6 +13,7 @@ class Profile
 
 
   field :email, type: String
+  field :account_type, type: String
   field :first_name, type: String
   field :last_name, type: String
   field :street, type: String
