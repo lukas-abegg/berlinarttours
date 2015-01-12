@@ -8,7 +8,8 @@
         .col-md-11
       .row
         .col-md-1.top-230
-          %h2.text-white  Testuser
+          %h2.text-white
+            = @profile.first_name
         .col-md-11.top-75
           %img.img-thumbnail.img-circle.picture{:src => @profile.avatar.url(:medium)}
   .row
@@ -23,7 +24,10 @@
         = link_to "Besuchte Touren", profiles_show_path(:page_id => "visited_tours"),  :remote => true
       .col-md-4.col-xs-4.nav-profile
         %i.fa.fa-thumbs-o-up.fa-lg
-        = link_to "geplante Touren", profiles_show_path(:page_id => "future_tours"),  :remote => true
+        -if @profile.account_type == "poi"
+          = link_to "Galerie", profiles_show_path(:page_id => "poi_details"),  :remote => true
+        -else
+          = link_to "geplante Touren", profiles_show_path(:page_id => "future_tours"),  :remote => true
 
 .container.container-50
   .row

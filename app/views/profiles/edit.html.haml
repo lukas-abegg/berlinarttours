@@ -1,4 +1,4 @@
-= form_for(@profile, :html => {class:"form-signin larger", :multipart => true }) do |f|
+= form_for @profile, :html => {class:"form-signin larger", :multipart => true }  do |f|
   %h2.text-red
     ="Edit your profile:"
   %h2
@@ -15,7 +15,7 @@
   .field
     .fileinput.fileinput-new{"data-provides" => "fileinput"}
       .fileinput-new.thumbnail{:style => "width: 200px; height: 150px;"}
-        =image_tag "blank-profile.png"
+        =image_tag @profile.avatar.url
       .fileinput-preview.fileinput-exists.thumbnail.img-circle{:style => "width: 200px; height: 150px;"}
       %div
         %span.btn.btn-large.btn-primary.btn-file
@@ -32,7 +32,7 @@
   .field
     .fileinput.fileinput-new{"data-provides" => "fileinput"}
       .fileinput-new.thumbnail{:style => "width: 200px; height: 120px;"}
-        =image_tag "blank_landscape.jpg"
+        =image_tag  @profile.profile_bg.url
       .fileinput-preview.fileinput-exists.thumbnail{:style => "width: 200px; height: 150px;"}
       %div
         %span.btn.btn-large.btn-primary.btn-file

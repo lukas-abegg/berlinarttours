@@ -8,7 +8,7 @@ class ProfilesController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.xml  { render :xml => @profile }
+      format.xml { render :xml => @profile }
     end
   end
 
@@ -16,7 +16,7 @@ class ProfilesController < ApplicationController
     @profile = Profile.create(params[:profile])
 
     if @profile.save
-      flash[:notice] =  "Profile is created"
+      flash[:notice] = "Profile is created"
       redirect_to(:action => "show")
     else
       redirect_to(:action => "new")
@@ -30,7 +30,7 @@ class ProfilesController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.xml  { render :xml => @profile }
+      format.xml { render :xml => @profile }
       format.js
     end
   end
@@ -42,19 +42,25 @@ class ProfilesController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.xml  { render :xml => @profile }
+      format.xml { render :xml => @profile }
     end
   end
 
   def update
-    @profile = Profile.update(params[:profile])
 
-    if @profile
-      flash[:notice] =  "Profile is updated"
-      redirect_to profiles_show_path
-    else
-      redirect_to edit_profile_path
-    end
+    @profile = Profile.find_by(:email => params[:profile][:email])
+    @profile.update_attributes(profile_params)
+      if @profile
+        flash[:notice] = "Profile is updated"
+        redirect_to profiles_show_path
+      else
+        redirect_to edit_profile_path
+      end
+  end
+
+  def profile_params
+    params.require(:profile).permit(:email, :account_type, :first_name, :last_name, :street, :house_number, :postcode, :city, :country, :avatar => [:avatar], :bg_profile => [:bg_profile],
+                                    :gallery_pic1 => [:gallery_pic1], :gallery_pic2 => [:gallery_pic2], :gallery_pic3 => [:gallery_pic3])
   end
 
 end

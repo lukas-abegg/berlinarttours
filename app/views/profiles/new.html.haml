@@ -1,4 +1,4 @@
-= form_for(@profile, :html => {class:"form-signin larger"}) do |f|
+= form_for @profile, :html => {class:"form-signin larger", :multipart => true } do |f|
   %h2.text-red
     ="Please add a profile"
   %br
@@ -39,6 +39,53 @@
           %span.fileinput-exists Change
           = f.file_field :profile_bg, :required => true
         %a.btn.btn-large.btn-primary.fileinput-exists{"data-dismiss" => "fileinput", :href => "#"} Remove
+
+  .field
+    %br
+    %b.label-large.text-red
+      = "Wähle deine Studiophotos"
+    %br
+    %br
+  .field
+    .fileinput.fileinput-new{"data-provides" => "fileinput"}
+      .fileinput-new.thumbnail{:style => "width: 200px; height: 120px;"}
+        =image_tag "blank_landscape.jpg"
+      .fileinput-preview.fileinput-exists.thumbnail{:style => "width: 200px; height: 150px;"}
+      %div
+        %span.btn.btn-large.btn-primary.btn-file
+          %span.fileinput-new Select image
+          %span.fileinput-exists Change
+          = f.file_field :gallery_pic1, :required => true
+        %a.btn.btn-large.btn-primary.fileinput-exists{"data-dismiss" => "fileinput", :href => "#"} Remove
+  .field
+    %br
+    %br
+  .field
+    .fileinput.fileinput-new{"data-provides" => "fileinput"}
+      .fileinput-new.thumbnail{:style => "width: 200px; height: 120px;"}
+        =image_tag "blank_landscape.jpg"
+      .fileinput-preview.fileinput-exists.thumbnail{:style => "width: 200px; height: 150px;"}
+      %div
+        %span.btn.btn-large.btn-primary.btn-file
+          %span.fileinput-new Select image
+          %span.fileinput-exists Change
+          = f.file_field :gallery_pic2, :required => true
+        %a.btn.btn-large.btn-primary.fileinput-exists{"data-dismiss" => "fileinput", :href => "#"} Remove
+  .field
+    %br
+    %br
+  .field
+    .fileinput.fileinput-new{"data-provides" => "fileinput"}
+      .fileinput-new.thumbnail{:style => "width: 200px; height: 120px;"}
+        =image_tag "blank_landscape.jpg"
+      .fileinput-preview.fileinput-exists.thumbnail{:style => "width: 200px; height: 150px;"}
+      %div
+        %span.btn.btn-large.btn-primary.btn-file
+          %span.fileinput-new Select image
+          %span.fileinput-exists Change
+          = f.file_field :gallery_pic3, :required => true
+        %a.btn.btn-large.btn-primary.fileinput-exists{"data-dismiss" => "fileinput", :href => "#"} Remove
+
   %br
   %br
   .field
