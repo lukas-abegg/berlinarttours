@@ -28,4 +28,13 @@ class Profile
   field :city, type: String
   field :country, type: String
 
+  def self.search(search_poi)
+    if search_poi[:first_name]
+      Profile.where(first_name: /#{search_poi[:first_name]}/, account_type: search_poi[:account_type])
+      #Profile.where(first_name.matches("%#{search_poi[:first_name]}%"))
+    else
+      Profile.all
+    end
+  end
+
 end

@@ -1,6 +1,22 @@
 Berlinarttours::Application.routes.draw do
 
 
+  resources :guide_tours do
+    resources :stations
+  end
+
+  get "stations/create"
+  get "stations/new"
+  get "stations/edit"
+  get "stations/show"
+
+  get "guide_tours/search", :to => "guide_tours#search"
+  get "guide_tours", :to => "guide_tours#show"
+  post "guide_tours", :to => "guide_tours#create"
+  get "guide_tours/new"
+  get "guide_tours/edit"
+  get "guide_tours/show"
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
@@ -19,6 +35,12 @@ Berlinarttours::Application.routes.draw do
 
   get "tourist_tours", :to => "tourist_tours#index"
 
+  get "search_pois/search", :to => "search_pois#search"
+  post "search_pois/find", :to => "search_pois#find"
+  post "search_pois", :to => "search_pois#index"
+
+  resources :search_pois do
+  end
 
   devise_for :users
   resources :users

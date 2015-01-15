@@ -1,0 +1,35 @@
+=render "search_pois/search"
+%br
+= stylesheet_link_tag "bootstrap_profile"
+.col-xs-12.col-sm-12.col-md-12.col-lg-12
+  .row
+    - if @pois.present?
+      - @pois.each do |p|
+        .col-md-6.col-xs-12
+          .panel.panel-default.container-50
+            .panel-heading
+              %h3.panel-title POI Details
+              .panel-body
+                %table.table.table-user-information
+                  %tbody
+                    %tr
+                      %td Name
+                      %td
+                        = p.first_name
+                        &nbsp;
+                        = p.last_name
+                    %tr
+                      %td Email:
+                      %td
+                        = p.email
+                    %tr
+                      %td Account Type:
+                      %td
+                        = p.account_type
+    -else
+      .row
+        .col-md-3
+        .col-md-6.col-xs-12
+          .panel.panel-default.container-50
+            .panel-heading
+              %h3.panel-title No results found

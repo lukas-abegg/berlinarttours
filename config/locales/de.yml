@@ -26,6 +26,8 @@ de:
     tour_booking: "Touren"
     wishlist: "Meine Wunschliste"
     bookings: "Meine Buchungen"
+    search_pois: "Find POI's"
+    create_tours: "Neue Tour"
   header_texts:
     profile: "Dein Profil"
     tourist_home: "Welcome Tourist"
