@@ -3,16 +3,22 @@
   = f.error_notification
   = f.input :tour_name
 
+  - @guide_tour.stations.each do |s|
+    = f.simple_fields_for :stations, s do |p|
+      = p.label_tag :name
+      = p.text_field :name
+      = link_to "asd", p
+      = p.link_to_remove 'delete this image'
+
+
   = f.simple_fields_for :stations do |station_form|
     = station_form.text_field :name
-    = station_form.button :submit
-    %br
-    = link_to 'Show Full Article', guide_tours_search_path(@guide_tour), :remote => true
     %br
     %br
-    /= station_form.link_to_remove "Remove this station"
+    = station_form.link_to_remove "Remove this station"
     %br
   = f.link_to_add "Add a station", :stations
+  = link_to "asdad", new_guide_tour_station
 
   = f.button :submit
 
