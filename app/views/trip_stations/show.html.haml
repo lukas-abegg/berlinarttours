@@ -1,0 +1,15 @@
+%p#notice= notice
+
+%p
+  %b Name:
+  = @trip_station.name
+%p
+  %b Email:
+  = @trip_station.email
+%p
+  %b Trip station:
+  = @trip_station.trip_id
+
+= link_to 'Edit', edit_trip_station_path(@trip_station)
+\|
+= link_to 'Back', trip_path(@trip_station.trip_id)

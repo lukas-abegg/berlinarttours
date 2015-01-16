@@ -5,7 +5,7 @@ module ApplicationHelper
       return 'intro imageTouristIntroBG'
     elsif current_page?(profiles_show_url)
       return 'intro imageTouristProfileBG'
-    elsif current_page.start_with?('/tourist_tours') || current_page?(guide_tours_path)
+    elsif current_page.start_with?('/tourist_tours') || current_page.start_with?('/trips')
       return 'intro imageTouristToursBG'
     else
       return 'hidden'
@@ -18,7 +18,7 @@ module ApplicationHelper
       return ''
     elsif current_page?(profiles_show_url)
       return ''
-    elsif current_page.start_with?('/tourist_tours')  || current_page?(guide_tours_path)
+    elsif current_page.start_with?('/tourist_tours')  || current_page.start_with?('/trips')
       return ''
     else
       return 'imageTouristToursBG' #bg-body improves may if doesn't work
@@ -35,7 +35,7 @@ module ApplicationHelper
       return 'header_texts.guide_home'
     elsif current_page?(profiles_show_url)
       return 'header_texts.profile'
-    elsif current_page.start_with?('/tourist_tours')   || current_page?(guide_tours_path)
+    elsif current_page.start_with?('/tourist_tours')   || current_page.start_with?('/trips')
       return 'header_texts.tours'
     else
       #return 'header_texts.home'

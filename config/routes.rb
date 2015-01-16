@@ -1,20 +1,21 @@
 Berlinarttours::Application.routes.draw do
 
 
-  resources :guide_tours do
-    resources :stations
-  end
+  resources :trip_stations
+
+  resources :trips
 
   get "stations/create"
   get "stations/new"
   get "stations/edit"
   get "stations/show"
 
-  get "guide_tours/search/:id", :to => "guide_tours#search"
+  get "guide_tours_show", :to => "guide_tours#show"
+  get "guide_tours_new", :to => "guide_tours#new"
   post "guide_tours", :to => "guide_tours#create"
   get "guide_tours/new"
   get "guide_tours/edit"
-  get "guide_tours/show", :to => "guide_tours#show"
+  post "guide_tours/add_station"
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

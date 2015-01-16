@@ -1,0 +1,23 @@
+%h1 Listing trip_stations
+
+%table
+  %tr
+    %th Name
+    %th Email
+    %th Trip station
+    %th
+    %th
+    %th
+
+  - @trip_stations.each do |trip_station|
+    %tr
+      %td= trip_station.name
+      %td= trip_station.email
+      %td= trip_station.trip_id
+      %td= link_to 'Show', trip_station
+      %td= link_to 'Edit', edit_trip_station_path(trip_station)
+      %td= link_to 'Destroy', trip_station, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Trip station', new_trip_station_path

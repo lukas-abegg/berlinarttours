@@ -1,0 +1,10 @@
+= simple_form_for(@trip_station) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :name
+    = f.input :email
+    = f.input :trip_id
+
+  .form-actions
+    = f.button :submit

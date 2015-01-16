@@ -1,0 +1,110 @@
+.col-xs-12.col-sm-12.col-md-12.col-lg-12
+  .row
+    .col-md-2
+    .col-md-8
+      .h1
+        = "Tourdaten"
+        %br
+        %br
+    .col-md-2
+  .row
+    .col-md-3
+    .col-md-6.col-xs-12
+      .panel.panel-default.container-50
+        .panel-heading
+          %h3.panel-title Tourbeschreibung
+        .panel-body
+          %table.table.table-user-information
+            %tbody
+              %tr
+                %td Name
+                %td
+                  = @trip.name
+              %tr
+                %td Description:
+                %td
+                  = @trip.description
+              %tr
+                %td Type:
+                %td
+                  = @trip.type
+              %tr
+                %td Guide:
+                %td
+                  = @profile.first_name
+                  &nbsp;
+                  = @profile.last_name
+
+      .panel.panel-default.container-50
+        .panel-heading
+          %h3.panel-title Tourdetails
+        .panel-body
+          %table.table.table-user-information
+            %tbody
+              %tr
+                %td Geplante Dauer der Tour
+                %td
+                  = @trip.duration
+              %tr
+                %td Kontaktdaten
+                %td
+                  = @trip.contact
+              %tr
+                %td Bemerkungen:
+                %td
+                  = @trip.notes
+              %tr
+                %td Meeting Point:
+                %td
+                  = @trip.meeting_point
+
+      = link_to 'Tour ändern', edit_trip_path(@trip), :class => 'btn btn-primary pull-middle'
+      &nbsp
+      = link_to 'Zurück', trips_path, :class => 'btn btn-primary pull-middle'
+      %br
+      %br
+.col-xs-12.col-sm-12.col-md-12.col-lg-12
+  .row
+    .col-md-2
+    .col-md-8
+      .h1
+        = "Stationen"
+        %br
+        %br
+    .col-md-2
+  .row
+    .col-md-3
+    .col-md-6.col-xs-12
+      - @trip.trip_stations.each do |station|
+        .panel.panel-default.container-50
+          .panel-heading
+            %h3.panel-title Stationsdetails
+          .panel-body
+            %table.table.table-user-information
+              %tbody
+                %tr
+                  %td Stationsname
+                  %td
+                    = station.name
+                %tr
+                  %td Stationsemail
+                  %td
+                    = station.email
+                %tr
+                  %td
+                  %td
+                    = link_to 'Anzeigen', station, :class => 'btn btn-info pull-middle'
+                    = link_to 'Ändern', edit_trip_station_path(station), :class => 'btn btn-primary pull-middle'
+                    = link_to 'Löschen', station, :method => :delete, :data => { :confirm => 'Bist du sicher?' }, :class => 'btn btn-danger pull-middle'
+
+
+      %br
+      = form_for @trip_station, :html => {:multipart => true }, :method => :remote do |f|
+        .field.hidden
+          = f.hidden_field :trip_id, :value => @trip.id
+
+        .actions
+          = f.submit 'Station hinzufügen', class:'btn btn-large btn-primary'
+
+
+

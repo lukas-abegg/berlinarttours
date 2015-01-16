@@ -1,0 +1,35 @@
+%h1 Deine bisher erstellten Touren
+
+
+- if !@trips.present?
+  = "Du hast noch keine Touren angelegt"
+- else
+  %table.table
+    %tr
+      %th Name
+      %th Description
+      %th Type
+      %th Guide email
+      %th Duration
+      %th Notes
+      %th Meeting point
+      %th
+      %th
+      %th
+
+    - @trips.each do |trip|
+      %tr
+        %td= trip.name
+        %td= trip.description
+        %td= trip.type
+        %td= trip.guide_email
+        %td= trip.duration
+        %td= trip.notes
+        %td= trip.meeting_point
+        %td= link_to 'Anzeigen', trip, :class => 'btn btn-info'
+        %td= link_to 'Ändern', edit_trip_path(trip), :class => 'btn btn-primary'
+        %td= link_to 'Löschen', trip, :method => :delete, :data => { :confirm => 'Bist du sicher?' }, :class => 'btn btn-danger'
+
+%br
+
+= link_to 'Neue Tour', new_trip_path, :class => 'btn btn-primary pull-left'
