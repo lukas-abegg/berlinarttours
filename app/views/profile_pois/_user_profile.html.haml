@@ -1,0 +1,98 @@
+.col-xs-12.col-sm-12.col-md-12.col-lg-12
+  .row
+    .col-md-2
+    .col-md-8
+      .h1
+        = "Profildaten"
+    .col-md-2
+  .row
+    .col-md-3
+    .col-md-6.col-xs-12
+      .panel.panel-default.container-50
+        .panel-heading
+          %h3.panel-title Userdaten
+        .panel-body
+          %table.table.table-user-information
+            %tbody
+              %tr
+                %td Name
+                %td
+                  = profile.name
+              %tr
+                %td
+                  = "Email "
+                  %span.glyphicon.glyphicon-envelope
+                %td
+                  = profile.email
+              %tr
+                %td Account Type
+                %td
+                  = profile.account_type
+              %tr
+                %td Art des POI
+                %td
+                  = profile.poi_type
+              %tr
+                %td Description
+                %td
+                  = profile.description
+
+      .panel.panel-default.container-50
+        .panel-heading
+          %h3.panel-title Kontaktdaten
+        .panel-body
+          %table.table.table-user-information
+            %tbody
+              %tr
+                %td
+                  = "Telefon "
+                  %span.glyphicon.glyphicon-phone
+                %td
+                  = profile.phone
+              %tr
+                %td
+                  = "Mobile "
+                  %span.glyphicon.glyphicon-phone
+                %td
+                  = profile.mobile
+              %tr
+                %td
+                  = "Adresse "
+                  %span.glyphicon.glyphicon-map-marker
+                %td
+                  = profile.street
+                  &nbsp
+                  = profile.house_number
+                  %br
+                  = profile.postcode
+                  = "/"
+                  = profile.city
+                  %br
+                  = profile.country
+      - if @extern.blank?
+        .panel.panel-default.container-50
+          .panel-heading
+            %h3.panel-title Logindaten
+          .panel-body
+            %table.table.table-user-information
+              %tbody
+                %tr
+                  %td Profile erstellt
+                  %td
+                    = profile.created_at
+                %tr
+                  %td Last Update
+                  %td
+                    = profile.updated_at
+                %tr
+                  %td Anzahl Logins
+                  %td
+                    = user.sign_in_count
+                %tr
+                  %td Letztes Login
+                  %td
+                    = user.last_sign_in_at
+                %tr
+                  %td Aktueller Login
+                  %td
+                    = user.current_sign_in_at

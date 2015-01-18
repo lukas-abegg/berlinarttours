@@ -67,6 +67,7 @@ end
 gem 'mongoid', '~> 4', github: 'mongoid/mongoid'
 gem 'bson_ext'
 gem 'mongo', :git => 'git://github.com/mongodb/mongo-ruby-driver.git'
+gem 'mongoid-sadstory'
 
 gem 'simple_form'
 

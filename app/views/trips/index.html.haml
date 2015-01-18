@@ -26,10 +26,15 @@
         %td= trip.duration
         %td= trip.notes
         %td= trip.meeting_point
-        %td= link_to 'Anzeigen', trip, :class => 'btn btn-info'
+        %td= link_to 'Anzeigen', trip_path(trip, :anchor => 'body'), :class => 'btn btn-info'
         %td= link_to 'Ändern', edit_trip_path(trip), :class => 'btn btn-primary'
         %td= link_to 'Löschen', trip, :method => :delete, :data => { :confirm => 'Bist du sicher?' }, :class => 'btn btn-danger'
 
 %br
-
-= link_to 'Neue Tour', new_trip_path, :class => 'btn btn-primary pull-left'
+.row
+  .col-md-12
+    = link_to 'Neue Tour', new_trip_path, :class => 'btn btn-primary pull-left'
+%br
+.row
+  .col-md-12
+    = link_to 'Suche POIs', search_pois_path, :class => 'btn btn-info pull-left', :target => "_blank"

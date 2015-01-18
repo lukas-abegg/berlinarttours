@@ -43,26 +43,37 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_in_path_for(resource)
-    if Profile.where(:email => current_user.email).blank?
-      new_profile_path
-    else
+    @user = current_user
+    @poi = Profile_Poi.where(:user_id => @user.id)
+    @guide = Profile_Guide.where(:user_id => @user.id)
+    @tourist = Profile.where(:user_id => @user.id)
+
+    if !@poi.blank?
+      profile_pois_show_path
+    elsif !@guide.blank?
+      profile_guides_show_path
+    elsif !@tourist.blank?
       profiles_show_path
+    else
+      if session[:account_type] == "poi"
+        profile_pois_new_path
+      elsif session[:account_type] == "guide"
+        profile_guides_new_path
+      else
+        profiles_new_path
+      end
     end
   end
 
   def after_sign_up_path_for(resource)
-    if Profile.where(:email => current_user.email).blank?
-      new_profile_path
-    else
-      profiles_show_path
-    end
+    after_sign_in_path_for(resource)
   end
 
   def after_sign_out_path_for(resource)
-    tourist_home_path
+    intro_index_path
   end
 
   def after_user_edit_path_for(resource)
-    tourist_home_path
+    intro_index_path
   end
 end

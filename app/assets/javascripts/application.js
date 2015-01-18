@@ -11,12 +11,10 @@
  Read Sprockets README (https://github.com/sstephenson/sprockets#sprockets-directives) for details
  about supported directives.
 
+ bootstrap-sprockets IS DELETED
+
 //= require jquery
 //= require jquery_ujs
-//= require jquery_nested_form
-//= require bootstrap-sprockets
 //= require bootstrap
 //= require_tree .
  */
-
-

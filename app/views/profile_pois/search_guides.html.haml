@@ -1,0 +1,61 @@
+=render "profile_pois/search_guides_search"
+%br
+= stylesheet_link_tag "bootstrap_profile"
+.col-xs-12.col-sm-12.col-md-12.col-lg-12
+  .row
+    - if @guides.present?
+      - @guides.each do |p|
+        .col-md-6.col-xs-12
+          .panel.panel-default.container-50
+            .panel-heading
+              %h3.panel-title Guide Details
+              .panel-body
+                .row
+                  .col-lg-4
+                    %img.img-thumbnail.img-circle{:style => "width: 100px; height: 100px;",:src => p.avatar.url(:medium)}
+                  .col-lg-8
+                    %table.table.table-user-information
+                      %tbody
+                        %tr
+                          %td Name
+                          %td
+                            = p.first_name
+                            &nbsp;
+                            = p.last_name
+                        %tr
+                          %td Email
+                          %td
+                            = p.email
+                        %tr
+                          %td Beschreibung
+                          %td
+                            = p.description
+                        %tr
+                          %td Spezialisiert auf
+                          %td
+                            - p.trip_types.split(',').each do |f|
+                              - map = {/"/ => '', '['=>'', ']'=>''}
+                              - map.each {|k,v| f.sub!(k,v)}
+                              - map.each {|k,v| f.sub!(k,v)}
+                              - if f.blank?
+                                - next
+                              - else
+                                = "| " + f + " "
+                            ="|"
+                        %tr
+                          %td{colspan: 2}
+                            %br
+                            = link_to 'Anzeigen', profile_guides_show_path(:profile_id => p.id, :extern => true), :target => "_blank", :class => 'btn btn-info pull-middle'
+                            = link_to 'Kontakt aufnehmen', profile_pois_contact_path(:sender_name => @profile.name,
+                                                                    :sender_email => @profile.email,
+                                                                    :receiver_email => p.email,
+                                                                    :receiver_name => "#{p.first_name} #{p.last_name}"), :class => 'btn btn-primary pull-middle'
+
+
+    -else
+      .row
+        .col-md-3
+        .col-md-6.col-xs-12
+          .panel.panel-default.container-50
+            .panel-heading
+              %h3.panel-title No results found

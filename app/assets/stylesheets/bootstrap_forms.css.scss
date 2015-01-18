@@ -1,3 +1,4 @@
+
 .form-signin {
   max-width: 400px;
   padding: 19px 29px 29px;
@@ -39,6 +40,9 @@
   box-shadow: 0 1px 2px rgba(0,0,0,.05);
 }
 
+.smaller{
+  max-width: 600px;
+}
 
 .larger{
   max-width: 600px;
@@ -51,7 +55,9 @@
 
 .form-signin input[type="email"],
 .form-signin input[type="text"],
-.form-signin input[type="password"] {
+.form-signin textarea,
+.form-signin input[type="password"],
+.form-signin select{
   font-size: 16px;
   height: auto;
   margin-bottom: 15px;
@@ -59,9 +65,29 @@
   width: 300px;
 }
 
+.form-control_bootsforms {
+  max-width: 400px;
+  padding: 19px 29px 29px;
+  margin: 5px auto 20px;
+  border: 1px solid #e5e5e5;
+  background-color: rgba( 255, 255, 255, 0.6);
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+  -moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+  box-shadow: 0 1px 2px rgba(0,0,0,.05);
+  font-size: 16px;
+  height: auto;
+  margin-bottom: 15px;
+  width: 300px;
+}
+
 .form-search input[type="email"],
 .form-search input[type="text"],
+.form-search textarea,
 .form-search input[type="password"],
+.form-search select,
 .form-search label {
   font-size: 16px;
   height: auto;
@@ -101,7 +127,7 @@
   height: 25px;
   cursor: pointer;
   border-radius: 3px;
-  border: 1px solid #ccc;
+  border: 1px solid #808080;
   vertical-align: middle;
   display: inline-block;
 }
@@ -110,6 +136,7 @@
   font-size: 13px;
   font-weight: normal;
 }
+
 
 .checkTrue{
   font-family: 'Glyphicons Halflings';

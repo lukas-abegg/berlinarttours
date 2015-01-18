@@ -21,11 +21,13 @@
                   &nbsp;
                   = profile.last_name
               %tr
-                %td Email:
+                %td
+                  = "Email "
+                  %span.glyphicon.glyphicon-envelope
                 %td
                   = profile.email
               %tr
-                %td Account Type:
+                %td Account Type
                 %td
                   = profile.account_type
 
@@ -36,20 +38,30 @@
           %table.table.table-user-information
             %tbody
               %tr
-                %td Adresse
+                %td
+                  = "Telefon "
+                  %span.glyphicon.glyphicon-phone
+                %td
+                  = profile.phone
+              %tr
+                %td
+                  = "Mobile "
+                  %span.glyphicon.glyphicon-phone
+                %td
+                  = profile.mobile
+              %tr
+                %td
+                  = "Adresse "
+                  %span.glyphicon.glyphicon-map-marker
                 %td
                   = profile.street
                   &nbsp
                   = profile.house_number
-              %tr
-                %td Ort:
-                %td
+                  %br
                   = profile.postcode
                   = "/"
                   = profile.city
-              %tr
-                %td Land:
-                %td
+                  %br
                   = profile.country
 
       .panel.panel-default.container-50

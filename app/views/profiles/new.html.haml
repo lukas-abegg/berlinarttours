@@ -5,6 +5,8 @@
   .field.hidden
     = f.email_field :email, :value => @user.email
   .field.hidden
+    = f.text_field :user_id, :value => @user.id
+  .field.hidden
     = f.text_field :account_type, :value => @profile.account_type
   .field
     %b.label-large.text-red
@@ -55,7 +57,7 @@
           %span.btn.btn-large.btn-primary.btn-file
             %span.fileinput-new Select image
             %span.fileinput-exists Change
-            = f.file_field :gallery_pic1, :required => true
+            = f.file_field :gallery_pic1
           %a.btn.btn-large.btn-primary.fileinput-exists{"data-dismiss" => "fileinput", :href => "#"} Remove
     .field
       %br
@@ -69,7 +71,7 @@
           %span.btn.btn-large.btn-primary.btn-file
             %span.fileinput-new Select image
             %span.fileinput-exists Change
-            = f.file_field :gallery_pic2, :required => true
+            = f.file_field :gallery_pic2
           %a.btn.btn-large.btn-primary.fileinput-exists{"data-dismiss" => "fileinput", :href => "#"} Remove
     .field
       %br
@@ -83,7 +85,7 @@
           %span.btn.btn-large.btn-primary.btn-file
             %span.fileinput-new Select image
             %span.fileinput-exists Change
-            = f.file_field :gallery_pic3, :required => true
+            = f.file_field :gallery_pic3
           %a.btn.btn-large.btn-primary.fileinput-exists{"data-dismiss" => "fileinput", :href => "#"} Remove
 
   %br
@@ -96,6 +98,14 @@
     = f.label :last_name, class:'label-large text-red'
   .field
     = f.text_field :last_name, class:'input-block-level text-red', placeholder: 'Nachname', :required => true
+  .field
+    = f.label :phone, class:'label-large text-red'
+  .field
+    = f.text_field :phone, class:'input-block-level text-red', placeholder: 'Telefon'
+  .field
+    = f.label :mobile, class:'label-large text-red'
+  .field
+    = f.text_field :mobile, class:'input-block-level text-red', placeholder: 'Mobile'
   .field
     = f.label :street, class:'label-large text-red'
     = "/"

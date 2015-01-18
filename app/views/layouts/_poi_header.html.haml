@@ -9,8 +9,7 @@
         %a.page-scroll{:href => "#page-top"}
           %span.tourist_title
             =t("intro.title")
-            =link_to image_tag("poi_site.svg" , alt: "Du bist ein Point of Interest", width: "100px"),  intro_index_path
-            %a{:href => "index.html"}
+            =link_to image_tag("poi_site.svg" , alt: "Du bist ein Point of Interest", width: "100px"),  destroy_user_session_path, :method=>'delete'
 
 
       / Collect the nav links, forms, and other content for toggling
@@ -20,14 +19,14 @@
           %li.hidden
             %a{:href => "#page-top"}
           %li
-            %a.page-scroll{:href => tourist_home_path}
+            %a.page-scroll{:href => poi_home_path}
               =t("header.letsstart")
           %li
-            %a.page-scroll{:href => profiles_show_path}
+            %a.page-scroll{:href => profile_pois_show_path}
               =t("header.myprofile")
           %li
-            %a.page-scroll{:href => tourist_tours_path}
-              =t("header.tour_booking")
+            %a.page-scroll{:href => profile_pois_search_guides_path}
+              ="Suche Guides"
 
 
         %ul.nav.navbar-nav

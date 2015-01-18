@@ -25,7 +25,7 @@ class ProfilesController < ApplicationController
 
   def show
     @user = current_user
-    @profile = Profile.find_by(:email => @user.email)
+    @profile = Profile.find_by(:user_id => @user.id)
     @page_id = params[:page_id]
 
     respond_to do |format|
@@ -37,7 +37,7 @@ class ProfilesController < ApplicationController
 
   def edit
     @user = current_user
-    @profile = Profile.find_by(:email => @user.email)
+    @profile = Profile.find_by(:user_id => @user.id)
     @profile.account_type = session[:account_type]
 
     respond_to do |format|
@@ -48,7 +48,7 @@ class ProfilesController < ApplicationController
 
   def update
 
-    @profile = Profile.find_by(:email => params[:profile][:email])
+    @profile = Profile.find_by(:user_id => params[:profile][:user_id])
     @profile.update_attributes(profile_params)
       if @profile
         flash[:notice] = "Profile is updated"
@@ -59,7 +59,7 @@ class ProfilesController < ApplicationController
   end
 
   def profile_params
-    params.require(:profile).permit(:email, :account_type, :first_name, :last_name, :street, :house_number, :postcode, :city, :country, :avatar => [:avatar], :bg_profile => [:bg_profile],
+    params.require(:profile).permit(:email, :account_type, :first_name, :last_name, :street, :house_number, :postcode, :city, :country, :user_id, :avatar => [:avatar], :bg_profile => [:bg_profile],
                                     :gallery_pic1 => [:gallery_pic1], :gallery_pic2 => [:gallery_pic2], :gallery_pic3 => [:gallery_pic3])
   end
 

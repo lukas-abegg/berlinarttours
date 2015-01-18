@@ -68,7 +68,7 @@
           .form-group
             = f.fields_for :stations do |station|
               = render 'station_fields', f: station
-            = link_to_add_fields "Add Station", f, :stations
+            = link_to "Add Station", f
             %br
             %br
 

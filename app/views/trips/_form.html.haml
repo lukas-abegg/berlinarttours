@@ -12,7 +12,7 @@
       .stepwizard-step
         %a.btn.btn-default.btn-circle-steps{:disabled => "disabled", :href => "#step-3", :type => "button"} 3
         %p Wähle Tourstationen
-  = form_for @trip, :html => {role: "form", :multipart => true } do |f|
+  = form_for @trip, :url => polymorphic_path(@trip, :anchor => 'body'), :html => {role: "form", :multipart => true } do |f|
     #step-1.row.setup-content
       .col-xs-12
         .col-md-12
@@ -26,14 +26,15 @@
             = f.text_area :description, :placeholder => "Tourbeschreibung", :required => "required", :type => "text", :class => "form-control"
           .form-group
             %label.control-label Art der Tour
-            = f.text_field :type, :placeholder => "Type", :required => "required", :type => "text", :class => "form-control"
+            %br
+            = f.select :type, options_for_select(['Kutur/Geschichte', 'Kunst', 'Shopping', 'Deluxe']), {class:'form-control', :required => true }
           .form-group.hidden
             = f.text_field :guide_email, :value => @profile.email, :required => "required", :type => "text"
           .form-group
             %label.control-label Tourdauer(hh:mm)
             %br
-            = f.time_select :duration, :ignore_date => true, :placeholder => "Tourdauer", :required => "required", :class => "form-control"
-          %button.btn.btn-primary.nextBtn.btn-lg.pull-right{:type => "button"} Next
+            = f.text_field :duration, :placeholder => "Tourdauer", :required => "required", :class => "form-control"
+          %button.btn.btn-primary.nextBtn.pull-right{:type => "button"} Next
     #step-2.row.setup-content
       .col-xs-12
         .col-md-12
@@ -41,16 +42,16 @@
           .form-group
             %label.control-label Kontaktmöglichkeiten
             %br
-            = f.text_area :contact, :placeholder => "Kontaktmöglichkeiten", :required => "required", :class => "form-control"
+            = f.text_area :contact, :placeholder => "Kontaktmöglichkeiten, wann und wie zu erreichen?", :required => "required", :class => "form-control"
           .form-group
             %label.control-label Meeting Point
             = f.text_area :meeting_point, :placeholder => "Meeting Point", :required => "required", :type => "text", :class => "form-control"
           .form-group
             %label.control-label Wann können Touren angeboten werden?
             %br
-            = f.text_area :contact, :placeholder => "Welche Wochentage/Zeiten?", :required => "required", :class => "form-control"
+            = f.text_area :notes, :placeholder => "Welche Wochentage/Zeiten?", :required => "required", :class => "form-control"
 
-          %button.btn.btn-primary.nextBtn.btn-lg.pull-right{:type => "button"} Next
+          %button.btn.btn-primary.nextBtn.pull-right{:type => "button"} Next
     #step-3.row.setup-content
       .col-xs-12
         .col-md-12
@@ -59,4 +60,4 @@
           = "Vielen Dank. Die Tour wurde erstellt. Bitte wählen Sie nun die gewünschten Tourstationen aus."
           %br
           %br
-          %button.btn.btn-primary.nextBtn.btn-lg.pull-middle{:type => "submit"} Tourstationen zusammenstellen
+          %button.btn.btn-primary.nextBtn.pull-middle{:type => "submit"} Tourstationen zusammenstellen

@@ -5,10 +5,9 @@ Berlinarttours::Application.routes.draw do
 
   resources :trips
 
-  get "stations/create"
-  get "stations/new"
-  get "stations/edit"
-  get "stations/show"
+  get "trips_search_poi", :to => "trips#search_poi"
+  post "trips_search_poi", :to => "trips#search_poi"
+
 
   get "guide_tours_show", :to => "guide_tours#show"
   get "guide_tours_new", :to => "guide_tours#new"
@@ -35,12 +34,19 @@ Berlinarttours::Application.routes.draw do
 
   get "tourist_tours", :to => "tourist_tours#index"
 
+  # Search POI
   get "search_pois/search", :to => "search_pois#search"
   post "search_pois/find", :to => "search_pois#find"
   post "search_pois", :to => "search_pois#index"
 
-  resources :search_pois do
+  resources :search_pois
+
+  # Search Trips
+  resources :search_trips do
   end
+  get "search_trips/search", :to => "search_trips#search"
+  post "search_trips/find", :to => "search_trips#find"
+  post "search_trips", :to => "search_trips#index"
 
   devise_for :users
   resources :users
@@ -49,17 +55,40 @@ Berlinarttours::Application.routes.draw do
     get code, :to => "errors#show", :code => code
   end
 
-  resources :profiles do
-    member do
-      #get "load_profile_content"
-    end
-  end
+  #Tourist Profiles
 
   get "profiles/new"
   get "profiles/create"
   get "profiles/show"
-  get "profiles/edit", to: 'users#edit'
+  get "profiles/edit", to: "users#edit"
 
+  resources :profiles
+
+  #Guide Profiles
+
+  get "profile_guides/new"
+  get "profile_guides/create"
+  get "profile_guides/show"
+  get "profile_guides/edit", to: "users#edit"
+
+  resources :profile_guides
+
+  #POI Profiles
+
+  get "profile_pois/search_guides", to: "profile_pois#search_guides"
+  post "profile_pois/search_guides", to: "profile_pois#search_guides"
+  get "profile_pois/contact", to: "profile_pois#contact"
+  post "profile_pois/contact", to: "profile_pois#contact"
+
+  get "profile_pois/new"
+  get "profile_pois/create"
+  get "profile_pois/show"
+  get "profile_pois/edit", to: "users#edit"
+
+  resources :profile_pois
+
+  # Contacts
+  resources :contacts
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

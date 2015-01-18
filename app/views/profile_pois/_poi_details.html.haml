@@ -1,0 +1,43 @@
+.col-xs-12.col-sm-12.col-md-12.col-lg-12
+  = stylesheet_link_tag "carousel"
+  .row
+    .col-md-12.col-lg-12
+      .h1
+        = "Image Gallery of POI: " + @profile.name
+  .row
+    .col-md-12.col-lg-12
+      #myCarousel.carousel.slide{"data-interval" => "3000", "data-ride" => "carousel"}
+        / Carousel indicators
+        %ol.carousel-indicators
+          %li.active{"data-slide-to" => "0", "data-target" => "#myCarousel"}
+          %li{"data-slide-to" => "1", "data-target" => "#myCarousel"}
+          %li{"data-slide-to" => "2", "data-target" => "#myCarousel"}
+        / Carousel items
+        .carousel-inner
+          .active.item
+            %img{:src => @profile.gallery_pic1.url(:medium)}
+              %h2 Slide 1
+              .carousel-caption
+                %h3 Check out Room 1
+                %p This is the first room
+          .item
+            %img{:src => @profile.gallery_pic2.url(:medium)}
+              %h2 Slide 2
+              .carousel-caption
+                %h3 Check out Room 2
+                %p This is the second room
+          .item
+            %img{:src => @profile.gallery_pic3.url(:medium)}
+              %h2 Slide 3
+              .carousel-caption
+                %h3 Check out Room 3
+                %p This is the third room
+        / Carousel nav
+        %a.carousel-control.left{"data-slide" => "prev", :href => "#myCarousel"}
+          %span.glyphicon.glyphicon-chevron-left
+        %a.carousel-control.right{"data-slide" => "next", :href => "#myCarousel"}
+          %span.glyphicon.glyphicon-chevron-right
+  .row
+    .col-md-12.col-lg-12
+      %br
+      %br

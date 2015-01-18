@@ -156,6 +156,8 @@ GEM
       mongoid (>= 3.0.1)
       rake
       rspec (>= 2.14)
+    mongoid-sadstory (0.0.2)
+      mongoid
     moped (2.0.2)
       bson (~> 2.2)
       connection_pool (~> 2.0)
@@ -291,6 +293,7 @@ DEPENDENCIES
   mongoid (~> 4)!
   mongoid-paperclip
   mongoid-rspec
+  mongoid-sadstory
   nested_form
   protected_attributes
   rails (= 4.0.3)

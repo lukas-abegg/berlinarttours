@@ -1,0 +1,45 @@
+= stylesheet_link_tag "bootstrap_profile"
+.container{:style => "margin-top: 20px; margin-bottom: 20px;"}
+  .row.bg_profile{:style => "background-image: url(#{image_path "#{@profile.profile_bg.url(:medium)}"})"}
+    .col-md-12
+      - if @extern.blank?
+        .row
+          .col-md-1.top-25
+            %a.text-white.fa.fa-edit.fa-2x{:href => edit_profile_poi_path(@profile.id), :title => "Edit"}
+          .col-md-11
+      .row
+        .col-md-4.col-lg-4.top-230
+          %h2.text-white.header_profile_txt
+            = @profile.name
+        .col-md-11.col-lg-11.right.top-75
+          %img.img-thumbnail.img-circle.picture{:src => @profile.avatar.url(:medium)}
+  .row
+    .col-md-12
+  .row.nav
+    .col-md-12.col-xs-12{:style => "margin: 0px;padding: 0px;"}
+      .col-md-4.col-xs-4.nav-profile
+        %i.fa.fa-users.fa-lg
+        - if @extern.blank?
+          = link_to "Profildaten", profile_pois_show_path(:page_id => "user_profile"), :remote => true
+        - else
+          = link_to "Profildaten", profile_poi_path(:page_id => "user_profile", :email => @profile.email, :extern => true), :remote => true
+      .col-md-4.col-xs-4.nav-profile
+        %i.fa.fa-heart-o.fa-lg
+        - if @extern.blank?
+          = link_to "Touren", profile_pois_show_path(:page_id => "tours"),  :remote => true
+        - else
+          = link_to "Touren", profile_poi_path(:page_id => "tours", :email => @profile.email, :extern => true), :remote => true
+      .col-md-4.col-xs-4.nav-profile
+        %i.fa.fa-thumbs-o-up.fa-lg
+        - if @extern.blank?
+          = link_to "Galerie", profile_pois_show_path(:page_id => "poi_details"),  :remote => true
+        - else
+          = link_to "Galerie", profile_poi_path(:page_id => "poi_details", :email => @profile.email, :extern => true), :remote => true
+
+.container.container-50
+  .row
+    .col-md-12.col-xs-12
+      %div{ :id => "content_container"}
+        =render partial: 'user_profile', :locals => { :profile => @profile, :user => @user }
+
+

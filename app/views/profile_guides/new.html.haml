@@ -1,0 +1,95 @@
+= form_for @profile, :html => {class:"form-signin larger", :multipart => true } do |f|
+  %h2.text-red
+    ="Please add a profile"
+  %br
+  .field.hidden
+    = f.email_field :email, :value => @user.email
+  .field.hidden
+    = f.text_field :user_id, :value => @user.id
+  .field.hidden
+    = f.text_field :account_type, :value => @profile.account_type
+  .field
+    %b.label-large.text-red
+      = "Füge deinen eigenen Avatar hinzu"
+    %br
+    %br
+  .field
+    .fileinput.fileinput-new{"data-provides" => "fileinput"}
+      .fileinput-new.thumbnail{:style => "width: 200px; height: 150px;"}
+        =image_tag "blank-profile.png"
+      .fileinput-preview.fileinput-exists.thumbnail.img-circle{:style => "width: 200px; height: 150px;"}
+      %div
+        %span.btn.btn-large.btn-primary.btn-file
+          %span.fileinput-new Select image
+          %span.fileinput-exists Change
+          = f.file_field :avatar, :required => true
+        %a.btn.btn-large.btn-primary.fileinput-exists{"data-dismiss" => "fileinput", :href => "#"} Remove
+  .field
+    %br
+    %b.label-large.text-red
+      = "Wähle deinen Profile Hintergrund aus"
+    %br
+    %br
+  .field
+    .fileinput.fileinput-new{"data-provides" => "fileinput"}
+      .fileinput-new.thumbnail{:style => "width: 200px; height: 120px;"}
+        =image_tag "blank_landscape.jpg"
+      .fileinput-preview.fileinput-exists.thumbnail{:style => "width: 200px; height: 150px;"}
+      %div
+        %span.btn.btn-large.btn-primary.btn-file
+          %span.fileinput-new Select image
+          %span.fileinput-exists Change
+          = f.file_field :profile_bg, :required => true
+        %a.btn.btn-large.btn-primary.fileinput-exists{"data-dismiss" => "fileinput", :href => "#"} Remove
+
+  %br
+  %br
+  .field
+    = f.label :first_name, class:'label-large text-red'
+  .field
+    = f.text_field :first_name, class:'input-block-level text-red', placeholder: 'Vorname', :required => true
+  .field
+    = f.label :last_name, class:'label-large text-red'
+  .field
+    = f.text_field :last_name, class:'input-block-level text-red', placeholder: 'Nachname', :required => true
+  .field
+    = f.label "Beschreibe dich", class:'label-large text-red'
+  .field
+    = f.text_area :description, class:'form-control_bootsforms input-block-level text-red', placeholder: 'Beschreibung', :required => true
+  .field
+    = f.label "Erfahrungen als Guide", class:'label-large text-red'
+  .field
+    = f.text_area :experience, class:'input-block-level form-control_bootsforms text-red', placeholder: 'Erfahrungen', :required => true
+  .field
+    = f.label "Spezialisiert auf", class:'label-large text-red'
+  .field
+    = f.select :trip_types, options_for_select(['Kutur/Geschichte', 'Kunst', 'Shopping', 'Deluxe']), {}, {:multiple => true, class:'form-control_bootsforms text-red', :required => true}
+  .field
+    = f.label :phone, class:'label-large text-red'
+  .field
+    = f.text_field :phone, class:'input-block-level text-red', placeholder: 'Telefon'
+  .field
+    = f.label :mobile, class:'label-large text-red'
+  .field
+    = f.text_field :mobile, class:'input-block-level text-red', placeholder: 'Mobile'
+
+  .field
+    = f.label :street, class:'label-large text-red'
+    = "/"
+    = f.label :house_number, class:'label-large text-red'
+  .field
+    = f.text_field :street, class:'input-block-level text-red', placeholder: 'Strasse', :required => true
+    = f.text_field :house_number, class:'input-block-level text-red', placeholder: 'Hausnr.', :required => true
+  .field
+    = f.label :postcode, class:'label-large text-red'
+  .field
+    = f.text_field :postcode, class:'input-block-level text-red', placeholder: 'PLZ', :required => true
+  .field
+    = f.label :city, class:'label-large text-red'
+    ="/"
+    = f.label :country, class:'label-large text-red'
+  .field
+    = f.text_field :city, class:'input-block-level text-red', placeholder: 'Stadt', :required => true
+    = f.text_field :country, class:'input-block-level text-red', placeholder: 'Land', :required => true
+  .actions
+    = f.submit 'Create', class:'btn btn-large btn-primary'

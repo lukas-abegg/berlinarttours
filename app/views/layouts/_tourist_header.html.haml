@@ -9,8 +9,7 @@
         %a.page-scroll{:href => "#page-top"}
           %span.tourist_title
             =t("intro.title")
-            =link_to image_tag("tourist_site.svg" , alt: "Du bist Tourist", width: "100px"), intro_index_path
-            %a{:href => "index.html"}
+            =link_to image_tag("tourist_site.svg" , alt: "Du bist Tourist", width: "100px"),  destroy_user_session_path, :method=>'delete'
 
 
       / Collect the nav links, forms, and other content for toggling
@@ -26,8 +25,8 @@
             %a.page-scroll{:href => profiles_show_path}
               =t("header.myprofile")
           %li
-            %a.page-scroll{:href => tourist_tours_path}
-              =t("header.tour_booking")
+            %a.page-scroll{:href => search_trips_path}
+              ="Suche Touren"
 
 
         %ul.nav.navbar-nav

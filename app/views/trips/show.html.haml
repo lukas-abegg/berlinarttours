@@ -21,15 +21,15 @@
                 %td
                   = @trip.name
               %tr
-                %td Description:
+                %td Description
                 %td
                   = @trip.description
               %tr
-                %td Type:
+                %td Type
                 %td
                   = @trip.type
               %tr
-                %td Guide:
+                %td Guide
                 %td
                   = @profile.first_name
                   &nbsp;
@@ -50,11 +50,11 @@
                 %td
                   = @trip.contact
               %tr
-                %td Bemerkungen:
+                %td Bemerkungen
                 %td
                   = @trip.notes
               %tr
-                %td Meeting Point:
+                %td Meeting Point
                 %td
                   = @trip.meeting_point
 
@@ -80,23 +80,44 @@
           .panel-heading
             %h3.panel-title Stationsdetails
           .panel-body
-            %table.table.table-user-information
-              %tbody
-                %tr
-                  %td Stationsname
-                  %td
-                    = station.name
-                %tr
-                  %td Stationsemail
-                  %td
-                    = station.email
-                %tr
-                  %td
-                  %td
-                    = link_to 'Anzeigen', station, :class => 'btn btn-info pull-middle'
-                    = link_to 'Ändern', edit_trip_station_path(station), :class => 'btn btn-primary pull-middle'
-                    = link_to 'Löschen', station, :method => :delete, :data => { :confirm => 'Bist du sicher?' }, :class => 'btn btn-danger pull-middle'
-
+            .row
+              .col-lg-4
+                %img.img-thumbnail.img-circle{:style => "width: 100px; height: 100px;",:src => @profile.avatar.url(:medium)}
+              .col-lg-8
+                %table.table.table-user-information
+                  %tbody
+                    %tr
+                      %td Stationsname
+                      %td
+                        = station.name
+                    %tr
+                      %td Stationsemail
+                      %td
+                        = station.email
+                    %tr
+                      %td Art des POI
+                      %td
+                        = station.poi_type
+                    %tr
+                      %td
+                        = "Adresse "
+                        %span.glyphicon.glyphicon-map-marker
+                      %td
+                        = station.street
+                        &nbsp
+                        = station.house_number
+                        %br
+                        = station.postcode
+                        = "/"
+                        = station.city
+                        %br
+                        = station.country
+                    %tr
+                      %td{colspan: 2}
+                        %br
+                        = link_to 'Anzeigen', profile_poi_path(:email => station.email, :extern => true), :target => "_blank", :class => 'btn btn-info pull-middle'
+                        //= link_to 'Ändern', edit_trip_station_path(station), :class => 'btn btn-primary pull-middle'
+                        = link_to 'Löschen', station, :method => :delete, :data => { :confirm => 'Bist du sicher?' }, :class => 'btn btn-danger pull-middle'
 
       %br
       = form_for @trip_station, :html => {:multipart => true }, :method => :remote do |f|
@@ -104,7 +125,16 @@
           = f.hidden_field :trip_id, :value => @trip.id
 
         .actions
-          = f.submit 'Station hinzufügen', class:'btn btn-large btn-primary'
+          %button.btn.btn-primary{"data-target" => "#newTripStation", "data-toggle" => "modal", :type => "button"}
+            Station hinzufügen
 
-
-
+#newTripStation.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "myModalLabel", :role => "dialog", :tabindex => "-1"}
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
+        %h4#myModalLabel.modal-title Neue Tourstation
+      .modal-body
+        = render 'trip_stations', modal: true
+      .modal-footer
+        %button.btn.btn-primary{"data-dismiss" => "modal", :type => "button"} Close

@@ -21,33 +21,77 @@ class TripStationsController < ApplicationController
   end
 
   def create
-
-    @trip_station = TripStation.new(trip_station_params)
-
-    if @trip_station.save
+    @profile = Profile_Poi.find_by(:email => params[:trip_station][:email]) rescue nil
+    if @profile.nil?
+      flash[:alert] = "Keine passende Tripstation gefunden!"
       respond_to do |format|
-        format.html { redirect_to trip_url(@trip_station.trip_id)}
-        format.xml { render :xml => @trip_station }
+        env["HTTP_REFERER"] += '#body'
+        format.html { redirect_to :back }
+        format.xml { render :xml => params[:trip_station] }
+      end
+    else
+      @trip_station = TripStation.new(trip_station_params)
+
+      # set attributes from profile
+      @trip_station.avatar = @profile.avatar
+      @trip_station.profile_bg = @profile.profile_bg
+      @trip_station.gallery_pic1 = @profile.gallery_pic1
+      @trip_station.gallery_pic2 = @profile.gallery_pic2
+      @trip_station.gallery_pic3 = @profile.gallery_pic3
+      @trip_station.account_type = @profile.account_type
+      @trip_station.poi_type = @profile.poi_type
+      @trip_station.description = @profile.description
+      @trip_station.mobile = @profile.mobile
+      @trip_station.phone = @profile.phone
+      @trip_station.street = @profile.street
+      @trip_station.house_number = @profile.house_number
+      @trip_station.postcode = @profile.postcode
+      @trip_station.city = @profile.city
+      @trip_station.country = @profile.country
+
+      if @trip_station.save
+        respond_to do |format|
+          env["HTTP_REFERER"] += '#body'
+          format.html { redirect_to :back }
+          format.xml { render :xml => @trip_station }
+        end
+      else
+        flash[:alert] = "Tripstation konnte nicht gespeichert werden!"
+        respond_to do |format|
+          env["HTTP_REFERER"] += '#body'
+          format.html { redirect_to :back }
+          format.xml { render :xml => @trip_params }
+        end
       end
     end
   end
 
   def update
     @trip_station.update(trip_station_params)
-    respond_with(@trip_station)
+
+    respond_to do |format|
+      env["HTTP_REFERER"] += '#body'
+      format.html { redirect_to :back }
+      format.json { head :no_content }
+    end
   end
 
   def destroy
     @trip_station.destroy
-    respond_with(@trip_station)
+
+    respond_to do |format|
+      env["HTTP_REFERER"] += '#body'
+      format.html { redirect_to :back }
+      format.js
+    end
   end
 
   private
-    def set_trip_station
-      @trip_station = TripStation.find(params[:id])
-    end
+  def set_trip_station
+    @trip_station = TripStation.find(params[:id])
+  end
 
-    def trip_station_params
-      params.require(:trip_station).permit(:name, :email, :trip_id)
-    end
+  def trip_station_params
+    params.require(:trip_station).permit(:name, :email, :trip_id)
+  end
 end

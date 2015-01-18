@@ -1,0 +1,41 @@
+.col-xs-12.col-sm-12.col-md-12.col-lg-12
+  .row
+    .col-md-12.col-lg-12
+      .h1
+        = "Touren die diesen POI verwenden"
+      %br
+      .col-xs-12.col-sm-12.col-md-12.col-lg-12
+        .row
+          - @trips.each do |t|
+            - t.trip_stations.each do |s|
+              - if s.email == @profile.email
+                - @profile_guides.each do |p|
+                  - if t.guide_email == p.email
+                    .col-md-6.col-xs-12
+                      .panel.panel-default.container-50
+                        .panel-heading
+                          %h3.panel-title Tour
+                        .panel-body
+                          %table.table.table-user-information
+                            %tbody
+                              %tr
+                                %td Name
+                                %td
+                                  = t.name
+                              %tr
+                                %td Description
+                                %td
+                                  = t.description
+                              %tr
+                                %td Type
+                                %td
+                                  = t.type
+                              %tr
+                                %td Guide
+                                %td
+                                  = "#{p.first_name} #{p.last_name}"
+                              %tr
+                                %td
+                                %td{colspan: 2}
+                                  %br
+                                  = link_to 'Anzeigen', profile_guides_show_path(:profile_id => p.id, :extern => true), :target => "_blank", :class => 'btn btn-info pull-middle'

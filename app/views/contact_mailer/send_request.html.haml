@@ -1,0 +1,16 @@
+%p
+  = "Hello #{@contact.receiver_name}"
+  %br
+  %br
+%p
+  = "Mein Name ist #{@contact.sender_name}, ich bin ein #{@contact.sender_account_type}."
+  %br
+  = "Mein Email Adresse lautet #{@contact.sender_email}."
+  %br
+  %br
+  = "Mein Anliegen:"
+  %br
+  = @contact.reason
+
+
+

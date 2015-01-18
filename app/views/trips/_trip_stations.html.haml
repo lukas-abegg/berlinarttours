@@ -1,0 +1,25 @@
+- modal ||= false
+- remote = modal ? true : false
+= form_for(@trip_station, html: {role: :form, 'data-model' => 'trip_station'}) do |f|
+  - if @trip_station.errors.any?
+    #error_explanation
+      %h2
+        = pluralize(@trip_station.errors.count, "error")
+        prohibited this trip station from being saved:
+      %ul
+        - @trip_station.errors.full_messages.each do |msg|
+          %li= msg
+  .form-group.hidden
+    = f.text_field :trip_id, :value => @trip.id
+  .form-group
+    = f.label :name, class: 'control-label'
+    %br/
+    = f.text_field :name, class: 'form-control'
+    %span.help-block
+  .form-group
+    = f.label :email, class: 'control-label'
+    %br/
+    = f.text_field :email, class: 'form-control'
+    %span.help-block
+  .actions
+    = f.submit 'Submit', class: 'btn btn-primary'
