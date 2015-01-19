@@ -82,7 +82,7 @@
           .panel-body
             .row
               .col-lg-4
-                %img.img-thumbnail.img-circle{:style => "width: 100px; height: 100px;",:src => @profile.avatar.url(:medium)}
+                %img.img-thumbnail.img-circle{:style => "width: 100px; height: 100px;",:src => station.avatar.url(:medium)}
               .col-lg-8
                 %table.table.table-user-information
                   %tbody
@@ -115,7 +115,7 @@
                     %tr
                       %td{colspan: 2}
                         %br
-                        = link_to 'Anzeigen', profile_poi_path(:email => station.email, :extern => true), :target => "_blank", :class => 'btn btn-info pull-middle'
+                        = link_to 'Anzeigen', profile_poi_path(:email => station.email, :extern => true, :anchor => 'body'), :target => "_blank", :class => 'btn btn-info pull-middle'
                         //= link_to 'Ändern', edit_trip_station_path(station), :class => 'btn btn-primary pull-middle'
                         = link_to 'Löschen', station, :method => :delete, :data => { :confirm => 'Bist du sicher?' }, :class => 'btn btn-danger pull-middle'
 

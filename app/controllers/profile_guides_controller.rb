@@ -33,6 +33,9 @@ class ProfileGuidesController < ApplicationController
       @profile = Profile_Guide.find_by(:user_id => @user.id)
     end
 
+    @trips = Trip.all
+    @profile_pois = Profile_Poi.all
+
     @page_id = params[:page_id]
 
     respond_to do |format|

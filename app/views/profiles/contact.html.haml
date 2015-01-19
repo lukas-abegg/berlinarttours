@@ -3,12 +3,12 @@
     ="Kontaktanfrage bei Guide"
   .row
     .col-lg-12
-      ="#{@profile_guide.first_name} #{@profile_guide.last_name}"
+      ="#{@profile.first_name} #{@profile.last_name}"
       %br
       %br
   .row
     .col-lg-12
-      %img.img-thumbnail.img-circle{:style => "width: 100px; height: 100px;",:src => @profile_guide.avatar.url(:medium)}
+      %img.img-thumbnail.img-circle{:style => "width: 100px; height: 100px;",:src => @profile.avatar.url(:medium)}
       %br
       %br
 
@@ -36,4 +36,4 @@
     = f.submit 'Submit', class: 'btn btn-primary'
     %br
     %br
-    = link_to 'Zurück', profile_pois_search_guides_path, :class => 'btn btn-info pull-middle'
+    = link_to 'Zurück', profiles_search_guides_path, :class => 'btn btn-info pull-middle'

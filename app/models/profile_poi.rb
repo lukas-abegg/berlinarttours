@@ -36,13 +36,23 @@ class Profile_Poi
   belongs_to :user
 
   def self.search(search_poi)
-    #if search_poi
-      #find(:all, :conditions => ['name LIKE ?', "%#{search_poi.first_name}%"])
-      Profile.where(name: /#{search_poi[:first_name]}/)
-      #Profile.where(name.matches("%#{search_poi[:first_name]}%"))
-    #else
-      Profile.all
-    #end
+    if search_poi
+        @profiles = Profile_Poi.where( name: /#{search_poi[:name]}/,
+                                       email: /#{search_poi[:email]}/,
+                                       poi_type: /#{search_poi[:poi_type]}/,
+                                       postcode: /#{search_poi[:postcode]}/,
+                                       city: /#{search_poi[:city]}/,
+                                       country: /#{search_poi[:country]}/
+      )     rescue nil
+
+      if @profiles.nil?
+        Profile_Poi.all
+      else
+        @profiles
+      end
+    else
+      Profile_Poi.all
+    end
   end
 
 end

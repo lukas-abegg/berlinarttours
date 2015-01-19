@@ -14,4 +14,22 @@ class Trip
   field :meeting_point, type: String
 
   has_many :trip_stations
+
+  def self.search(search_tour)
+  if search_tour
+    @trips = Trip.where( name: /#{search_tour[:name]}/,
+                         guide_email: /#{search_tour[:guide_email]}/,
+                         type: /#{search_tour[:type]}/
+    )     rescue nil
+
+    if @trips.nil?
+      Trip.all
+    else
+      @trips
+    end
+  else
+    Trip.all
+  end
+    end
+  
 end

@@ -2,22 +2,21 @@
   %h2.text-red
     ="Find your POI"
   %br
-  .field.hidden
-    = f.text_field :account_type, :value => "poi"
   .field.col-md-4
     = f.label 'POI Name', class:'label-large text-red'
   .field.col-md-4
-    = f.label :street, class:'label-large text-red'
+    = f.label :email, class:'label-large text-red'
   .field.col-md-4
-    = f.label :house_number, class:'label-large text-red'
+    = f.label :poi_type, class:'label-large text-red'
 
   .field.col-md-4
-    = f.text_field :first_name, class:'input-block-level text-red', placeholder: 'Name'
+    = f.text_field :name, class:'input-block-level text-red', placeholder: 'Name'
   .field.col-md-4
-    = f.text_field :street, class:'input-block-level text-red', placeholder: 'Strasse'
+    = f.text_field :email, class:'input-block-level text-red', placeholder: 'Email'
   .field.col-md-4
-    = f.text_field :house_number, class:'input-block-level text-red', placeholder: 'Hausnr.'
-
+    = f.select :poi_type, options_for_select([' ', 'Kutur/Geschichte', 'Kunst', 'Shopping', 'Deluxe']), {class:'form-control_bootsforms input-block-level text-red' }
+    %br
+    %br
   .field.col-md-4
     = f.label :postcode, class:'label-large text-red'
   .field.col-md-4

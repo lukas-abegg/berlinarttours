@@ -45,11 +45,11 @@
                         %tr
                           %td{colspan: 2}
                             %br
-                            = link_to 'Anzeigen', profile_guides_show_path(:profile_id => p.id, :extern => true), :target => "_blank", :class => 'btn btn-info pull-middle'
+                            = link_to 'Anzeigen', profile_guides_show_path(:profile_id => p.id, :extern => true, :anchor => 'body'), :target => "_blank", :class => 'btn btn-info pull-middle'
                             = link_to 'Kontakt aufnehmen', profile_pois_contact_path(:sender_name => @profile.name,
                                                                     :sender_email => @profile.email,
                                                                     :receiver_email => p.email,
-                                                                    :receiver_name => "#{p.first_name} #{p.last_name}"), :class => 'btn btn-primary pull-middle'
+                                                                    :receiver_name => "#{p.first_name} #{p.last_name}", :anchor => 'body'), :class => 'btn btn-primary pull-middle'
 
 
     -else

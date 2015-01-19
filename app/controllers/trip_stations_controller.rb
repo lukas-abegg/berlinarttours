@@ -50,6 +50,10 @@ class TripStationsController < ApplicationController
       @trip_station.country = @profile.country
 
       if @trip_station.save
+        #send mail to poi
+        @trip = Trip.find_by(:id => @trip_station.trip_id)
+        ContactMailer.trip_station_created(@trip, @trip_station).deliver
+
         respond_to do |format|
           env["HTTP_REFERER"] += '#body'
           format.html { redirect_to :back }

@@ -35,6 +35,9 @@ Berlinarttours::Application.routes.draw do
   get "tourist_tours", :to => "tourist_tours#index"
 
   # Search POI
+  get "search_pois/contact", to: "search_pois#contact"
+  post "search_pois/contact", to: "search_pois#contact"
+
   get "search_pois/search", :to => "search_pois#search"
   post "search_pois/find", :to => "search_pois#find"
   post "search_pois", :to => "search_pois#index"
@@ -56,6 +59,10 @@ Berlinarttours::Application.routes.draw do
   end
 
   #Tourist Profiles
+  get "profiles/search_guides", to: "profiles#search_guides"
+  post "profiles/search_guides", to: "profiles#search_guides"
+  get "profiles/contact", to: "profiles#contact"
+  post "profiles/contact", to: "profiles#contact"
 
   get "profiles/new"
   get "profiles/create"

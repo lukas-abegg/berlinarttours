@@ -26,9 +26,9 @@
       .col-md-4.col-xs-4.nav-profile
         %i.fa.fa-heart-o.fa-lg
         - if @extern.blank?
-          = link_to "Touren", profile_pois_show_path(:page_id => "tours"),  :remote => true
+          = link_to "Angebotene Touren", profile_pois_show_path(:page_id => "tours"),  :remote => true
         - else
-          = link_to "Touren", profile_poi_path(:page_id => "tours", :email => @profile.email, :extern => true), :remote => true
+          = link_to "Angebotene Touren", profile_poi_path(:page_id => "tours", :email => @profile.email, :extern => true), :remote => true
       .col-md-4.col-xs-4.nav-profile
         %i.fa.fa-thumbs-o-up.fa-lg
         - if @extern.blank?
