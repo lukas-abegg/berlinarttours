@@ -1,39 +1,76 @@
-= form_for(@contact, html: {class:"form-search smaller"}) do |f|
+= form_for(@trip_request, html: {class:"form-search smaller"}) do |trip|
   %h2.text-red
-    ="Kontaktanfrage bei Guide"
+    ="Touranfrage für Tour"
   .row
     .col-lg-12
-      ="#{@profile.first_name} #{@profile.last_name}"
+      %h3
+        = @trip.name
+      %i
+        = "Guide:"
+      %br
+      = "#{@profile.first_name} #{@profile.last_name}"
       %br
       %br
-  .row
-    .col-lg-12
       %img.img-thumbnail.img-circle{:style => "width: 100px; height: 100px;",:src => @profile.avatar.url(:medium)}
       %br
       %br
 
+  = fields_for :contact, @contact do |contact|
+    .field.hidden
+      = contact.text_field :subject, :value => "Touranfrage für Tour: #{@trip.name}"
+    .field.hidden
+      = contact.text_field :sender_account_type, :value => @sender_account_type
+    .field.hidden
+      = contact.text_field :sender_name, :value => @sender_name
+    .field.hidden
+      = contact.text_field :sender_email, :value => @sender_email
+    .field.hidden
+      = contact.text_field :receiver_name, :value => @receiver_name
+    .field.hidden
+      = contact.text_field :receiver_email, :value => @receiver_email
   .field.hidden
-    = f.text_field :sender_account_type, :value => @sender_account_type
+    = trip.text_field :trip_id, :value => @trip.id
   .field.hidden
-    = f.text_field :sender_name, :value => @sender_name
+    = trip.text_field :trip_name, :value => @trip.name
   .field.hidden
-    = f.text_field :sender_email, :value => @sender_email
+    = trip.text_field :guide_name, :value => @receiver_name
   .field.hidden
-    = f.text_field :receiver_name, :value => @receiver_name
+    = trip.text_field :guide_email, :value => @receiver_email
   .field.hidden
-    = f.text_field :receiver_email, :value => @receiver_email
+    = trip.text_field :tourist_id, :value => @sender_id
+  .field.hidden
+    = trip.text_field :tourist_name, :value => @sender_name
   .field
-    = f.label "Betreff", class: 'control-label'
+    = trip.label "Touranfrage", class: 'control-label'
     %br/
-    = f.text_field :subject, class: 'form-control'
+    = trip.text_area :request_descr, :rows => "10", class: 'form-control', :placeholder => "Anfragetext für Tour"
     %span.help-block
   .field
-    = f.label "Anfrage", class: 'control-label'
+    = trip.label "Wer nimmt teil?", class: 'control-label'
     %br/
-    = f.text_area :reason, :rows => "10", class: 'form-control'
+    = trip.text_area :who_wants, :rows => "10", class: 'form-control', :placeholder => "Wie gross ist die Gruppe der Teilnehmer?"
+    %span.help-block
+  .field
+    = trip.label "Wann?", class: 'control-label'
+    %br/
+    = trip.text_field :when, {class: 'datepicker form-control text-center', 'data-provide' =>'datepicker', :placeholder => "Wann soll die Tour stattfinden?"}
+    %span.help-block
+  .field
+    = trip.label "Bemerkungen", class: 'control-label'
+    %br/
+    = trip.text_area :notes, :rows => "10", class: 'form-control', :placeholder => "Weitere Anmerkungen, Kontaktmöglichkeiten, Fragen?"
     %span.help-block
   .actions
-    = f.submit 'Submit', class: 'btn btn-primary'
+    = trip.submit 'Submit', class: 'btn btn-primary'
     %br
     %br
     = link_to 'Zurück', profiles_search_guides_path, :class => 'btn btn-info pull-middle'
+
+:javascript
+  $('.datepicker').datepicker({
+    format: "dd/mm/yyyy",
+    clearBtn: true,
+    language: "de",
+    calendarWeeks: true,
+    todayHighlight: true
+  });

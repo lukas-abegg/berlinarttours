@@ -28,6 +28,8 @@ class ProfilesController < ApplicationController
     @profile = Profile.find_by(:user_id => @user.id)
     @page_id = params[:page_id]
 
+    @trip_requests = TripRequest.where(tourist_id: @profile.id)
+
     respond_to do |format|
       format.html # index.html.erb
       format.xml { render :xml => @profile }
@@ -47,7 +49,6 @@ class ProfilesController < ApplicationController
   end
 
   def update
-
     @profile = Profile.find_by(:user_id => params[:profile][:user_id])
     @profile.update_attributes(profile_params)
       if @profile
@@ -77,9 +78,13 @@ class ProfilesController < ApplicationController
     @receiver_email = params[:receiver_email]
     @receiver_name = params[:receiver_name]
     @sender_account_type = "Tourist"
+
     @profile = Profile_Guide.find_by(:email => @receiver_email)
+    @trip = Trip.find_by(:id => params[:tour_id])
+    @sender_id = params[:sender_id]
 
     @contact = Contact.new
+    @trip_request = TripRequest.new
 
     respond_to do |format|
       format.html

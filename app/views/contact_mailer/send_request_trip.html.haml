@@ -1,0 +1,45 @@
+%p
+  = "Hallo #{@contact.receiver_name}"
+  %br
+  %br
+%p
+  = "Mein Name ist #{@contact.sender_name}, ich bin ein #{@contact.sender_account_type}."
+  %br
+  = "Mein Email Adresse lautet #{@contact.sender_email}."
+  %br
+  %br
+  = "Ich würde gerne die Tour: #{@trip.name} bei Ihnen buchen."
+  %br
+  %br
+  = "Anfragetext:"
+  %br
+  %br
+  = @trip_request.request_descr
+  %br
+  %br
+  %br
+  = "Wie viele Leute möchten teilnehmen:"
+  %br
+  %br
+  = @trip_request.who_wants
+  %br
+  %br
+  %br
+  = "Wann:"
+  %br
+  %br
+  = @trip_request.when
+  %br
+  %br
+  %br
+  = "Bemerkungen:"
+  %br
+  %br
+  = @trip_request.notes
+  %br
+  %br
+  %br
+  %br
+  = "Beste Grüsse dein berlinarttours Team"
+
+

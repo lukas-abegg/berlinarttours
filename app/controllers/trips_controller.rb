@@ -9,6 +9,13 @@ class TripsController < ApplicationController
     respond_with(@trips)
   end
 
+  def show_external
+    @trip = Trip.find_by(:id => params[:id])
+    @profile = Profile_Guide.find_by(:email => @trip.guide_email)
+
+    respond_with(@trip)
+  end
+
   def show
     @user = current_user
     @profile = Profile_Guide.find_by(:email => @user.email)

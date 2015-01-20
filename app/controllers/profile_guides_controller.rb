@@ -24,10 +24,16 @@ class ProfileGuidesController < ApplicationController
   end
 
   def show
-    if !params[:profile_id].blank? && !params[:extern].blank?
-      @profile = Profile_Guide.find_by(:id => params[:profile_id])
-      @user = User.find_by(:id => @profile.user_id)
-      @extern = true
+    if !params[:extern].blank?
+      if !params[:profile_id].blank?
+        @profile = Profile_Guide.find_by(:id => params[:profile_id])
+        @user = User.find_by(:id => @profile.user_id)
+        @extern = true
+      else
+        @profile = Profile_Guide.find_by(:email => params[:email])
+        @user = User.find_by(:id => @profile.user_id)
+        @extern = true
+      end
     else
       @user = current_user
       @profile = Profile_Guide.find_by(:user_id => @user.id)
@@ -35,6 +41,7 @@ class ProfileGuidesController < ApplicationController
 
     @trips = Trip.all
     @profile_pois = Profile_Poi.all
+    @trip_requests = TripRequest.where(guide_email: @profile.email)
 
     @page_id = params[:page_id]
 

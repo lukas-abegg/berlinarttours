@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  trip_id: 
+  tourist_id: 
+  request_descr: MyString
+  who_wants: MyString
+  when: MyString
+  notes: MyString
+
+two:
+  trip_id: 
+  tourist_id: 
+  request_descr: MyString
+  who_wants: MyString
+  when: MyString
+  notes: MyString

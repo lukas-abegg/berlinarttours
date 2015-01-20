@@ -1,9 +1,14 @@
 Berlinarttours::Application.routes.draw do
 
 
+  resources :trip_requests
+  get "trip_requests_status_update", :to => "trip_requests#status_update"
+
   resources :trip_stations
 
   resources :trips
+
+  get "trips_show_external", :to => "trips#show_external"
 
   get "trips_search_poi", :to => "trips#search_poi"
   post "trips_search_poi", :to => "trips#search_poi"

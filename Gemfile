@@ -90,3 +90,5 @@ gem 'protected_attributes'
 gem 'mongoid-paperclip', :require => 'mongoid_paperclip'
 
 gem 'nested_form'
+
+gem 'bootstrap-datepicker-rails'

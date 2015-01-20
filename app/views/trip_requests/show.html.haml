@@ -1,0 +1,24 @@
+%p#notice= notice
+
+%p
+  %b Trip:
+  = @trip_request.trip_id
+%p
+  %b Tourist:
+  = @trip_request.tourist_id
+%p
+  %b Request descr:
+  = @trip_request.request_descr
+%p
+  %b Who wants:
+  = @trip_request.who_wants
+%p
+  %b When:
+  = @trip_request.when
+%p
+  %b Notes:
+  = @trip_request.notes
+
+= link_to 'Edit', edit_trip_request_path(@trip_request)
+\|
+= link_to 'Back', trip_requests_path

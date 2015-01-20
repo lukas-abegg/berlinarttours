@@ -1,0 +1,13 @@
+= simple_form_for(@trip_request) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :trip_id
+    = f.input :tourist_id
+    = f.input :request_descr
+    = f.input :who_wants
+    = f.input :when
+    = f.input :notes
+
+  .form-actions
+    = f.button :submit

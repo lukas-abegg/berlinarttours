@@ -1,0 +1,15 @@
+%p
+  = "Hallo #{@profile.first_name} #{@profile.last_name}"
+  %br
+  %br
+%p
+  = "Der Status Ihrer Touranfrage bei dem Guide #{@trip_request.guide_name} hat sich geändert."
+  %br
+  = "Die Tour: #{@trip_request.trip_name} wurde #{@trip_request.request_status}"
+  %br
+  %br
+  %br
+  %br
+  = "Beste Grüsse dein berlinarttours Team"
+
+

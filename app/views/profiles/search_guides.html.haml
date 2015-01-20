@@ -14,17 +14,19 @@
                   .panel-body
                     .row
                       .col-lg-4
-                        %table.table.table-user-information
-                          %tbody
-                            %tr
-                              %td.text-center
-                                %br
-                                %i
-                                  = "Tourname:"
-                                %br
-                                %br
-                                %h1
-                                  = trip.name
+                        .row
+                          .col-lg-12.text-center
+                            %h2
+                              = trip.name
+                        .row
+                          .col-lg-12
+                            %i
+                              = "Guide:"
+                            %br
+                            = "#{guide.first_name} #{guide.last_name}"
+                            %br
+                            %br
+                            %img.img-thumbnail.img-circle{:style => "width: 100px; height: 100px;",:src => guide.avatar.url(:medium)}
                       .col-lg-8
                         %table.table.table-user-information
                           %tbody
@@ -51,7 +53,10 @@
                                 = link_to 'Kontakt aufnehmen', profiles_contact_path(:sender_name => "#{@profile.first_name} #{@profile.last_name}",
                                                                         :sender_email => @profile.email,
                                                                         :receiver_email => guide.email,
-                                                                        :receiver_name => "#{guide.first_name} #{guide.last_name}", :anchor => 'body'), :class => 'btn btn-primary pull-middle'
+                                                                        :receiver_name => "#{guide.first_name} #{guide.last_name}",
+                                                                        :tour_id => trip.id,
+                                                                        :sender_id => @profile.id,
+                                                                        :anchor => 'body'), :class => 'btn btn-primary pull-middle'
 
     -else
       .col-md-3
