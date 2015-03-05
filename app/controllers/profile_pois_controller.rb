@@ -15,6 +15,7 @@ class ProfilePoisController < ApplicationController
   def create
     @profile = Profile_Poi.create(params[:profile_poi])
 
+
     if @profile.save
       flash[:notice] = "Profile is created"
       redirect_to(:action => "show")
@@ -33,8 +34,8 @@ class ProfilePoisController < ApplicationController
       @profile = Profile_Poi.find_by(:user_id => @user.id)
     end
 
-    @trips = Trip.all
-    @profile_guides = Profile_Guide.all
+    trip_ids = TripStation.where(:email => @profile.email)
+    @trips = Trip.where(:id => trip_ids.map(&:trip_id))
 
     @page_id = params[:page_id]
 
@@ -59,6 +60,7 @@ class ProfilePoisController < ApplicationController
   def update
     @profile = Profile_Poi.find_by(:user_id => params[:profile_poi][:user_id])
     @profile.update_attributes(profile_params)
+
     if @profile
       flash[:notice] = "Profile is updated"
       redirect_to profile_pois_show_path

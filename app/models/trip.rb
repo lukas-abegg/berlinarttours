@@ -17,10 +17,16 @@ class Trip
 
   def self.search(search_tour)
   if search_tour
-    @trips = Trip.where( name: /#{search_tour[:name]}/,
-                         guide_email: /#{search_tour[:guide_email]}/,
-                         type: /#{search_tour[:type]}/
-    )     rescue nil
+    if search_tour[:type] == " "
+      @trips = Trip.where( {name: /#{search_tour[:name]}/,
+                            guide_email: /#{search_tour[:guide_email]}/}
+      )     rescue nil
+    else
+      @trips = Trip.where( {name: /#{search_tour[:name]}/,
+                            guide_email: /#{search_tour[:guide_email]}/,
+                            type: /#{search_tour[:type]}/ }
+      )     rescue nil
+    end
 
     if @trips.nil?
       Trip.all

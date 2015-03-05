@@ -39,8 +39,7 @@ class ProfileGuidesController < ApplicationController
       @profile = Profile_Guide.find_by(:user_id => @user.id)
     end
 
-    @trips = Trip.all
-    @profile_pois = Profile_Poi.all
+    @trips = Trip.where(guide_email: @profile.email)
     @trip_requests = TripRequest.where(guide_email: @profile.email)
 
     @page_id = params[:page_id]

@@ -2,6 +2,7 @@ class Profile
   include Mongoid::Document
   include Mongoid::Timestamps
   include Mongoid::Paperclip
+  include Geocoder::Model::Mongoid
 
   has_mongoid_attached_file :avatar, :styles => { :medium => "500x500>", :thumb => "200x200>" }, cascade_callbacks: true
   do_not_validate_attachment_file_type :avatar
@@ -22,14 +23,24 @@ class Profile
   field :city, type: String
   field :country, type: String
 
+  field :location, type: Array
+
   field :user_id, type: Integer
 
-  belongs_to  :user
+  belongs_to :user
 
-  def self.search(search_poi)
-    if search_poi[:first_name]
-      Profile.where(first_name: /#{search_poi[:first_name]}/, account_type: search_poi[:account_type])
-      #Profile.where(first_name.matches("%#{search_poi[:first_name]}%"))
+  geocoded_by :address, :coordinates => :location
+
+  after_validation :geocode          # auto-fetch coordinates
+
+  def address
+    [street, house_number, postcode, city, country].compact.join(', ')
+  end
+
+  def self.search(search_tourist)
+    if search_tourist[:first_name]
+      Profile.where({first_name: /#{search_tourist[:first_name]}/,
+                     account_type: search_tourist[:account_type]})
     else
       Profile.all
     end

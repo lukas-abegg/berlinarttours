@@ -5,7 +5,13 @@ class TripsController < ApplicationController
   respond_to :html
 
   def index
-    @trips = Trip.all
+    @user = current_user
+    @profile = Profile_Guide.find_by(:email => @user.email)
+
+    if  !(Trip.find_by(:guide_email => @profile.email) rescue nil).nil?
+      @trips = Trip.where(:guide_email => @profile.email)
+    end
+
     respond_with(@trips)
   end
 

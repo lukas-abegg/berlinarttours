@@ -92,3 +92,5 @@ gem 'mongoid-paperclip', :require => 'mongoid_paperclip'
 gem 'nested_form'
 
 gem 'bootstrap-datepicker-rails'
+
+gem 'geocoder'

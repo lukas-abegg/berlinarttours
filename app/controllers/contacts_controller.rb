@@ -8,7 +8,10 @@ class ContactsController < ApplicationController
       flash.now[:error] = 'Cannot send message.'
     end
     if @contact.sender_account_type == "POI"
-      redirect_to(:controller => "profile_pois", :action => "search_guides")
+      redirect_to(:controller => "profile_pois", :action => "search_guides", :anchor => 'body')
+    elsif @contact.sender_account_type == "Guide"
+        redirect_to(:controller => "search_pois", :action => "index", :anchor => 'body')
+
     else
       redirect_to :back
     end

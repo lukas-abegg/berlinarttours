@@ -2,6 +2,7 @@ class Profile_Guide
   include Mongoid::Document
   include Mongoid::Timestamps
   include Mongoid::Paperclip
+  include Geocoder::Model::Mongoid
 
   has_mongoid_attached_file :avatar, :styles => {:medium => "500x500>", :thumb => "200x200>"}, cascade_callbacks: true
   do_not_validate_attachment_file_type :avatar
@@ -25,19 +26,38 @@ class Profile_Guide
   field :city, type: String
   field :country, type: String
 
+  field :location, type: Array
+
   field :user_id, type: Integer
 
   belongs_to :user
 
+  geocoded_by :address, :coordinates => :location
+
+  after_validation :geocode          # auto-fetch coordinates
+
+  def address
+    [street, house_number, postcode, city, country].compact.join(', ')
+  end
+
   def self.search(search_guide)
     if search_guide
-      @profiles = Profile_Guide.where( first_name: /#{search_guide[:first_name]}/,
-                                last_name: /#{search_guide[:last_name]}/,
-                                email: /#{search_guide[:email]}/,
-                                postcode: /#{search_guide[:postcode]}/,
-                                city: /#{search_guide[:city]}/,
-                                country: /#{search_guide[:country]}/
-                                )     rescue nil
+      if search_guide[:postcode].blank?
+        @profiles = Profile_Guide.where( { first_name: /#{search_guide[:first_name]}/,
+                                           last_name: /#{search_guide[:last_name]}/,
+                                           email: /#{search_guide[:email]}/,
+                                           city: /#{search_guide[:city]}/,
+                                           country: /#{search_guide[:country]}/ }
+        )     rescue nil
+      else
+        @profiles = Profile_Guide.where( { first_name: /#{search_guide[:first_name]}/,
+                                         last_name: /#{search_guide[:last_name]}/,
+                                         email: /#{search_guide[:email]}/,
+                                         postcode: search_guide[:postcode],
+                                         city: /#{search_guide[:city]}/,
+                                         country: /#{search_guide[:country]}/ }
+        )     rescue nil
+      end
 
       if @profiles.nil?
         Profile_Guide.all

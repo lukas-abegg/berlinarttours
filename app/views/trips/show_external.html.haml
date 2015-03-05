@@ -8,8 +8,8 @@
         %br
     .col-md-2
   .row
-    .col-md-3
-    .col-md-6.col-xs-12
+    .col-md-1
+    .col-md-10.col-xs-12
       .panel.panel-default.container-50
         .panel-heading
           %h3.panel-title Tourbeschreibung
@@ -34,32 +34,38 @@
                   = @profile.first_name
                   &nbsp;
                   = @profile.last_name
-
+    .col-md-1
+  .row
+    .col-md-1
+    .col-md-10.col-xs-12
       .panel.panel-default.container-50
         .panel-heading
           %h3.panel-title Tourdetails
         .panel-body
-          %table.table.table-user-information
-            %tbody
-              %tr
-                %td Geplante Dauer der Tour
-                %td
-                  = @trip.duration
-              %tr
-                %td Kontaktdaten
-                %td
-                  = @trip.contact
-              %tr
-                %td Bemerkungen
-                %td
-                  = @trip.notes
-              %tr
-                %td Meeting Point
-                %td
-                  = @trip.meeting_point
+          .row
+            .col-md-12
+              %table.table.table-user-information
+                %tbody
+                  %tr
+                    %td Geplante Dauer der Tour
+                    %td
+                      = @trip.duration
+                  %tr
+                    %td Kontaktdaten
+                    %td
+                      = @trip.contact
+                  %tr
+                    %td Bemerkungen
+                    %td
+                      = @trip.notes
+                  %tr
+                    %td Meeting Point
+                    %td
+                      = @trip.meeting_point
 
-      %br
-      %br
+              =render partial: 'trip_map', :locals => { :trip => @trip}
+    .col-md-1
+
 .col-xs-12.col-sm-12.col-md-12.col-lg-12
   .row
     .col-md-2
