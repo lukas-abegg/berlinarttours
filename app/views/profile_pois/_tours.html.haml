@@ -7,7 +7,8 @@
       .col-xs-12.col-sm-12.col-md-12.col-lg-12
         .row
           - @trips.each do |t|
-            - Profile_Guide.where(:email => t.guide_email ).each do |p|
+            - @profile_guide = Profile_Guide.where(:email => t.guide_email )
+            - @profile_guide.each  do |p|
               .col-md-6.col-xs-12
                 .panel.panel-default.container-50
                   .panel-heading
@@ -22,7 +23,7 @@
                             %i
                               = "Guide:"
                             %br
-                            //= "#{p.first_name} #{p.last_name}"
+                            = "#{p.first_name} #{p.last_name}"
                             %br
                             %br
                       .col-lg-8
@@ -43,7 +44,7 @@
                             %tr
                               %td Guide
                               %td
-                            //= "#{p.first_name} #{p.last_name}"
+                            = "#{p.first_name} #{p.last_name}"
                             %tr
                               %td
                               %td{colspan: 2}

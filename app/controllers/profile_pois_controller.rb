@@ -34,8 +34,8 @@ class ProfilePoisController < ApplicationController
       @profile = Profile_Poi.find_by(:user_id => @user.id)
     end
 
-    trip_ids = TripStation.where(:email => @profile.email)
-    @trips = Trip.where(:id => trip_ids.map(&:trip_id))
+    @trip_stations = TripStation.where(:email => @profile.email).pluck(:trip_id)
+    @trips = Trip.find(@trip_stations)
 
     @page_id = params[:page_id]
 

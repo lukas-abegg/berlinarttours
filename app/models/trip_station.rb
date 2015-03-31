@@ -1,6 +1,7 @@
 class TripStation
   include Mongoid::Document
   include Mongoid::Paperclip
+  include Geocoder::Model::Mongoid
 
   field :name, type: String
   field :email, type: String
@@ -31,7 +32,18 @@ class TripStation
   field :city, type: String
   field :country, type: String
 
+  field :location, type: Array
+
   field :trip_id, type: Integer
 
   belongs_to  :trip
+
+  geocoded_by :address, :coordinates => :location
+
+  after_validation :geocode          # auto-fetch coordinates
+
+  def address
+    [street, house_number, postcode, city, country].compact.join(', ')
+  end
+
 end

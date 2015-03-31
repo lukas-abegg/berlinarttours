@@ -14,6 +14,7 @@ class Trip
   field :meeting_point, type: String
 
   has_many :trip_stations
+  has_one :profile_guide
 
   def self.search(search_tour)
   if search_tour

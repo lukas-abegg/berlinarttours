@@ -19,6 +19,9 @@ class TripsController < ApplicationController
     @trip = Trip.find_by(:id => params[:id])
     @profile = Profile_Guide.find_by(:email => @trip.guide_email)
 
+    @trip_js = @trip.to_json
+    @trip_stations_js = @trip.trip_stations.to_json
+
     respond_with(@trip)
   end
 
@@ -36,6 +39,7 @@ class TripsController < ApplicationController
     @profile = Profile_Guide.find_by(:user_id => @user.id)
 
     @trip = Trip.new
+    @trip.profile_guide = @profile_guide
 
     respond_with(@trip)
   end
