@@ -12,22 +12,20 @@
     .col-xs-12{:class => "[ ]", :role => "tabpanel"}
       .col-xs-4.col-sm-12{:class => "[ ]"}
         / Nav tabs
-        #myCarousel.carousel.slide{"data-interval" => "3000", "data-ride" => "carousel"}
-          %ul#nav-tabs.nav.nav-justified{:class => "[ ]", :role => "tablist"}
-            - @trip.trip_stations.each_with_index do |station, index|
-              -if index == 0
-                %li.active{:role => "presentation"}
-                  %a{"aria-controls" => "station.name", "data-toggle" => "tab", :href => "#dustin", :role => "tab"}
-                    %img.img-thumbnail.img-circle{:style => "width: 100px; height: 100px;",:src => station.avatar.url(:medium)}
-                    %span.quote
-                      %i.fa.fa-quote-left
-              -else
-                -3.times do |ntime|
-                  %li{:role => "presentation"}
-                    %a{"aria-controls" => "station.name", "data-toggle" => "tab", :href => "##{station.id}", :role => "tab"}
-                      %img.img-thumbnail.img-circle{:style => "width: 100px; height: 100px;",:src => station.avatar.url(:medium)}
-                      %span.quote
-                        %i.fa.fa-quote-left
+        %ul#nav-tabs.nav.nav-justified{:class => "[ ]", :role => "tablist"}
+          - @trip.trip_stations.each_with_index do |station, index|
+            -if index == 0
+              %li.active{:role => "presentation"}
+                %a{"aria-controls" => "station.name", "data-toggle" => "tab", :href => "#dustin", :role => "tab"}
+                  %img.img-thumbnail.img-circle{:style => "width: 100px; height: 100px;",:src => station.avatar.url(:medium)}
+                  %span.quote
+                    %i.fa.fa-quote-left
+            -else
+              %li{:role => "presentation"}
+                %a{"aria-controls" => "station.name", "data-toggle" => "tab", :href => "##{station.id}", :role => "tab"}
+                  %img.img-thumbnail.img-circle{:style => "width: 100px; height: 100px;",:src => station.avatar.url(:medium)}
+                  %span.quote
+                    %i.fa.fa-quote-left
 
   .row
     .col-xs-8.col-sm-12{:class => "[ ]"}
