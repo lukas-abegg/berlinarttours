@@ -12,50 +12,83 @@
     .col-xs-12{:class => "[ ]", :role => "tabpanel"}
       .col-xs-4.col-sm-12{:class => "[ ]"}
         / Nav tabs
-        %ul#nav-tabs.nav.nav-justified{:class => "[ ]", :role => "tablist"}
-          - @trip.trip_stations.each_with_index do |station, index|
-            -if index == 0
-              %li.active{:role => "presentation"}
-                %a{"aria-controls" => "station.name", "data-toggle" => "tab", :href => "#dustin", :role => "tab"}
-                  %img.img-thumbnail.img-circle{:style => "width: 100px; height: 100px;",:src => station.avatar.url(:medium)}
-                  %span.quote
-                    %i.fa.fa-quote-left
-            -else
-              %li{:role => "presentation"}
-                %a{"aria-controls" => "station.name", "data-toggle" => "tab", :href => "##{station.name}", :role => "tab"}
-                  %img.img-thumbnail.img-circle{:style => "width: 100px; height: 100px;",:src => station.avatar.url(:medium)}
-                  %span.quote
-                    %i.fa.fa-quote-left
+        #myCarousel.carousel.slide{"data-interval" => "3000", "data-ride" => "carousel"}
+          %ul#nav-tabs.nav.nav-justified{:class => "[ ]", :role => "tablist"}
+            - @trip.trip_stations.each_with_index do |station, index|
+              -if index == 0
+                %li.active{:role => "presentation"}
+                  %a{"aria-controls" => "station.name", "data-toggle" => "tab", :href => "#dustin", :role => "tab"}
+                    %img.img-thumbnail.img-circle{:style => "width: 100px; height: 100px;",:src => station.avatar.url(:medium)}
+                    %span.quote
+                      %i.fa.fa-quote-left
+              -else
+                -3.times do |ntime|
+                  %li{:role => "presentation"}
+                    %a{"aria-controls" => "station.name", "data-toggle" => "tab", :href => "##{station.id}", :role => "tab"}
+                      %img.img-thumbnail.img-circle{:style => "width: 100px; height: 100px;",:src => station.avatar.url(:medium)}
+                      %span.quote
+                        %i.fa.fa-quote-left
+
   .row
     .col-xs-8.col-sm-12{:class => "[ ]"}
       / Tab panes
       #tabs-collapse.tab-content
-        %div{:class => "#dustin", :style => "tab-pane fade in", :role => "tabpanel" }
-          .tab-inner
-            %p.lead Etiam tincidunt enim et pretium efficitur. Donec auctor leo sollicitudin eros iaculis sollicitudin.
-            %hr/
-            %p
-              %strong.text-uppercase Dustin Lamont
-            %p
-              %em.text-capitalize Senior web developer
-              at
-              %a{:href => "#"} Apple
-        - @trip.trip_stations.each do |station|
-          #{station.name}.tab-pane.fade.in{:role => "tabpanel"}
-            .panel.panel-default.container-50
-              .panel-heading
-                %h3.panel-title Stationsdetails
-              .panel-body
+        - @trip.trip_stations.each_with_index do |station, index|
+          -if index == 0
+            %div{ :role => "tabpanel", :class => "tab-pane fade in active", :id => "dustin" }
+              .tab-inner
+                %p.lead{:style => "font-weight: bold;"}
+                  = station.name
                 .row
-                  .col-lg-4
-                    %img.img-thumbnail.img-circle{:style => "width: 100px; height: 100px;",:src => station.avatar.url(:medium)}
+                  .col-lg-12
+                    %br
+                .row
+                  .col-lg-8.text-center{:style => "padding-bottom: 15px;"}
+                    %img.img-center.img-responsive{:src => station.avatar.url(:medium), :width =>"200", :height=>"50"}
                   .col-lg-8
                     %table.table.table-user-information
                       %tbody
                         %tr
-                          %td Stationsname
+                          %td Stationsemail
                           %td
-                            = station.name
+                            = station.email
+                        %tr
+                          %td Art des POI
+                          %td
+                            = station.poi_type
+                        %tr
+                          %td
+                            = "Adresse "
+                            %span.glyphicon.glyphicon-map-marker
+                          %td
+                            = station.street
+                            &nbsp
+                            = station.house_number
+                            %br
+                            = station.postcode
+                            = "/"
+                            = station.city
+                            %br
+                            = station.country
+                        %tr
+                          %td{colspan: 2}
+                            %br
+                            = link_to 'Anzeigen', profile_pois_show_path(:email => station.email, :extern => true, :anchor => 'body'), :target => "_blank", :class => 'btn btn-info pull-middle'
+
+          -else
+            %div{ :role => "tabpanel", :class => "tab-pane fade in", :id => "#{station.id}" }
+              .tab-inner
+                %p.lead{:style => "font-weight: bold;"}
+                  = station.name
+                .row
+                  .col-lg-12
+                    %br
+                .row
+                  .col-lg-8.text-center{:style => "padding-bottom: 15px;"}
+                    %img.img-center.img-responsive{:src => station.avatar.url(:medium), :width =>"200", :height=>"50"}
+                  .col-lg-8
+                    %table.table.table-user-information
+                      %tbody
                         %tr
                           %td Stationsemail
                           %td
