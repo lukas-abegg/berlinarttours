@@ -1,86 +1,73 @@
 = stylesheet_link_tag "trips/trips_tabs"
+= stylesheet_link_tag "trips/trips_timeline"
 
-.container.text-center{:class => "[ ]"}
-  .row{:class => "[ ]"}
-    .col-xs-12{:class => "[ ]", :style => "padding-bottom: 30px;"}
+%script{ :src => "//code.jquery.com/jquery-1.10.2.js" }
+%script{ :src => "//code.jquery.com/ui/1.11.4/jquery-ui.js" }
+
+:javascript
+  $( document ).ready(function() {
+    $('.timeline-entry-inner').find('.text').fadeOut(0);
+
+    $('.timeline-entry-inner').hover(
+      function () {
+        $(this).find('.timeline-label').find('.text').fadeIn(500);
+        $(this).find('.timeline-label').find('.img').fadeOut(50);
+      },
+      function () {
+        $(this).find('.timeline-label').find('.text').fadeOut(50);
+        $(this).find('.timeline-label').find('.img').fadeIn(50);
+      }
+    );
+  });
+
+.container
+  .row.text-center
+    .col-xs-12{ :style => "padding-bottom: 30px;"}
       .h1
         = "Stationen"
-        %br
-        %br
-.container.text-center{:class => "[ ]"}
-  .row{:class => "[ ]"}
-    .col-xs-12{:class => "[ ]", :role => "tabpanel"}
-      .col-xs-4.col-sm-12{:class => "[ ]"}
-        / Nav tabs
-        %ul#nav-tabs.nav.nav-justified{:class => "[ ]", :role => "tablist"}
-          - @trip.trip_stations.each_with_index do |station, index|
-            -if index == 0
-              %li.active{:role => "presentation"}
-                %a{"aria-controls" => "station.name", "data-toggle" => "tab", :href => "#dustin", :role => "tab"}
-                  %img.img-thumbnail.img-circle{:style => "width: 100px; height: 100px;",:src => station.avatar.url(:medium)}
-                  %span.quote
-                    %i.fa.fa-quote-left
-            -else
-              %li{:role => "presentation"}
-                %a{"aria-controls" => "station.name", "data-toggle" => "tab", :href => "##{station.id}", :role => "tab"}
-                  %img.img-thumbnail.img-circle{:style => "width: 100px; height: 100px;",:src => station.avatar.url(:medium)}
-                  %span.quote
-                    %i.fa.fa-quote-left
-
   .row
-    .col-xs-8.col-sm-12{:class => "[ ]"}
-      / Tab panes
-      #tabs-collapse.tab-content
-        - @trip.trip_stations.each_with_index do |station, index|
-          -if index == 0
-            %div{ :role => "tabpanel", :class => "tab-pane fade in active", :id => "dustin" }
-              .tab-inner
-                %p.lead{:style => "font-weight: bold;"}
-                  = station.name
-                .row
-                  .col-lg-12
-                    %br
+    .timeline-centered
+      %article.timeline-entry
+        .timeline-entry-inner
+          .timeline-icon.bg-start-end
+            %i.fa.fa-thumbs-o-up.fa-play-circle
+          %p Start der Tour
+      %br
+      - @trip.trip_stations.each_with_index do |station, index|
+        %article.timeline-entry
+          .timeline-entry-inner
+            .timeline-icon.bg-route
+              %i.fa.fa-car
+            .timeline-label
+              %h2
+                Route
+              .text
                 .row
                   .col-lg-8.text-center{:style => "padding-bottom: 15px;"}
-                    %img.img-center.img-responsive{:src => station.avatar.url(:medium), :width =>"200", :height=>"50"}
-                  .col-lg-8
-                    %table.table.table-user-information
-                      %tbody
-                        %tr
-                          %td Stationsemail
-                          %td
-                            = station.email
-                        %tr
-                          %td Art des POI
-                          %td
-                            = station.poi_type
-                        %tr
-                          %td
-                            = "Adresse "
-                            %span.glyphicon.glyphicon-map-marker
-                          %td
-                            = station.street
-                            &nbsp
-                            = station.house_number
-                            %br
-                            = station.postcode
-                            = "/"
-                            = station.city
-                            %br
-                            = station.country
-                        %tr
-                          %td{colspan: 2}
-                            %br
-                            = link_to 'Anzeigen', profile_pois_show_path(:email => station.email, :extern => true, :anchor => 'body'), :target => "_blank", :class => 'btn btn-info pull-middle'
+                    Weg zum Ziel
 
-          -else
-            %div{ :role => "tabpanel", :class => "tab-pane fade in", :id => "#{station.id}" }
-              .tab-inner
-                %p.lead{:style => "font-weight: bold;"}
-                  = station.name
-                .row
-                  .col-lg-12
-                    %br
+        %article.timeline-entry
+          .timeline-entry-inner
+            -if station.poi_type == "Shopping"
+              .timeline-icon.bg-shopping
+                %i.fa.fa-shopping-cart
+            -elsif station.poi_type == "Kunst"
+              .timeline-icon.bg-arts
+                %i.fa.fa-glass
+            -else
+              .timeline-icon.bg-unknown
+                %i.fa.fa-thumbs-o-up.question
+            .timeline-label
+              .row
+                .col-xs-2
+                  .img
+                    %img.img-circle{:src => station.avatar.url(:medium), :width =>"50", :height=>"50"}
+                .col-xs-8
+                  %h2
+                    = station.name
+                .col-xs-2
+
+              .text
                 .row
                   .col-lg-8.text-center{:style => "padding-bottom: 15px;"}
                     %img.img-center.img-responsive{:src => station.avatar.url(:medium), :width =>"200", :height=>"50"}
@@ -112,4 +99,11 @@
                         %tr
                           %td{colspan: 2}
                             %br
-                            = link_to 'Anzeigen', profile_pois_show_path(:email => station.email, :extern => true, :anchor => 'body'), :target => "_blank", :class => 'btn btn-info pull-middle'
+                            = link_to 'Anzeigen', profile_pois_show_path(:email => station.email, :extern => true, :anchor => 'body'), :target => "_blank", :class => 'btn btn-info'
+
+      %article.timeline-entry
+        %br
+        .timeline-entry-inner
+          .timeline-icon.bg-start-end
+            %i.fa.fa-bolt
+          %p Ende der Tour
