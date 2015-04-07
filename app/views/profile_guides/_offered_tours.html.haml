@@ -51,4 +51,5 @@
                               %td
                               %td{colspan: 2}
                                 %br
-                                = link_to 'Anzeigen', trip_path(t.id, :anchor => 'body'), :target => "_blank", :class => 'btn btn-info pull-middle'
+                                = link_to 'Ändern', trip_path(t.id, :anchor => 'body'), :target => "_blank", :class => 'btn btn-info pull-middle'
+                                = link_to 'Vorschau', trips_show_external_path(:id => t.id, :extern => true, :anchor => 'body'), :target => "_blank", :class => 'btn btn-info pull-middle'

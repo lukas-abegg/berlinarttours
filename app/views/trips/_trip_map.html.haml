@@ -33,6 +33,7 @@
 
       var berlin = new google.maps.LatLng(52.565039, 13.366349);
       var trip_stations = $.parseJSON("#{j @trip_stations_js}");
+      var trip_j = $.parseJSON("#{j @trip_js}");
 
       directionsDisplay = new google.maps.DirectionsRenderer({
         suppressMarkers: true
@@ -99,27 +100,39 @@
         var waypointsArr = [];
         var origin;
         var destination;
+        var address;
 
         var i = 0;
+
+        // Startadresse
+        var pointStart = new google.maps.LatLng(trip_j.meeting_point_loc[1], trip_j.meeting_point_loc[0]);
+        origin = pointStart;
+        var labelStart = "Treffpunkt: ";
+        var address = trip_j.meeting_point;
+
+        //Waypoints
+        addStartMarker(pointStart, labelStart + '<i>' + trip_j.meeting_point + '</i>');
+        waypointsArr.push({
+            location: pointStart,
+            stopover: true
+            }
+        );
+
 
         trip_stations.forEach(function (station) {
           var point = new google.maps.LatLng(station.location[1], station.location[0]);
           var label = "";
 
-          // Startadresse
-          if (i == 0) {
-            origin = point;
-            label = "Startadresse: ";
-          }
-
           // Endadresse
           if (i == trip_stations.length - 1) {
             destination = point;
-            label = "Endadresse: ";
+            label = "<i>letzte Station</i><br> ";
           }
 
+          address = station.street + ' ' + station.house_number + ', ' + station.postcode + ' ' + station.city;
+
           //Waypoints
-          addMarker(point, label + station.name);
+          addMarker(point, label + station.name, station.poi_type, station.description, address);
           waypointsArr.push({
             location: point,
             stopover: true
@@ -129,12 +142,20 @@
           i = i + 1;
         });
 
+        var travelMode;
+
+        if (trip_j.transport_type == "Driving") { travelMode = google.maps.TravelMode.DRIVING; }
+          else if (trip_j.transport_type == "Walking") { travelMode = google.maps.TravelMode.WALKING; }
+          else if (trip_j.transport_type == "ÖV") { travelMode = google.maps.TravelMode.TRANSIT; }
+
+        console.log("Mode: " + travelMode);
+
         var request = {
           origin: origin,
           destination: destination,
           waypoints: waypointsArr,
           optimizeWaypoints: true,
-          travelMode: google.maps.TravelMode.WALKING
+          travelMode: travelMode
         };
         directionsService.route(request, function (response, status) {
           if (status == google.maps.DirectionsStatus.OK) {
@@ -153,8 +174,27 @@
         document.getElementById('total').innerHTML = total + ' km';
       }
 
-      function addMarker(latlng, label) {
-        var contentString = '<b>' + label + '</b><br>adsasd';
+      function addMarker(latlng, label, poi_type, description, adress) {
+        var contentString = '<b>' + label + '</b><br><br> <b>POI Type: </b>' + poi_type +
+                            '<br><b>Beschreibung: </b>' + description + '<br><b>Adresse: </b>' +
+                            adress + '<br>' ; //+ '<img src="' + image + '" class="img-thumbnail">' ;
+        var marker = new google.maps.Marker({
+          position: latlng,
+          map: map,
+          title: label,
+          zIndex: Math.round(latlng.lat() * -100000) << 5
+        });
+
+        markers.push(marker);
+
+        google.maps.event.addListener(marker, 'click', function () {
+          infowindow.setContent(contentString);
+          infowindow.open(map, marker);
+        });
+      }
+
+      function addStartMarker(latlng, label) {
+        var contentString = '<b>' + label + '</b>';
         var marker = new google.maps.Marker({
           position: latlng,
           map: map,

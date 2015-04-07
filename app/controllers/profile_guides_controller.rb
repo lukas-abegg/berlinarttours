@@ -74,7 +74,7 @@ class ProfileGuidesController < ApplicationController
   end
 
   def profile_params
-    params.require(:profile_guide).permit(:email, :account_type, :first_name, :last_name, :description, :experience, :trip_types, :street, :house_number, :postcode, :city, :country, :user_id, :avatar => [:avatar], :bg_profile => [:bg_profile],
+    params.require(:profile_guide).permit(:email, :account_type, :first_name, :last_name, :description, :experience, :trip_types, :mobile, :phone, :street, :house_number, :postcode, :city, :country, :location, :user_id, :avatar => [:avatar], :bg_profile => [:bg_profile],
                                     :gallery_pic1 => [:gallery_pic1], :gallery_pic2 => [:gallery_pic2], :gallery_pic3 => [:gallery_pic3])
   end
 

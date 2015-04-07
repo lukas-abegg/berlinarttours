@@ -51,7 +51,8 @@
                                 %br
                                 = link_to 'Tour', trips_show_external_path(:id => trip.id, :extern => true, :anchor => 'body'), :target => "_blank", :class => 'btn btn-info pull-middle'
                                 = link_to 'Guide', profile_guides_show_path(:profile_id => guide.id, :extern => true, :anchor => 'body'), :target => "_blank", :class => 'btn btn-info pull-middle'
-
+                                %br
+                                %br
                                 = link_to 'Kontakt aufnehmen', profiles_contact_path(:sender_name => "#{@profile.first_name} #{@profile.last_name}",
                                                                         :sender_email => @profile.email,
                                                                         :receiver_email => guide.email,

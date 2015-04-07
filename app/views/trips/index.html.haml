@@ -27,7 +27,7 @@
           %td= trip.duration
           %td= trip.notes
           %td= trip.meeting_point
-          %td= link_to 'Anzeigen', trip_path(trip, :anchor => 'body'), :class => 'btn btn-info'
+          %td= link_to 'Vorschau', trips_show_external_path(:id => trip.id, :extern => true, :anchor => 'body'), :target => "_blank", :class => 'btn btn-info pull-middle'
           %td= link_to 'Ändern', edit_trip_path(trip), :class => 'btn btn-primary'
           %td= link_to 'Löschen', trip, :method => :delete, :data => { :confirm => 'Bist du sicher?' }, :class => 'btn btn-danger'
 

@@ -48,6 +48,8 @@ class TripStationsController < ApplicationController
       @trip_station.postcode = @profile.postcode
       @trip_station.city = @profile.city
       @trip_station.country = @profile.country
+      @trip_station.duration = @profile.country
+      @trip_station.duration = @profile.duration
 
       if @trip_station.save
         #send mail to poi

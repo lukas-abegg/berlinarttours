@@ -1,5 +1,6 @@
 /* Form Styles */
 
+@import 'base';
 
 .table-search {
     display: table;
@@ -28,7 +29,7 @@
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     font-size: 18px;
-    font-family: "Helvetica, sans-serif";
+    font-family: $font;
     padding: 10px;
     width: 50%;
     background-color: #fff;

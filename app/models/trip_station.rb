@@ -31,6 +31,7 @@ class TripStation
   field :postcode, type: Integer
   field :city, type: String
   field :country, type: String
+  field :duration, type: String
 
   field :location, type: Array
 

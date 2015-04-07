@@ -1,6 +1,7 @@
 
 /* Intro Navigation */
 
+@import 'base';
 
 .navlinks a {
     width: 250px;
@@ -41,7 +42,7 @@
 
 .navlinks p {
     z-index: 2;
-    font-family: 'Raleway', sans-serif;
+    font-family: $font;
     font-size: 1.25em;
     color: #fff;
     text-align: center;

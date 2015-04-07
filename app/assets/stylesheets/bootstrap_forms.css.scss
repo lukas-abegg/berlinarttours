@@ -1,4 +1,6 @@
 
+@import 'base';
+
 .form-signin {
   max-width: 400px;
   padding: 19px 29px 29px;
@@ -128,7 +130,7 @@
   margin: 1px 0 0 3px;
   position: absolute;
   pointer-events: none;
-  font-family: 'Glyphicons Halflings';
+  font-family: $font;
 }
 .form-signin .checkbox .character-checkbox {
   width: 25px;
@@ -147,7 +149,7 @@
 
 
 .checkTrue{
-  font-family: 'Glyphicons Halflings';
+  font-family: $font;
   font-size: 17px;
   margin: 1px 0 0 3px;
   position: absolute;

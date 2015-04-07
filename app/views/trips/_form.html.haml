@@ -44,12 +44,17 @@
             %br
             = f.text_area :contact, :placeholder => "Kontaktmöglichkeiten, wann und wie zu erreichen?", :required => "required", :class => "form-control"
           .form-group
-            %label.control-label Meeting Point
-            = f.text_area :meeting_point, :placeholder => "Meeting Point", :required => "required", :type => "text", :class => "form-control"
-          .form-group
             %label.control-label Wann können Touren angeboten werden?
             %br
             = f.text_area :notes, :placeholder => "Welche Wochentage/Zeiten?", :required => "required", :class => "form-control"
+          .form-group
+            %label.control-label Transportart
+            %br
+            = f.select :transport_type, options_for_select(['Driving', 'Walking', 'ÖV']), {class:'form-control', :required => true }
+          .form-group
+            %label.control-label Treffpunkt der Tour(Adresse: Strasse, PLZ/Ort)
+            %br
+            = f.text_area :meeting_point, :placeholder => "Adresse: Strasse, PLZ/Ort", :required => "required", :class => "form-control"
 
           %button.btn.btn-primary.nextBtn.pull-right{:type => "button"} Next
     #step-3.row.setup-content

@@ -54,7 +54,7 @@
                 %td
                   = @trip.notes
               %tr
-                %td Meeting Point
+                %td Treffpunkt
                 %td
                   = @trip.meeting_point
 
@@ -99,6 +99,10 @@
                       %td
                         = station.poi_type
                     %tr
+                      %td Dauer der Führung(hh:mm)
+                      %td
+                        = station.duration
+                    %tr
                       %td
                         = "Adresse "
                         %span.glyphicon.glyphicon-map-marker
@@ -116,7 +120,6 @@
                       %td{colspan: 2}
                         %br
                         = link_to 'Anzeigen', profile_poi_path(:email => station.email, :extern => true, :anchor => 'body'), :target => "_blank", :class => 'btn btn-info pull-middle'
-                        //= link_to 'Ändern', edit_trip_station_path(station), :class => 'btn btn-primary pull-middle'
                         = link_to 'Löschen', station, :method => :delete, :data => { :confirm => 'Bist du sicher?' }, :class => 'btn btn-danger pull-middle'
 
       %br
@@ -127,6 +130,8 @@
         .actions
           %button.btn.btn-primary{"data-target" => "#newTripStation", "data-toggle" => "modal", :type => "button"}
             Station hinzufügen
+          &nbsp
+          = link_to 'Vorschau Tour', trips_show_external_path(:id => @trip.id, :extern => true, :anchor => 'body'), :target => "_blank", :class => 'btn btn-info pull-middle'
 
 #newTripStation.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "myModalLabel", :role => "dialog", :tabindex => "-1"}
   .modal-dialog

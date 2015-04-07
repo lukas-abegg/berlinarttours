@@ -8,16 +8,21 @@
   $( document ).ready(function() {
     $('.timeline-entry-inner').find('.text').fadeOut(0);
 
-    $('.timeline-entry-inner').hover(
+    $('.timeline-entry-inner').find('.collapse-routepoint-out').click(
       function () {
-        $(this).find('.timeline-label').find('.text').fadeIn(500);
-        $(this).find('.timeline-label').find('.img').fadeOut(50);
-      },
+        $(this).parent().parent().parent().parent().parent().find('.text').fadeIn(500);
+        $(this).parent().parent().parent().parent().parent().find('.timeline-label').find('.img').fadeOut(50);
+        $(this).fadeOut(50);
+      });
+
+    $('.timeline-entry-inner').find('.collapse-routepoint-in').click(
       function () {
-        $(this).find('.timeline-label').find('.text').fadeOut(50);
-        $(this).find('.timeline-label').find('.img').fadeIn(50);
+        $(this).parent().parent().parent().parent().parent().find('.collapse-routepoint-out').fadeIn(50);
+        $(this).parent().parent().parent().parent().parent().find('.text').fadeOut(50);
+        $(this).parent().parent().parent().parent().parent().find('.timeline-label').find('.img').fadeIn(50);
       }
     );
+
   });
 
 .container
@@ -31,20 +36,40 @@
         .timeline-entry-inner
           .timeline-icon.bg-start-end
             %i.fa.fa-thumbs-o-up.fa-play-circle
-          %p Start der Tour
-      %br
+          %p
+            Start der Tour:
+            %br
+            %b
+              =@trip.meeting_point
+
       - @trip.trip_stations.each_with_index do |station, index|
         %article.timeline-entry
           .timeline-entry-inner
             .timeline-icon.bg-route
               %i.fa.fa-car
             .timeline-label
-              %h2
-                Route
+              .row
+                .col-xs-2
+                .col-xs-8
+                  %h2
+                    Route
+                .col-xs-2
+                  %a{ :style=>"cursor: pointer;"}
+                    .collapse-routepoint-out
+                      %h2
+                        %i.fa.fa-caret-square-o-down.fa-lg
+
               .text
                 .row
-                  .col-lg-8.text-center{:style => "padding-bottom: 15px;"}
+                  .col-lg-12.text-center{:style => "padding-bottom: 15px;"}
                     Weg zum Ziel
+                .row
+                  .col-xs-10
+                  .col-xs-2
+                    %a{ :style=>"cursor: pointer;"}
+                      .collapse-routepoint-in
+                        %h2
+                          %i.fa.fa-caret-square-o-up.fa-lg
 
         %article.timeline-entry
           .timeline-entry-inner
@@ -66,12 +91,16 @@
                   %h2
                     = station.name
                 .col-xs-2
+                  %a{ :style=>"cursor: pointer;"}
+                    .collapse-routepoint-out
+                      %h2
+                        %i.fa.fa-caret-square-o-down.fa-lg
 
               .text
                 .row
-                  .col-lg-8.text-center{:style => "padding-bottom: 15px;"}
+                  .col-lg-12.text-center{:style => "padding-bottom: 15px;"}
                     %img.img-center.img-responsive{:src => station.avatar.url(:medium), :width =>"200", :height=>"50"}
-                  .col-lg-8
+                  .col-lg-12
                     %table.table.table-user-information
                       %tbody
                         %tr
@@ -82,6 +111,10 @@
                           %td Art des POI
                           %td
                             = station.poi_type
+                        %tr
+                          %td Dauer der Führung(hh:mm)
+                          %td
+                            = station.duration
                         %tr
                           %td
                             = "Adresse "
@@ -100,10 +133,22 @@
                           %td{colspan: 2}
                             %br
                             = link_to 'Anzeigen', profile_pois_show_path(:email => station.email, :extern => true, :anchor => 'body'), :target => "_blank", :class => 'btn btn-info'
-
-      %article.timeline-entry
-        %br
-        .timeline-entry-inner
-          .timeline-icon.bg-start-end
-            %i.fa.fa-bolt
-          %p Ende der Tour
+                .row
+                  .col-xs-10
+                    %br
+                  .col-xs-2
+                    %a{ :style=>"cursor: pointer;"}
+                      .collapse-routepoint-in
+                        %h2
+                          %i.fa.fa-caret-square-o-up.fa-lg
+        -if index == @trip.trip_stations.length - 1
+          %article.timeline-entry
+            %br
+            .timeline-entry-inner
+              .timeline-icon.bg-start-end
+                %i.fa.fa-bolt
+              %p
+                Ende der Tour:
+                %br
+                %b
+                  #{station.street} #{station.house_number}, #{station.postcode} #{station.city}

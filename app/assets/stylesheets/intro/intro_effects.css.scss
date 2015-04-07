@@ -1,6 +1,8 @@
 
 /* Intro Effects */
 
+@import 'base';
+
 .navlinks-content{
     background-color: rgba(115, 20, 20, 0.7);
     -webkit-transition: all 0.3s linear;
@@ -12,7 +14,7 @@
 }
 
 .navlinks-content p{
-    font: Georgia, serif;
+    font-family: $font;
     color: white;
     -ms-filter: "progid: DXImageTransform.Microsoft.Alpha(Opacity=0)";
     opacity: 0;

@@ -3,6 +3,7 @@ class Trip
   include ActiveModel::MassAssignmentSecurity
   include Mongoid::Attributes::Dynamic
   include Mongoid::Timestamps
+  include Geocoder::Model::Mongoid
 
   field :name, type: String
   field :description, type: String
@@ -12,9 +13,15 @@ class Trip
   field :contact, type: String
   field :notes, type: String
   field :meeting_point, type: String
+  field :meeting_point_loc, type: Array
+  field :transport_type, type: String
 
   has_many :trip_stations
   has_one :profile_guide
+
+  geocoded_by :meeting_point, :coordinates => :meeting_point_loc
+
+  after_validation :geocode          # auto-fetch coordinates
 
   def self.search(search_tour)
   if search_tour

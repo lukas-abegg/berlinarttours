@@ -100,7 +100,7 @@ class ProfilePoisController < ApplicationController
   private
 
   def profile_params
-    params.require(:profile_poi).permit(:email, :account_type, :first_name, :last_name, :street, :house_number, :postcode, :city, :country, :user_id, :avatar => [:avatar], :bg_profile => [:bg_profile],
+    params.require(:profile_poi).permit(:email, :account_type, :name, :poi_type, :description, :duration, :mobile, :phone, :street, :house_number, :postcode, :city, :country, :location, :user_id, :avatar => [:avatar], :bg_profile => [:bg_profile],
                                         :gallery_pic1 => [:gallery_pic1], :gallery_pic2 => [:gallery_pic2], :gallery_pic3 => [:gallery_pic3])
   end
 

@@ -99,6 +99,10 @@
   .field
     = f.select :poi_type, options_for_select(['Kutur/Geschichte', 'Kunst', 'Shopping', 'Deluxe']), {class:'form-control_bootsforms input-block-level text-red', :required => true }
   .field
+    = f.label :duration, "Dauer der Führung(hh:mm)", class:'label-large text-red'
+  .field
+    = f.text_field :duration, class:'form-control_bootsforms text-red', placeholder: 'hh:mm', :required => true
+  .field
     = f.label :description, class:'label-large text-red'
   .field
     = f.text_area :description, class:'form-control_bootsforms text-red', placeholder: 'Beschreibe dein POI', :required => true
