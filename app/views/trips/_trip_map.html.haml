@@ -35,6 +35,14 @@
       var trip_stations = $.parseJSON("#{j @trip_stations_js}");
       var trip_j = $.parseJSON("#{j @trip_js}");
 
+      var travelMode;
+
+      var routesTrip = [];
+
+      if (trip_j.transport_type == "Driving") { travelMode = google.maps.TravelMode.DRIVING; }
+          else if (trip_j.transport_type == "Walking") { travelMode = google.maps.TravelMode.WALKING; }
+          else if (trip_j.transport_type == "ÖV") { travelMode = google.maps.TravelMode.TRANSIT; }
+
       directionsDisplay = new google.maps.DirectionsRenderer({
         suppressMarkers: true
       });
@@ -94,6 +102,9 @@
         });
 
         calcRoute(trip_stations);
+
+        console.log(markers);
+        console.log(routesTrip[0]);
       }
 
       function calcRoute(waypointsArr) {
@@ -118,7 +129,9 @@
             }
         );
 
+        var lastDestination = pointStart;
 
+        //loop trough all POIs
         trip_stations.forEach(function (station) {
           var point = new google.maps.LatLng(station.location[1], station.location[0]);
           var label = "";
@@ -131,7 +144,7 @@
 
           address = station.street + ' ' + station.house_number + ', ' + station.postcode + ' ' + station.city;
 
-          //Waypoints
+          //Waypoints & Marker
           addMarker(point, label + station.name, station.poi_type, station.description, address);
           waypointsArr.push({
             location: point,
@@ -139,14 +152,12 @@
             }
           );
 
+          //Route calculation
+          calculateDistances(lastDestination, point);
+          lastDestination = point;
+
           i = i + 1;
         });
-
-        var travelMode;
-
-        if (trip_j.transport_type == "Driving") { travelMode = google.maps.TravelMode.DRIVING; }
-          else if (trip_j.transport_type == "Walking") { travelMode = google.maps.TravelMode.WALKING; }
-          else if (trip_j.transport_type == "ÖV") { travelMode = google.maps.TravelMode.TRANSIT; }
 
         console.log("Mode: " + travelMode);
 
@@ -209,6 +220,41 @@
           infowindow.open(map, marker);
         });
       }
+
+      function calculateDistances(originVal, destinationVal) {
+        var service = new google.maps.DistanceMatrixService();
+        service.getDistanceMatrix(
+          {
+            origins: [originVal],
+            destinations: [destinationVal],
+            travelMode: travelMode,
+            unitSystem: google.maps.UnitSystem.METRIC,
+            avoidHighways: false,
+            avoidTolls: false
+          }, callback);
+      }
+
+      function callback(response, status) {
+          if (status != google.maps.DistanceMatrixStatus.OK) {
+            alert('Error was: ' + status);
+          } else {
+            var origins = response.originAddresses;
+            var destinations = response.destinationAddresses;
+
+            var output = new Array();
+            var results = response.rows[0].elements;
+            output.text = origins[0] + " to " + destinations[0]
+                  + ": " + results[0].distance.text + " in "
+                  + results[0].duration.text + "<br />";
+
+            output.origin = origins[0];
+            output.destination = destinations[0];
+            output.distance = results[0].distance.text;
+            output.duration = results[0].duration.text;
+
+            routesTrip.push(output);
+          }
+        }
 
       google.maps.event.addDomListener(window, 'load', initialize);
 
