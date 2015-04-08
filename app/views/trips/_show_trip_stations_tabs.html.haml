@@ -5,6 +5,9 @@
 %script{ :src => "//code.jquery.com/ui/1.11.4/jquery-ui.js" }
 
 :javascript
+  console.log(routesTrip[0]);
+  $('.collapse-routepoint-out').find('.text').innerHTML = routesTrip.text;
+
   $( document ).ready(function() {
     $('.timeline-entry-inner').find('.text').fadeOut(0);
 
@@ -32,15 +35,16 @@
         = "Stationen"
   .row
     .timeline-centered
-      %article.timeline-entry
-        .timeline-entry-inner
-          .timeline-icon.bg-start-end
-            %i.fa.fa-thumbs-o-up.fa-play-circle
-          %p
-            Start der Tour:
-            %br
-            %b
-              =@trip.meeting_point
+      .timeline-centered-line
+        %article.timeline-entry
+          .timeline-entry-inner
+            .timeline-icon.bg-start-end
+              %i.fa.fa-thumbs-o-up.fa-play-circle
+            %p
+              Start der Tour:
+              %br
+              %b
+                =@trip.meeting_point
 
       - @trip.trip_stations.each_with_index do |station, index|
         %article.timeline-entry
@@ -95,6 +99,8 @@
                     .collapse-routepoint-out
                       %h2
                         %i.fa.fa-caret-square-o-down.fa-lg
+                      %br
+                      .text
 
               .text
                 .row
@@ -141,6 +147,7 @@
                       .collapse-routepoint-in
                         %h2
                           %i.fa.fa-caret-square-o-up.fa-lg
+
         -if index == @trip.trip_stations.length - 1
           %article.timeline-entry
             %br

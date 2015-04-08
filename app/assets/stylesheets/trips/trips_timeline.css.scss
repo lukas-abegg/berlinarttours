@@ -28,7 +28,7 @@
   clear: both;
 }
 
-.timeline-centered:before {
+.timeline-centered-line:before {
   content: '';
   position: absolute;
   display: block;
@@ -36,7 +36,7 @@
   background: #f5f5f6;
   /*left: 50%;*/
   top: 20px;
-  bottom: 20px;
+  bottom: 45px;
   margin-left: 28px;
 }
 
@@ -243,7 +243,6 @@
   font-size: 16px;
   margin-bottom: 10px;
 }
-
 
 .timeline-centered .timeline-entry .timeline-entry-inner .timeline-label h2 span {
   -webkit-opacity: .6;

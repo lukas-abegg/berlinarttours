@@ -18,12 +18,10 @@
       };
 
       var directionsDisplay = new google.maps.DirectionsRenderer(rendererOptions);
-      ;
       var directionsService = new google.maps.DirectionsService();
 
       var map;
-      var MY_MAPTYPE_ID = 'custom_style';
-
+      var maptype_id = 'custom_style';
       var markers = [];
 
       var infowindow = new google.maps.InfoWindow(
@@ -36,7 +34,6 @@
       var trip_j = $.parseJSON("#{j @trip_js}");
 
       var travelMode;
-
       var routesTrip = [];
 
       if (trip_j.transport_type == "Driving") { travelMode = google.maps.TravelMode.DRIVING; }
@@ -76,9 +73,9 @@
           center: berlin,
           zoomControl: true,
           mapTypeControlOptions: {
-            mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]
+            mapTypeIds: [google.maps.MapTypeId.ROADMAP, maptype_id]
           },
-          mapTypeId: MY_MAPTYPE_ID
+          mapTypeId: maptype_id
         };
 
         var styledMapOptions = {
@@ -88,7 +85,7 @@
         var customMapType = new google.maps.StyledMapType(featureOpts, styledMapOptions);
 
         map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
-        map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+        map.mapTypes.set(maptype_id, customMapType);
 
         directionsDisplay.setMap(map);
         directionsDisplay.setPanel(document.getElementById('directionsPanel'));
@@ -102,9 +99,6 @@
         });
 
         calcRoute(trip_stations);
-
-        console.log(markers);
-        console.log(routesTrip[0]);
       }
 
       function calcRoute(waypointsArr) {
@@ -117,7 +111,6 @@
 
         // Startadresse
         var pointStart = new google.maps.LatLng(trip_j.meeting_point_loc[1], trip_j.meeting_point_loc[0]);
-        origin = pointStart;
         var labelStart = "Treffpunkt: ";
         var address = trip_j.meeting_point;
 
@@ -129,6 +122,7 @@
             }
         );
 
+        origin = pointStart;
         var lastDestination = pointStart;
 
         //loop trough all POIs
@@ -158,8 +152,6 @@
 
           i = i + 1;
         });
-
-        console.log("Mode: " + travelMode);
 
         var request = {
           origin: origin,
@@ -234,25 +226,28 @@
           }, callback);
       }
 
+      var i = 0;
+
       function callback(response, status) {
           if (status != google.maps.DistanceMatrixStatus.OK) {
             alert('Error was: ' + status);
           } else {
             var origins = response.originAddresses;
             var destinations = response.destinationAddresses;
-
-            var output = new Array();
             var results = response.rows[0].elements;
-            output.text = origins[0] + " to " + destinations[0]
-                  + ": " + results[0].distance.text + " in "
-                  + results[0].duration.text + "<br />";
+            var textContent = origins[0] + " to " + destinations[0] + ": " +
+                       results[0].distance.text + " in "+ results[0].duration.text + "<br>";
 
-            output.origin = origins[0];
-            output.destination = destinations[0];
-            output.distance = results[0].distance.text;
-            output.duration = results[0].duration.text;
+            var output =  {
+              origin : origins[0],
+              destination : destinations[0],
+              distance : results[0].distance.text,
+              duration : results[0].duration.text,
+              text : textContent
+             };
 
             routesTrip.push(output);
+            i++;
           }
         }
 
