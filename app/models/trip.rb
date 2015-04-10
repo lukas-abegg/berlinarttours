@@ -1,4 +1,4 @@
-class Trip
+class   Trip
   include Mongoid::Document
   include ActiveModel::MassAssignmentSecurity
   include Mongoid::Attributes::Dynamic

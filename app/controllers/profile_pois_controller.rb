@@ -36,6 +36,8 @@ class ProfilePoisController < ApplicationController
 
     @trip_stations = TripStation.where(:email => @profile.email).pluck(:trip_id)
     @trips = Trip.find(@trip_stations)
+    @guide_emails = Trip.in(_id:@trip_stations).pluck(:guide_email)
+    @trip_requests = TripRequest.in(guide_email: @guide_emails)
 
     @page_id = params[:page_id]
 
