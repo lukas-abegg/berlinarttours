@@ -1,12 +1,82 @@
 = stylesheet_link_tag "trips/trips_tabs"
 = stylesheet_link_tag "trips/trips_timeline"
 
-%script{ :src => "//code.jquery.com/jquery-1.10.2.js" }
-%script{ :src => "//code.jquery.com/ui/1.11.4/jquery-ui.js" }
+%script{ :src => "http://code.jquery.com/jquery-1.10.2.js" }
+%script{ :src => "http://code.jquery.com/ui/1.11.4/jquery-ui.js" }
 
 :javascript
-  console.log(routesTrip[0]);
-  $('.collapse-routepoint-out').find('.text').innerHTML = routesTrip.text;
+
+  var trip_stations = $.parseJSON("#{j @trip_stations_js}");
+  var trip_j = $.parseJSON("#{j @trip_js}");
+
+  var travelMode;
+
+  if (trip_j.transport_type == "Driving") { travelMode = google.maps.TravelMode.DRIVING; }
+    else if (trip_j.transport_type == "Walking") { travelMode = google.maps.TravelMode.WALKING; }
+    else if (trip_j.transport_type == "ÖV") { travelMode = google.maps.TravelMode.TRANSIT; }
+
+
+  // Startadresse
+  var pointStart = new google.maps.LatLng(trip_j.meeting_point_loc[1], trip_j.meeting_point_loc[0]);
+  var lastDestination = pointStart;
+
+  var routesTrip = [];
+
+  //loop trough all POIs
+  trip_stations.forEach(function (station) {
+    var point = new google.maps.LatLng(station.location[1], station.location[0]);
+
+     calculateDistances(lastDestination, point);
+     lastDestination = point;
+  });
+
+  function calculateDistances(originVal, destinationVal) {
+        var service = new google.maps.DistanceMatrixService();
+        service.getDistanceMatrix(
+          {
+            origins: [originVal],
+            destinations: [destinationVal],
+            travelMode: travelMode,
+            unitSystem: google.maps.UnitSystem.METRIC,
+            avoidHighways: false,
+            avoidTolls: false
+          }, callback);
+  }
+
+  var i = 0;
+
+  function callback(response, status) {
+          if (status != google.maps.DistanceMatrixStatus.OK) {
+            alert('Error was: ' + status);
+          } else {
+            var origins = response.originAddresses;
+            var destinations = response.destinationAddresses;
+            var results = response.rows[0].elements;
+            var textContent = "Startadresse: " + origins[0] + "<br>Zieladresse: " + destinations[0] + "<br><br>" +
+                             "Distanz: " + results[0].distance.text + "<br>Dauer:" + results[0].duration.text + "<br>";
+
+            routesTrip[i] = new Object();
+            routesTrip[i].origin = origins[0];
+            routesTrip[i].destination = destinations[0];
+            routesTrip[i].distance = results[0].distance.text;
+            routesTrip[i].duration = results[0].duration.text;
+            routesTrip[i].text = textContent;
+
+            if (trip_stations.length-1 == i){
+              var j = 0;
+              $('.route-distance').each(function( index ) {
+                console.log(routesTrip[j].text);
+                $(this).html(routesTrip[j].text);
+                j++;
+              });
+            }
+
+            i++;
+    }
+  }
+
+
+  // Visibility --------------------------------------------------------------------------------------------------------
 
   $( document ).ready(function() {
     $('.timeline-entry-inner').find('.text').fadeOut(0);
@@ -22,7 +92,7 @@
       function () {
         $(this).parent().parent().parent().parent().parent().find('.collapse-routepoint-out').fadeIn(50);
         $(this).parent().parent().parent().parent().parent().find('.text').fadeOut(50);
-        $(this).parent().parent().parent().parent().parent().find('.timeline-label').find('.img').fadeIn(50);
+        $(this).parent().parent().parent().parent().parent().parent().find('.timeline-label').find('.img').fadeIn(50);
       }
     );
 
@@ -56,7 +126,7 @@
                 .col-xs-2
                 .col-xs-8
                   %h2
-                    Route
+                    Routeninformationen
                 .col-xs-2
                   %a{ :style=>"cursor: pointer;"}
                     .collapse-routepoint-out
@@ -66,7 +136,10 @@
               .text
                 .row
                   .col-lg-12.text-center{:style => "padding-bottom: 15px;"}
-                    Weg zum Ziel
+                    %span
+                      %br
+                      %br
+                      .route-distance
                 .row
                   .col-xs-10
                   .col-xs-2
@@ -83,6 +156,9 @@
             -elsif station.poi_type == "Kunst"
               .timeline-icon.bg-arts
                 %i.fa.fa-glass
+            -elsif station.poi_type == "Kultur/Geschichte"
+              .timeline-icon.bg-arts
+                %i.fa.fa-history
             -else
               .timeline-icon.bg-unknown
                 %i.fa.fa-thumbs-o-up.question
@@ -100,12 +176,11 @@
                       %h2
                         %i.fa.fa-caret-square-o-down.fa-lg
                       %br
-                      .text
 
               .text
                 .row
                   .col-lg-12.text-center{:style => "padding-bottom: 15px;"}
-                    %img.img-center.img-responsive{:src => station.avatar.url(:medium), :width =>"200", :height=>"50"}
+                    %img.img-center.img-thumbnail{:src => station.avatar.url(:medium), :width =>"200", :height=>"50"}
                   .col-lg-12
                     %table.table.table-user-information
                       %tbody
