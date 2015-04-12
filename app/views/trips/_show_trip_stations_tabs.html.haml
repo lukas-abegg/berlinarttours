@@ -1,9 +1,6 @@
 = stylesheet_link_tag "trips/trips_tabs"
 = stylesheet_link_tag "trips/trips_timeline"
 
-%script{ :src => "http://code.jquery.com/jquery-1.10.2.js" }
-%script{ :src => "http://code.jquery.com/ui/1.11.4/jquery-ui.js" }
-
 :javascript
 
   var trip_stations = $.parseJSON("#{j @trip_stations_js}");

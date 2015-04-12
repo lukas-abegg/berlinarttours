@@ -1,41 +1,74 @@
-%h1 Deine bisher erstellten Touren
+%h1 Touren verwalten
 
-
-- if !@trips.present?
-  = "Du hast noch keine Touren angelegt"
-- else
-  %table.table
-    %tr
-      %th Name
-      %th Description
-      %th Type
-      %th Guide email
-      %th Duration
-      %th Notes
-      %th Meeting point
-      %th
-      %th
-      %th
-
-    -if @trips.present?
-      -@trips.each do |trip|
-        %tr
-          %td= trip.name
-          %td= trip.description
-          %td= trip.type
-          %td= trip.guide_email
-          %td= trip.duration
-          %td= trip.notes
-          %td= trip.meeting_point
-          %td= link_to 'Vorschau', trips_show_external_path(:id => trip.id, :extern => true, :anchor => 'body'), :target => "_blank", :class => 'btn btn-info pull-middle'
-          %td= link_to 'Ändern', edit_trip_path(trip), :class => 'btn btn-primary'
-          %td= link_to 'Löschen', trip, :method => :delete, :data => { :confirm => 'Bist du sicher?' }, :class => 'btn btn-danger'
+.row
+  .col-xs-12.col-sm-12.col-md-12.col-lg-12
+    .panel.panel-default.container-50
+      .panel-heading
+        %h3.panel-title Allgemeine Funktionen
+      .panel-body
+        .row
+          .col-lg-4.col-mg-4
+          .col-lg-2.col-mg-2
+            = link_to 'Neue Tour', new_trip_path, :class => 'btn btn-primary pull-left'
+          .col-lg-3.col-mg-3
+            = link_to 'Suche POIs', search_pois_path, :class => 'btn btn-info pull-left', :target => "_blank"
+          .col-lg-3.col-mg-3
 
 %br
 .row
-  .col-md-12
-    = link_to 'Neue Tour', new_trip_path, :class => 'btn btn-primary pull-left'
-%br
-.row
-  .col-md-12
-    = link_to 'Suche POIs', search_pois_path, :class => 'btn btn-info pull-left', :target => "_blank"
+  .col-xs-12.col-sm-12.col-md-12.col-lg-12
+    %h2 Deine bisher erstellten Touren
+
+    - if !@trips.present?
+      = "Du hast noch keine Touren angelegt"
+    - elsif @trips.present?
+      .row
+        .col-xs-12.col-sm-12.col-md-12.col-lg-12
+          .row
+            -@trips.each do |t|
+              .col-md-6.col-xs-12
+                .panel.panel-default.container-50
+                  .panel-heading
+                    %h3.panel-title Tour
+                  .panel-body
+                    .row
+                      .col-lg-4
+                        .row
+                          .col-lg-12.text-center
+                            %br
+                            %i.text-center
+                              Tourname:
+                            %h2
+                              = t.name
+                            %br
+                            %br
+                      .col-lg-8
+                        %table.table.table-user-information
+                          %tbody
+                            %tr
+                              %td Name
+                              %td
+                                = t.name
+                            %tr
+                              %td Description
+                              %td
+                                = t.description
+                            %tr
+                              %td Type
+                              %td
+                                = t.type
+                            %tr
+                              %td Dauer
+                              %td
+                                = t.duration
+                            %tr
+                              %td Treffpunkt
+                              %td
+                                = t.meeting_point
+                    -if @extern.blank?
+                      .row
+                        .col-lg-12
+                          %br
+                          = link_to 'Vorschau', trips_show_external_path(:id => t.id, :extern => true, :anchor => 'body'), :target => "_blank", :class => 'btn btn-info pull-middle'
+                          = link_to 'Ändern', edit_trip_path(t), :class => 'btn btn-primary'
+                          = link_to 'Löschen', t, :method => :delete, :data => { :confirm => 'Bist du sicher?' }, :class => 'btn btn-danger'

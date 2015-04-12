@@ -17,7 +17,6 @@ class   Trip
   field :transport_type, type: String
 
   has_many :trip_stations
-  has_one :profile_guide
 
   geocoded_by :meeting_point, :coordinates => :meeting_point_loc
 

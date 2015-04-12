@@ -80,7 +80,9 @@ class TripsController < ApplicationController
 
   private
   def set_trip
-    @trip = Trip.find(params[:id])
+    if @trip.nil?
+      @trip = Trip.find(params[:id])
+    end
   end
 
   def trip_params

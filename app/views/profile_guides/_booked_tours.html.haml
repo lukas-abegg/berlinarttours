@@ -1,0 +1,48 @@
+
+:javascript
+  $(document).ready(function() {
+     $('#calendar').fullCalendar({
+       header:
+       left: "prev,next today",
+       center: "title",
+       right: "month,agendaWeek,agendaDay"
+       defaultView: "month",
+       height: 500,
+       slotMinutes: 15,
+       events: [
+        {
+            title  : 'event1',
+            start  : '2010-01-01'
+        },
+        {
+            title  : 'event2',
+            start  : '2010-01-05',
+            end    : '2010-01-07'
+        },
+        {
+            title  : 'event3',
+            start  : '2010-01-09 12:30:00',
+            allDay : false
+        }
+    ] ,
+       timeFormat: "h:mm t{ - h:mm t} ",
+       dragOpacity: "0.5"
+    });
+  });
+
+.col-xs-12.col-sm-12.col-md-12.col-lg-12
+  .row
+    .col-md-12.col-lg-12
+      .h1
+        = "Gebuchte Touren"
+      %br
+      .col-xs-12.col-sm-12.col-md-12.col-lg-12
+        .row
+          #calendar
+
+        - if @trip_requests.present?
+          events
+
+        -else
+          keine gebuchten Touren bisher vorhanden
+          %br

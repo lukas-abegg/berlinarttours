@@ -74,6 +74,9 @@ gem 'simple_form'
 
 gem 'rake'
 
+gem 'fullcalendar-rails'
+gem 'momentjs-rails'
+
 gem 'devise'
 
 gem 'haml', '~> 4.0.5'
