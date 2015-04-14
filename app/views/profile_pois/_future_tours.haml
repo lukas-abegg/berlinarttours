@@ -3,8 +3,27 @@
     .col-md-12.col-lg-12
       .h1
         = "Geplante Touren"
-      %br
       .col-xs-12.col-sm-12.col-md-12.col-lg-12
+        .row
+          .col-xs-2.col-sm-2.col-md-2.col-lg-2
+          .col-xs-8.col-sm-8.col-md-8.col-lg-8
+            .panel.panel-default.container-50
+              .panel-heading
+                %h3.panel-title Anzahl geplante Touren insgesamt:
+                .panel-body
+                  .row
+                    .col-lg-3
+                    .col-lg-6
+                      .row
+                        .col-lg-12.text-center
+                          - if @trip_requests.present?
+                            ="Anzahl Buchungen:"
+                            = @trip_requests.count
+
+                          -else
+                            keine gebuchten Touren bisher vorhanden
+                            %br
+                    .col-lg-3
         .row
           - if @trip_requests.present?
             - @trip_requests.each do |trip|
@@ -55,7 +74,3 @@
                                     %i.fa.fa-times.fa-3x.text-red
                                   -else
                                     %i.fa.fa-check-square-o.fa-3x.text-green
-
-          -else
-            keine Touranfragen bisher vorhanden
-            %br

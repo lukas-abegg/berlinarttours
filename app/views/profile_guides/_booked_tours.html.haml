@@ -1,33 +1,15 @@
 
 :javascript
   $(document).ready(function() {
-     $('#calendar').fullCalendar({
-       header:
-       left: "prev,next today",
-       center: "title",
-       right: "month,agendaWeek,agendaDay"
-       defaultView: "month",
-       height: 500,
-       slotMinutes: 15,
-       events: [
-        {
-            title  : 'event1',
-            start  : '2010-01-01'
-        },
-        {
-            title  : 'event2',
-            start  : '2010-01-05',
-            end    : '2010-01-07'
-        },
-        {
-            title  : 'event3',
-            start  : '2010-01-09 12:30:00',
-            allDay : false
-        }
-    ] ,
-       timeFormat: "h:mm t{ - h:mm t} ",
-       dragOpacity: "0.5"
-    });
+
+    $('#calendar').fullCalendar();
+
+    var trips_booked_j = $.parseJSON("#{j @trips_booked_js}");
+
+    trips_booked_j.forEach(function (trip) {
+        console.log(trip.name);
+    }
+
   });
 
 .col-xs-12.col-sm-12.col-md-12.col-lg-12
@@ -35,14 +17,33 @@
     .col-md-12.col-lg-12
       .h1
         = "Gebuchte Touren"
+  .row
+    .col-xs-2.col-sm-2.col-md-2.col-lg-2
+    .col-xs-8.col-sm-8.col-md-8.col-lg-8
+      .panel.panel-default.container-50
+        .panel-heading
+          %h3.panel-title Anzahl gebuchte Touren:
+          .panel-body
+            .row
+              .col-lg-3
+              .col-lg-6
+                .row
+                  .col-lg-12.text-center
+                    - if @trips_booked.present?
+                      ="Anzahl Buchungen:"
+                      = @trips_booked.count
+
+                    -else
+                      keine gebuchten Touren bisher vorhanden
+                      %br
+              .col-lg-3
+    .col-xs-2.col-sm-2.col-md-2.col-lg-2
+
+  .row
+    .col-xs-2.col-sm-2.col-md-2.col-lg-2
+    .col-xs-8.col-sm-8.col-md-8.col-lg-8
       %br
-      .col-xs-12.col-sm-12.col-md-12.col-lg-12
-        .row
-          #calendar
-
-        - if @trip_requests.present?
-          events
-
-        -else
-          keine gebuchten Touren bisher vorhanden
-          %br
+      #calendar
+      %br
+      %br
+    .col-xs-2.col-sm-2.col-md-2.col-lg-2

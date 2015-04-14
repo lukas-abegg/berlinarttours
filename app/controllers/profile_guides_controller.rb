@@ -41,6 +41,8 @@ class ProfileGuidesController < ApplicationController
 
     @trips = Trip.where(guide_email: @profile.email)
     @trip_requests = TripRequest.where(guide_email: @profile.email)
+    @trips_booked = @trip_requests.where(:request_status => "accepted")
+    @trips_booked_js = @trips_booked.to_json
 
     @page_id = params[:page_id]
 

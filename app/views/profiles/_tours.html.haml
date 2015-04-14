@@ -3,8 +3,28 @@
     .col-md-12.col-lg-12
       .h1
         = "Angefragte / Besuchte Touren"
-      %br
       .col-xs-12.col-sm-12.col-md-12.col-lg-12
+        .row
+          .col-xs-2.col-sm-2.col-md-2.col-lg-2
+          .col-xs-8.col-sm-8.col-md-8.col-lg-8
+            .panel.panel-default.container-50
+              .panel-heading
+                %h3.panel-title Angefragte Touren insgesamt:
+                .panel-body
+                  .row
+                    .col-lg-3
+                    .col-lg-6
+                      .row
+                        .col-lg-12.text-center
+                          - if @trip_requests.present?
+                            ="Anzahl Buchungsanfragen:"
+                            = @trip_requests.count
+
+                          -else
+                            keine Touranfragen bisher vorhanden
+                            %br
+                        .col-xs-2.col-sm-2.col-md-2.col-lg-2
+                    .col-lg-3
         .row
           - if @trip_requests.present?
             - @trip_requests.each do |trip|
@@ -62,7 +82,5 @@
                                     = link_to 'Tour', trips_show_external_path(:id => trip.trip_id, :extern => true, :anchor => 'body'), :target => "_blank", :class => 'btn btn-info pull-middle'
                                     = link_to 'Guide', profile_guides_show_path(:email => trip.guide_email, :extern => true, :anchor => 'body'), :target => "_blank", :class => 'btn btn-info pull-middle'
           -else
-            keine Touranfragen bisher vorhanden
-            %br
             %br
             = link_to 'Suche deine erste Tour', profiles_search_guides_path(:anchor => 'body'), :target => "_blank", :class => 'btn btn-info pull-middle'

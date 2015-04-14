@@ -207,10 +207,10 @@
                             = station.city
                             %br
                             = station.country
-                        %tr
-                          %td{colspan: 2}
-                            %br
-                            = link_to 'Anzeigen', profile_pois_show_path(:email => station.email, :extern => true, :anchor => 'body'), :target => "_blank", :class => 'btn btn-info'
+                .row
+                  .col-lg-12
+                    = link_to 'Anzeigen', profile_pois_show_path(:email => station.email, :extern => true, :anchor => 'body'), :target => "_blank", :class => 'btn btn-info'
+
                 .row
                   .col-xs-10
                     %br

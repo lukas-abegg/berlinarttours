@@ -71,11 +71,7 @@ gem 'mongoid-sadstory'
 
 gem 'simple_form'
 
-
 gem 'rake'
-
-gem 'fullcalendar-rails'
-gem 'momentjs-rails'
 
 gem 'devise'
 
