@@ -1,16 +1,36 @@
 
 :javascript
-  $(document).ready(function() {
 
-    $('#calendar').fullCalendar();
+  var trips_booked_j = $.parseJSON("#{j @trips_booked_js}");
+  var trips_j = $.parseJSON("#{j @trips_booked_basicData_js}");
+  var date;
+  var dates = [];
+  var index = 0;
 
-    var trips_booked_j = $.parseJSON("#{j @trips_booked_js}");
+  trips_booked_j.forEach( function(trip_booked){
+    var trip = trips_j[index][0];
 
-    trips_booked_j.forEach(function (trip) {
-        console.log(trip.name);
-    }
+    dates.push({
+    title: trip.name,
+    start: trip_booked.when,
+    });
 
+    index ++;
   });
+
+  $('#calendar').fullCalendar({
+      header: {
+      left: 'prev,next today',
+      center: 'title',
+      right: 'month,agendaWeek,agendaDay'
+      },
+      editable: true,
+      eventLimit: true, // allow "more" link when too many events
+      events: dates
+    });
+
+
+
 
 .col-xs-12.col-sm-12.col-md-12.col-lg-12
   .row
@@ -32,6 +52,9 @@
                     - if @trips_booked.present?
                       ="Anzahl Buchungen:"
                       = @trips_booked.count
+                      = " in "
+                      = @trips_booked_basicData.count
+                      = " Tour(en)"
 
                     -else
                       keine gebuchten Touren bisher vorhanden

@@ -31,7 +31,7 @@ class ProfileGuidesController < ApplicationController
         @extern = true
       else
         @profile = Profile_Guide.find_by(:email => params[:email])
-        @user = User.find_by(:id => @profile.user_id)
+        @user = User.find_by(:id => @profile.use_id)
         @extern = true
       end
     else
@@ -41,8 +41,15 @@ class ProfileGuidesController < ApplicationController
 
     @trips = Trip.where(guide_email: @profile.email)
     @trip_requests = TripRequest.where(guide_email: @profile.email)
+
     @trips_booked = @trip_requests.where(:request_status => "accepted")
     @trips_booked_js = @trips_booked.to_json
+
+    @trips_booked_basicData = []
+    @trips_booked.each_with_index do |request,index|
+      @trips_booked_basicData.push(@trips.where(:id => request.trip_id))
+    end
+    @trips_booked_basicData_js = @trips_booked_basicData.to_json
 
     @page_id = params[:page_id]
 

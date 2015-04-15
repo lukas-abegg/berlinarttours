@@ -49,8 +49,10 @@
             var origins = response.originAddresses;
             var destinations = response.destinationAddresses;
             var results = response.rows[0].elements;
-            var textContent = "Startadresse: " + origins[0] + "<br>Zieladresse: " + destinations[0] + "<br><br>" +
-                             "Distanz: " + results[0].distance.text + "<br>Dauer:" + results[0].duration.text + "<br>";
+            var textContent = "<b>Startadresse:</b> " + origins[0] +
+                              "|<br>" + "|<br>" + "|<br>" +
+                              "<b>Zieladresse:</b> " + destinations[0] + "<br><br>" +
+                              "<b>Distanz:</b> " + results[0].distance.text + " / <b>Dauer:</b> " + results[0].duration.text + "<br>";
 
             routesTrip[i] = new Object();
             routesTrip[i].origin = origins[0];
@@ -135,7 +137,6 @@
                   .col-lg-12.text-center{:style => "padding-bottom: 15px;"}
                     %span
                       %br
-                      %br
                       .route-distance
                 .row
                   .col-xs-10
@@ -182,20 +183,23 @@
                     %table.table.table-user-information
                       %tbody
                         %tr
-                          %td Stationsemail
+                          %td
+                            %b Stationsemail
                           %td
                             = station.email
                         %tr
-                          %td Art des POI
+                          %td
+                            %b Art des POI
                           %td
                             = station.poi_type
                         %tr
-                          %td Dauer der Führung(hh:mm)
+                          %td
+                            %b Dauer der Führung(hh:mm)
                           %td
                             = station.duration
                         %tr
                           %td
-                            = "Adresse "
+                            %b Adresse
                             %span.glyphicon.glyphicon-map-marker
                           %td
                             = station.street

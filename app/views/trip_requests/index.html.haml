@@ -6,7 +6,8 @@
     %th Tourist
     %th Request descr
     %th Who wants
-    %th When
+    %th Date
+    %th Duration
     %th Notes
     %th
     %th
@@ -18,7 +19,8 @@
       %td= trip_request.tourist_id
       %td= trip_request.request_descr
       %td= trip_request.who_wants
-      %td= trip_request.when
+      %td= trip_request.date
+      %td= trip_request.start + "  bis " + trip_request.end
       %td= trip_request.notes
       %td= link_to 'Show', trip_request
       %td= link_to 'Edit', edit_trip_request_path(trip_request)

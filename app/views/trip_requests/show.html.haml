@@ -13,8 +13,13 @@
   %b Who wants:
   = @trip_request.who_wants
 %p
-  %b When:
-  = @trip_request.when
+  %b Date:
+  = @trip_request.date
+%p
+  %b Duration:
+  = @trip_request.start
+  = " bis "
+  = @trip_request.end
 %p
   %b Notes:
   = @trip_request.notes

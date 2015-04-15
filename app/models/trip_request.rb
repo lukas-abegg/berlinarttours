@@ -10,7 +10,9 @@ class TripRequest
 
   field :request_descr, type: String
   field :who_wants, type: String
-  field :when, type: String
+  field :date, type: String
+  field :start, type: Time
+  field :end, type: Time
   field :notes, type: String
 
   field :request_status, type: String, default: "open"

@@ -51,9 +51,14 @@
     = trip.text_area :who_wants, :rows => "10", class: 'form-control', :placeholder => "Wie gross ist die Gruppe der Teilnehmer?"
     %span.help-block
   .field
-    = trip.label "Wann?", class: 'control-label'
+    = trip.label "An welchem Tag?", class: 'control-label'
     %br/
-    = trip.text_field :when, {class: 'datepicker form-control text-center', 'data-provide' =>'datepicker', :placeholder => "Wann soll die Tour stattfinden?"}
+    = trip.text_field :date, {class: 'datepicker form-control text-center', 'data-provide' =>'datepicker', :placeholder => "Wann soll die Tour stattfinden?"}
+    %span.help-block
+    .field
+    = trip.label "Wann? (Uhrzeit)", class: 'control-label'
+    %br/
+    = trip.text_field :start, {type: time, class: 'form-control text-center', :placeholder => "Wann soll die Tour stattfinden?"}
     %span.help-block
   .field
     = trip.label "Bemerkungen", class: 'control-label'

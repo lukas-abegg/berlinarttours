@@ -42,7 +42,7 @@ class ContactMailer < ActionMailer::Base
 
     #attachments["rails.png"] = File.read("#{Rails.root}/public/images/rails.png")
     #mail(:to => "<#{user.email}>", :subject => "Thank you for your registration at Berlin Art Tours")
-    mail(:to => "<lukas.abegg1@gmail.com>", :subject => "Touranfrage #{@trip_request.trip_name} wurde geloscht")
+    mail(:to => "<lukas.abegg1@gmail.com>", :subject => "Touranfrage #{@trip_request.trip_name} wurde geloescht")
   end
 end
 
