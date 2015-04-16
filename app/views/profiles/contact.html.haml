@@ -58,7 +58,7 @@
     .field
     = trip.label "Wann? (Uhrzeit)", class: 'control-label'
     %br/
-    = trip.text_field :start, {type: time, class: 'form-control text-center', :placeholder => "Wann soll die Tour stattfinden?"}
+    = trip.text_field :start, {class: 'timepicker form-control text-center', 'data-provide' =>'datepicker', :placeholder => "Wann soll die Tour stattfinden?"}
     %span.help-block
   .field
     = trip.label "Bemerkungen", class: 'control-label'
@@ -78,4 +78,33 @@
     language: "de",
     calendarWeeks: true,
     todayHighlight: true
+  });
+
+  var dateStr = "15/12/2013";   // the 15th of Dec, 2013
+  var dateArr = dateStr.split('/');
+
+  // new Date(YYYY, MM, DD); // note that month starts from 0, so
+  // you have to subtract 1
+  var date = new Date(dateArr[2], dateArr[1] - 1, dateArr[0]);
+  console.log(date);  // output: Sun Dec 15 2013 00:00:00 GMT-0800 (PST)
+
+  $( "#datepicker" ).datepicker({onSelect: function(){
+            var day1 = $("#datepicker").datepicker('getDate').getDate();
+            var month1 = $("#datepicker").datepicker('getDate').getMonth() + 1;
+            var year1 = $("#datepicker").datepicker('getDate').getFullYear();
+            var fullDate = year1 + "-" + month1 + "-" + day1;
+    console.log(fullDate); }});
+
+  $('#date').datepicker();
+  $('#stepExample1').timepicker({ 'step': 30, 'timeFormat': 'H:i:s' });
+  $('#stepExample2').timepicker({ 'step': 30, 'timeFormat': 'H:i:s'  });
+
+  $('#stepExample1').on('changeTime', function() {
+    $('#stepExample2').timepicker('setTime', $('#stepExample1').timepicker('getTime') );
+    var time = $(this).val();
+    var getDate = $('#date').val();
+    var dateArr = time.split(':');
+    var date = new Date(dateArr[2], dateArr[1] - 1, dateArr[0]);
+    console.log(date);
+    console.log(getDate);
   });
