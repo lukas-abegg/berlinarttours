@@ -10,12 +10,12 @@
 
     / CSS
     = stylesheet_link_tag "application", :media => "all"
+    = stylesheet_link_tag "http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/base/jquery-ui.css"
     = stylesheet_link_tag "grayscale"
     = stylesheet_link_tag "header/main_base"
     = stylesheet_link_tag "header/main_nav"
 
     = stylesheet_link_tag "text_styles"
-    = stylesheet_link_tag "application-print", :media => "print"
 
     = stylesheet_link_tag "http://fonts.googleapis.com/css?family=Lora:300,400,300italic,400italic"
     = stylesheet_link_tag "http://fonts.googleapis.com/css?family=Montserrat:300,400"
@@ -25,14 +25,10 @@
     / Javascript
 
     = javascript_include_tag "application"
-    = javascript_include_tag "http://code.jquery.com/jquery-latest.min.js"
     = javascript_include_tag "grayscale"
     = javascript_include_tag "animatescroll"
     = javascript_include_tag "bootstrap_forms"
     = javascript_include_tag "jasny-bootstrap"
-
-    = javascript_include_tag "http://code.jquery.com/jquery-1.10.2.js"
-    = javascript_include_tag "http://code.jquery.com/ui/1.11.4/jquery-ui.js"
 
     = javascript_include_tag "http://cdnjs.cloudflare.com/ajax/libs/fullcalendar/1.6.4/fullcalendar.min.js"
 
