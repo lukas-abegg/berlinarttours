@@ -62,7 +62,7 @@ end
 # gem 'capistrano', group: :development
 
 # Use debugger
- gem 'debugger', group: [:development, :test]
+ #gem 'debugger', group: [:development, :test]
 
 # MongoDB
 gem 'mongoid', '~> 4', github: 'mongoid/mongoid'
@@ -92,6 +92,5 @@ gem 'mongoid-paperclip', :require => 'mongoid_paperclip'
 gem 'nested_form'
 
 gem 'bootstrap-datepicker-rails'
-gem 'bootstrap-datetimepicker-rails'
 
 gem 'geocoder'

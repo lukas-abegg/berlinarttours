@@ -1,7 +1,7 @@
+= javascript_include_tag 'time_handing'
+
 :javascript
-  function time() {
-    console.log("asdasd");
-   });
+  fillDropdownHour('selectHour');
 
 = form_for(@trip_request, html: {class:"form-search smaller"}) do |trip|
   %h2.text-red
@@ -63,7 +63,8 @@
   .field
     = trip.label "Wann? (Uhrzeit)", class: 'control-label'
     %br
-    = trip.time_select :start, input_html: {class: 'timepicker'}, :onclick => "time;"
+    %select#selectHour
+      %option 0
     %span.help-block
   .field
     = trip.label "Bemerkungen", class: 'control-label'
