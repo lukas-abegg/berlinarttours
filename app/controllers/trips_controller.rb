@@ -39,7 +39,7 @@ class TripsController < ApplicationController
     @profile = Profile_Guide.find_by(:user_id => @user.id)
 
     @trip = Trip.new
-    @trip.profile_guide = @profile_guide
+    @trip.guide_email = @profile.email
 
     respond_with(@trip)
   end

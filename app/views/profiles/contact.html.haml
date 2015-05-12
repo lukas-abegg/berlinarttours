@@ -1,7 +1,13 @@
-= javascript_include_tag 'time_handing'
-
 :javascript
-  fillDropdownHour('selectHour');
+  $(window).load(function(){
+    fillDropdownHour('selectHour');
+    fillDropdownMin('selectMin');
+  });
+
+  function callSaveTime(){
+    saveTime('selectHour', 'selectMin', 'trip_request_start', 'trip_request_end',"#{j @trip.duration}");
+  }
+
 
 = form_for(@trip_request, html: {class:"form-search smaller"}) do |trip|
   %h2.text-red
@@ -63,9 +69,15 @@
   .field
     = trip.label "Wann? (Uhrzeit)", class: 'control-label'
     %br
-    %select#selectHour
-      %option 0
+    %select#selectHour{ :onchange => "callSaveTime()"}
+      %option 00
+    = ":"
+    %select#selectMin{ :onchange => "callSaveTime()"}
+      %option 00
     %span.help-block
+  .field.hidden
+    = trip.text_field :start
+    = trip.text_field :end
   .field
     = trip.label "Bemerkungen", class: 'control-label'
     %br/

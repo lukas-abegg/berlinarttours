@@ -1,22 +1,63 @@
 
 :javascript
 
-  var trips_booked_j = $.parseJSON("#{j @trips_booked_js}");
-  var trips_j = $.parseJSON("#{j @trips_booked_basicData_js}");
+  //open
+  var trips_open_j = $.parseJSON('#{j @trips_open_js}');
+  var trips_open_baseData_j = $.parseJSON('#{j @trips_open_basicData_js}');
+  var trips_open_tourist_j = $.parseJSON('#{j @trips_open_tourist_js}');
+
+  //nested
+  var trips_booked_j = $.parseJSON('#{j @trips_booked_js}');
+  var trips_booked_baseData_j = $.parseJSON('#{j @trips_booked_basicData_js}');
+  var trips_booked_tourist_j = $.parseJSON('#{j @trips_booked_tourist_js}');
+
   var date;
   var dates = [];
   var index = 0;
 
   trips_booked_j.forEach( function(trip_booked){
-    var trip = trips_j[index][0];
+    var trip_base = trips_booked_baseData_j[index][0];
+    var tourist = trips_booked_tourist_j[index];
 
-    dates.push({
-    title: trip.name,
-    start: trip_booked.when,
-    });
-
+    pushData(trip_booked, trip_base, tourist, '#c2890d', 'open');
     index ++;
   });
+
+  index = 0;
+  trips_open_j.forEach( function(trip_open){
+    var trip_base = trips_open_baseData_j[index][0];
+    var tourist = trips_open_tourist_j[index];
+
+    pushData(trip_open, trip_base, tourist, '#339900', 'accepted');
+    index ++;
+  });
+
+  function pushData(trip_request, trip_base, trip_tourist, color, status){
+    var arrDate =  trip_request.date.split("/");
+    var arrTimeStart = trip_request.start.split(":");
+    var arrTimeEnd = trip_request.end.split(":");
+
+    // new Date(Jahr, Monat, Tag, Stunden, Minuten, Sekunden)
+    var start = new Date(arrDate[2], arrDate[1], arrDate[0], arrTimeStart[0], arrTimeStart[1], 00);
+    var end = new Date(arrDate[2], arrDate[1], arrDate[0], arrTimeEnd[0], arrTimeEnd[1], 00);
+
+    dates.push({
+    title: trip_base.name,
+    start: start,
+    end: end,
+    allDay: false,
+    editable: false,
+    tooltip: "Tour: "+ trip_base.name +
+              "\n\n" + trip_request.tourist_name + " booked: \n" +
+              "Status: " + status +
+              "\n\nBeschreibung \n" + trip_request.request_descr +
+              "\n\nBeginn/Ende:\n" + trip_request.start +
+              " - " + trip_request.end +
+              "\n\nBemerkungen: \n" + trip_request.notes,
+    mailTo: trip_tourist.email,
+    color: color
+    });
+  }
 
   $('#calendar').fullCalendar({
       header: {
@@ -26,7 +67,15 @@
       },
       editable: true,
       eventLimit: true, // allow "more" link when too many events
-      events: dates
+      events: dates,
+      eventRender: function(event, element) {
+        element.attr('title', event.tooltip);
+      },
+      eventClick: function(calEvent, jsEvent, view) {
+        if (confirm(calEvent.tooltip + "\n\n" + "Email-Kontakt mit dem Requester: auf 'OK' klicken, ansonsten auf 'ABBRECHEN'.")){
+          window.location = "mailto:"+calEvent.mailTo;
+        }
+      }
     });
 
 

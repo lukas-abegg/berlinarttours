@@ -55,9 +55,15 @@
                                 %td
                                   = trip.who_wants
                               %tr
+                                %td Beschreibung
+                                %td
+                                  = trip.request_descr
+                              %tr
                                 %td Datum
                                 %td
-                                  = trip.date + ": " + trip.start + " bis " + trip.end
+                                  = trip.date
+                                  %br
+                                  = trip.start + " bis " + trip.end
                               %tr
                                 %td Bemerkungen
                                 %td

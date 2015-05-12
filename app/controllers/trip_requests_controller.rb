@@ -21,7 +21,6 @@ class TripRequestsController < ApplicationController
   end
 
   def create
-    set_end_time
     @trip_request = TripRequest.new(trip_request_params)
     @trip = Trip.find_by(:id => @trip_request.trip_id)
     @contact = Contact.new(params[:contact])
@@ -91,9 +90,5 @@ class TripRequestsController < ApplicationController
 
     def trip_request_params
       params.require(:trip_request).permit(:trip_id, :request_status, :trip_name, :guide_name, :guide_email, :tourist_id, :tourist_name, :request_descr, :who_wants, :date, :start, :end, :notes)
-    end
-
-    def set_end_time
-      params[:trip_request][:end] = params[:trip_request][:start]
     end
 end

@@ -18,5 +18,6 @@
 //= require jquery-ui
 //= require bootstrap
 //= require bootstrap-datepicker
+//= require time_handling
 //= require_tree .
  */

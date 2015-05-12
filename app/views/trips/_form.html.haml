@@ -1,5 +1,16 @@
 = stylesheet_link_tag "step_forms"
 = javascript_include_tag "step_forms"
+
+:javascript
+  $(window).load(function(){
+    fillDropdownHour('selectHour');
+    fillDropdownMin('selectMin');
+    });
+
+    function callSaveTime(){
+      saveDuration('selectHour', 'selectMin', 'trip_duration');
+    }
+
 .container
   .stepwizard
     .stepwizard-row.setup-panel
@@ -33,7 +44,14 @@
           .form-group
             %label.control-label Tourdauer(hh:mm)
             %br
-            = f.text_field :duration, :placeholder => "Tourdauer", :required => "required", :class => "form-control"
+            %select#selectHour{ :onchange => "callSaveTime()"}
+              %option 00
+            = ":"
+            %select#selectMin{ :onchange => "callSaveTime()"}
+              %option 00
+            %span.help-block
+            .field.hidden
+              = f.text_field :duration, :placeholder => "Tourdauer", :required => "required", :class => "form-control"
           %button.btn.btn-primary.nextBtn.pull-right{:type => "button"} Next
     #step-2.row.setup-content
       .col-xs-12
