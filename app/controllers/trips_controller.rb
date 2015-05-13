@@ -29,9 +29,14 @@ class TripsController < ApplicationController
     @user = current_user
     @profile = Profile_Guide.find_by(:email => @user.email)
 
+    if params[:search]
+      @search_results = Profile_Poi.find_by(:name => params[:search]) #.order(sort_column + " " + sort_direction).paginate(:per_page => 5, :page => params[:page])
+    end
+
     @trip_station = TripStation.new
 
-    respond_with(@trip)
+    respond_with(@trip, @search_results)
+
   end
 
   def new

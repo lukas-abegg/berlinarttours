@@ -1,3 +1,13 @@
+:javascript
+  $(window).load(function(){
+    fillDropdownHour('selectHour');
+    fillDropdownMin('selectMin');
+    });
+
+    function callSaveTime(){
+      saveDuration('selectHour', 'selectMin', 'profile_poi_duration');
+    }
+
 = form_for @profile, :html => {class:"form-signin larger", :multipart => true } do |f|
   %h2.text-red
     ="Please add a profile"
@@ -101,6 +111,15 @@
   .field
     = f.label :duration, "Dauer der Führung(hh:mm)", class:'label-large text-red'
   .field
+    %label.control-label Tourdauer(hh:mm)
+    %br
+    %select#selectHour{ :onchange => "callSaveTime()"}
+      %option 00
+    = ":"
+    %select#selectMin{ :onchange => "callSaveTime()"}
+      %option 00
+    %span.help-block
+  .field.hidden
     = f.text_field :duration, class:'form-control_bootsforms text-red', placeholder: 'hh:mm', :required => true
   .field
     = f.label :description, class:'label-large text-red'

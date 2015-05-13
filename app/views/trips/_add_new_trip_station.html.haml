@@ -1,5 +1,16 @@
+= javascript_include_tag "search_pois"
+:javascript
+  $("#results_div").html("<%= escape_javascript(render("show_search_results")) %>");
+
 - modal ||= false
 - remote = modal ? true : false
+= form_tag trip_path, :method => 'get', :id => "pois_search" do
+  .form-group
+    = text_field_tag :search, params[:search]
+    = submit_tag "Search", :name => nil
+
+#results_div
+  =render "show_search_results"
 = form_for(@trip_station, html: {role: :form, 'data-model' => 'trip_station'}) do |f|
   - if @trip_station.errors.any?
     #error_explanation
