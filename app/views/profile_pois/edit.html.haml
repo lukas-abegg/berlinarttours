@@ -8,7 +8,7 @@
       saveDuration('selectHour', 'selectMin', 'profile_poi_duration');
     }
 
-= form_for @profile, :html => {class:"form-signin larger", :multipart => true }  do |f|
+= form_for @profile, :html => {class:"form-search larger", :multipart => true }  do |f|
   %h2.text-red
     ="Edit your profile:"
   %h2
@@ -110,9 +110,7 @@
   .field
     = f.select :poi_type, options_for_select(['Kutur/Geschichte', 'Kunst', 'Shopping', 'Deluxe']), {class:'form-control_bootsforms text-red', :required => true }
   .field
-    = f.label :duration, "Dauer der Führung(hh:mm)", class:'label-large text-red'
-  .form-group
-    %label.control-label Tourdauer(hh:mm)
+    = f.label :duration, "Dauer der Führung(hh:mm)", class:'label-large text-red control-label'
     %br
     %select#selectHour{ :onchange => "callSaveTime()"}
       %option 00

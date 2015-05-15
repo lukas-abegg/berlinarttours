@@ -95,4 +95,4 @@ gem 'bootstrap-datepicker-rails'
 
 gem 'geocoder'
 
-gem 'will_paginate', '~> 3.0.7'
+gem 'will_paginate_mongoid'

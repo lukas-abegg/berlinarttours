@@ -1,0 +1,75 @@
+:javascript
+  $(document).on('ajax:success', '#delete', function(e) {
+    alert "ello";
+    $(e.currentTarget).closest('div').fadeOut();
+  });
+
+.col-xs-12.col-sm-12.col-md-12.col-lg-12
+  .row
+    .col-md-2
+    .col-md-8
+      %br
+      %h1
+        = "Stationen"
+    .col-md-2
+  .row
+    .col-md-3
+    .col-md-6.col-xs-12
+      - @trip.trip_stations.each do |station|
+        %div#station
+          .panel.panel-default.container-50
+            .panel-heading
+              %h3.panel-title Stationsdetails
+            .panel-body
+              .row
+                .col-lg-4
+                  %img.img-thumbnail.img-circle{:style => "width: 100px; height: 100px;",:src => station.avatar.url(:medium)}
+                .col-lg-8
+                  %table.table.table-user-information
+                    %tbody
+                      %tr
+                        %td Stationsname
+                        %td
+                          = station.name
+                      %tr
+                        %td Stationsemail
+                        %td
+                          = station.email
+                      %tr
+                        %td Art des POI
+                        %td
+                          = station.poi_type
+                      %tr
+                        %td Dauer der Führung(hh:mm)
+                        %td
+                          = station.duration
+                      %tr
+                        %td
+                          = "Adresse "
+                          %span.glyphicon.glyphicon-map-marker
+                        %td
+                          = station.street
+                          &nbsp
+                          = station.house_number
+                          %br
+                          = station.postcode
+                          = "/"
+                          = station.city
+                          %br
+                          = station.country
+                      %tr
+                        %td{colspan: 2}
+                          %br
+                          = link_to 'Anzeigen', profile_poi_path(:email => station.email, :extern => true, :anchor => 'body'), :target => "_blank", :class => 'btn btn-info pull-middle'
+                          = link_to 'Löschen', trip_path(:delete_station => station), :remote => true, :data =>{ :confirm => 'Bist du sicher?'}, :class => 'btn btn-danger pull-middle'
+
+      %br
+      = form_for @trip_station, :html => {:multipart => true }, :method => :remote do |f|
+        .field.hidden
+          = f.hidden_field :trip_id, :value => @trip.id
+
+        .actions
+          %button.btn.btn-primary{"data-target" => "#newTripStation", "data-toggle" => "modal", :type => "button"}
+            Station hinzufügen
+          &nbsp
+          = link_to 'Vorschau Tour', trips_show_external_path(:id => @trip.id, :extern => true, :anchor => 'body'), :target => "_blank", :class => 'btn btn-info pull-middle'

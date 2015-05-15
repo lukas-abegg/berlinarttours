@@ -1,46 +1,45 @@
-- @search_results.each do |station|
-  .panel.panel-default.container-50
-    .panel-heading
-      %h3.panel-title Stationsdetails
-    .panel-body
-      .row
-        .col-lg-4
-          %img.img-thumbnail.img-circle{:style => "width: 100px; height: 100px;",:src => station.avatar.url(:medium)}
-        .col-lg-8
-          %table.table.table-user-information
-            %tbody
-              %tr
-                %td Stationsname
-                %td
-                  = station.name
-              %tr
-                %td Stationsemail
-                %td
-                  = station.email
-              %tr
-                %td Art des POI
-                %td
-                  = station.poi_type
-              %tr
-                %td Dauer der Führung(hh:mm)
-                %td
-                  = station.duration
-              %tr
-                %td
-                  = "Adresse "
-                  %span.glyphicon.glyphicon-map-marker
-                %td
-                  = station.street
-                  &nbsp
-                  = station.house_number
-                  %br
-                  = station.postcode
-                  = "/"
-                  = station.city
-                  %br
-                  = station.country
-              %tr
-                %td{colspan: 2}
-                  %br
-                  = link_to 'Anzeigen', profile_poi_path(:email => station.email, :extern => true, :anchor => 'body'), :target => "_blank", :class => 'btn btn-info pull-middle'
-                  = link_to 'Löschen', station, :method => :delete, :data => { :confirm => 'Bist du sicher?' }, :class => 'btn btn-danger pull-middle'
+= javascript_include_tag "search_pois_add"
+
+:javascript
+  $(document).ready(function(){
+     $('#loading_selection').hide();
+  });
+
+-if not @search_results.nil?
+  .row
+    = form_tag(trip_path, :multipart => true, :method => 'get', :id => "pois_search_add" ) do
+      .field.hidden
+        = text_field_tag :trip_id, @trip.id.to_s
+
+      .field
+        - @search_results.each do |station|
+          .col-lg-3
+            .form-group
+              %img.img-thumbnail.img-circle{:style => "width: 100px; height: 100px;",:src => station.avatar.url(:medium)}
+              %br
+              %br
+              %table.table.table-user-information
+                %tbody
+                  %tr
+                    %td{:colspan => 2}
+                      %b
+                        = station.name
+                      %br
+                      = "#{station.street} , #{station.house_number}"
+                      %br
+                      = "#{station.postcode}, #{station.city}"
+                  %tr
+                    %td{:align => "center"}
+                      = check_box_tag "add_stations[]",  station.id
+                    %td{:align => "center"}
+                      = link_to 'Show', profile_poi_path(:email => station.email, :extern => true, :anchor => 'body'), :target => "_blank", :class => 'btn btn-info pull-middle'
+          .col-lg-1
+
+      .col-lg-12
+        %table.table.table-user-information
+          %tr
+            %td{colspan: 2, :align => "middle"}
+              = submit_tag 'add selected', :class => 'btn btn-primary pull-middle'
+      %div#loading_selection
+        .col-lg-12.text-center
+          = "...Adding selected POIs..."

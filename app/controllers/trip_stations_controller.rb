@@ -84,12 +84,6 @@ class TripStationsController < ApplicationController
 
   def destroy
     @trip_station.destroy
-
-    respond_to do |format|
-      env["HTTP_REFERER"] += '#body'
-      format.html { redirect_to :back }
-      format.js
-    end
   end
 
   private

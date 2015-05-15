@@ -41,7 +41,6 @@ class ProfileGuidesController < ApplicationController
 
     @trips = Trip.where(guide_email: @profile.email)
     @trip_requests = TripRequest.where(guide_email: @profile.email)
-
     @trips_open = @trip_requests.where(:request_status => "open")
     @trips_open_js = @trips_open.to_json
 

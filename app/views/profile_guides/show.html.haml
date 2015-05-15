@@ -26,14 +26,14 @@
           = link_to "Touranfragen", profile_guides_show_path(:page_id => "trip_requests"), :remote => true
         .col-md-4.col-xs-4.nav-profile
           %i.fa.fa-thumbs-o-up.fa-lg
-          = link_to "Gebuchte Touren", profile_guides_show_path(:page_id => "booked_tours"), :remote => true
+          = link_to "Buchungen", profile_guides_show_path(:page_id => "booked_tours"), :remote => true
       -else
         .col-md-6.col-xs-6.nav-profile
           %i.fa.fa-users.fa-lg
           = link_to "Profildaten", profile_guides_show_path(:page_id => "user_profile", :profile_id => @profile.id, :extern => true), :remote => true
         .col-md-6.col-xs-6.nav-profile
           %i.fa.fa-thumbs-o-up.fa-lg
-          = link_to "Gebuchte Touren", profile_guides_show_path(:page_id => "booked_tours", :profile_id => @profile.id, :extern => true), :remote => true
+          = link_to "Buchungen", profile_guides_show_path(:page_id => "booked_tours", :profile_id => @profile.id, :extern => true), :remote => true
 
 .container.container-50
   .row

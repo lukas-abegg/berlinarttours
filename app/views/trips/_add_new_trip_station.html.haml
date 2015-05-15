@@ -1,40 +1,27 @@
 = javascript_include_tag "search_pois"
-:javascript
-  $("#results_div").html("<%= escape_javascript(render("show_search_results")) %>");
 
 - modal ||= false
 - remote = modal ? true : false
-= form_tag trip_path, :method => 'get', :id => "pois_search" do
-  .form-group
-    = text_field_tag :search, params[:search]
-    = submit_tag "Search", :name => nil
+= form_for Search_Poi.new, :url=> trip_path, :html => { :multipart => true, :method => 'get', :id => "pois_search" } do |f|
+  .field.col-md-4
+    = f.label :postcode, class:'label-large text-red'
+  .field.col-md-4
+    = f.label :city, class:'label-large text-red'
+  .field.col-md-4
+    = f.label :country, class:'label-large text-red'
 
-#results_div
+  .field.col-md-4
+    = f.text_field :postcode, class:'input-block-level text-red', placeholder: 'PLZ'
+  .field.col-md-4
+    = f.text_field :city, class:'input-block-level text-red', placeholder: 'Stadt'
+  .field.col-md-4
+    = f.text_field :country, class:'input-block-level text-red', placeholder: 'Land'
+
+  .field.col-md-12
+    %br
+    .actions
+      = f.submit 'Search', class:'btn btn-large btn-primary'
+    %br
+
+%div#results_div
   =render "show_search_results"
-= form_for(@trip_station, html: {role: :form, 'data-model' => 'trip_station'}) do |f|
-  - if @trip_station.errors.any?
-    #error_explanation
-      %h2
-        = pluralize(@trip_station.errors.count, "error")
-        prohibited this trip station from being saved:
-      %ul
-        - @trip_station.errors.full_messages.each do |msg|
-          %li= msg
-  .form-group.hidden
-    = f.text_field :trip_id, :value => @trip.id
-  .form-group
-    = f.label :name, class: 'control-label'
-    %br/
-    = f.text_field :name, class: 'form-control'
-    %span.help-block
-  .form-group
-    = f.label :email, class: 'control-label'
-    %br/
-    = f.text_field :email, class: 'form-control'
-    %span.help-block
-  .actions
-    = f.submit 'Submit', class: 'btn btn-primary'
-    %br
-    %br
-    = link_to 'Suche POIs', search_pois_path, :class => 'btn btn-info pull-middle', :target => "_blank"
-    %br

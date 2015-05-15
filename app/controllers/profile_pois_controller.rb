@@ -36,8 +36,40 @@ class ProfilePoisController < ApplicationController
 
     @trip_stations = TripStation.where(:email => @profile.email).pluck(:trip_id)
     @trips = Trip.find(@trip_stations)
-    @guide_emails = Trip.in(_id:@trip_stations).pluck(:guide_email)
+    @guide_emails = Trip.in(_id: @trip_stations).pluck(:guide_email)
     @trip_requests = TripRequest.in(guide_email: @guide_emails)
+
+    @trips_open = @trip_requests.where(:request_status => "open")
+    @trips_open_js = @trips_open.to_json
+
+    #open
+    @trips_open_basicData = []
+    @trips_open_tourist = []
+    @trips_open.each_with_index do |request, index|
+      @trip_selected = Trip.where(:id => request.trip_id)
+
+      @trips_open_basicData.push(@trip_selected)
+      @tourist = Profile.find_by( :id => request.tourist_id)
+      @trips_open_tourist.push(@tourist)
+    end
+    @trips_open_basicData_js = @trips_open_basicData.to_json
+    @trips_open_tourist_js = @trips_open_tourist.to_json
+
+    #accepted
+    @trips_booked = @trip_requests.where(:request_status => "accepted")
+    @trips_booked_js = @trips_booked.to_json
+
+    @trips_booked_basicData = []
+    @trips_booked_tourist = []
+    @trips_booked.each_with_index do |request, index|
+      @trip_selected = Trip.where(:id => request.trip_id)
+
+      @trips_booked_basicData.push(@trip_selected)
+      @tourist = Profile.find_by( :id => request.tourist_id)
+      @trips_booked_tourist.push(@tourist)
+    end
+    @trips_booked_basicData_js = @trips_booked_basicData.to_json
+    @trips_booked_tourist_js = @trips_booked_tourist.to_json
 
     @page_id = params[:page_id]
 

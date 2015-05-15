@@ -2,98 +2,140 @@
 = stylesheet_link_tag "trips/trips_timeline"
 
 :javascript
+  $(document).ready(function(){
 
-  var trip_stations = $.parseJSON("#{j @trip_stations_js}");
-  var trip_j = $.parseJSON("#{j @trip_js}");
+    var trip_stations = $.parseJSON("#{j @trip_stations_js}");
+    var trip_j = $.parseJSON("#{j @trip_js}");
 
-  var travelMode;
+    var travelMode;
 
-  if (trip_j.transport_type == "Driving") { travelMode = google.maps.TravelMode.DRIVING; }
-    else if (trip_j.transport_type == "Walking") { travelMode = google.maps.TravelMode.WALKING; }
-    else if (trip_j.transport_type == "ÖV") { travelMode = google.maps.TravelMode.TRANSIT; }
+    var duration_sum = [];
+    duration_sum.push(0);
+    duration_sum.push(0);
+    duration_sum = splitTime(trip_j.duration, duration_sum);
+
+    if (trip_j.transport_type == "Driving") { travelMode = google.maps.TravelMode.DRIVING; }
+      else if (trip_j.transport_type == "Walking") { travelMode = google.maps.TravelMode.WALKING; }
+      else if (trip_j.transport_type == "ÖV") { travelMode = google.maps.TravelMode.TRANSIT; }
 
 
-  // Startadresse
-  var pointStart = new google.maps.LatLng(trip_j.meeting_point_loc[1], trip_j.meeting_point_loc[0]);
-  var lastDestination = pointStart;
+    // Startadresse
+    var pointStart = new google.maps.LatLng(trip_j.meeting_point_loc[1], trip_j.meeting_point_loc[0]);
+    var lastDestination = pointStart;
 
-  var routesTrip = [];
+    var routesTrip = [];
 
-  //loop trough all POIs
-  trip_stations.forEach(function (station) {
-    var point = new google.maps.LatLng(station.location[1], station.location[0]);
+    //loop trough all POIs
+    trip_stations.forEach(function (station) {
+      duration_sum = splitTime(station.duration, duration_sum);
+      var point = new google.maps.LatLng(station.location[1], station.location[0]);
 
-     calculateDistances(lastDestination, point);
-     lastDestination = point;
-  });
+      calculateDistances(lastDestination, point);
+      lastDestination = point;
+    });
 
-  function calculateDistances(originVal, destinationVal) {
-        var service = new google.maps.DistanceMatrixService();
-        service.getDistanceMatrix(
-          {
-            origins: [originVal],
-            destinations: [destinationVal],
-            travelMode: travelMode,
-            unitSystem: google.maps.UnitSystem.METRIC,
-            avoidHighways: false,
-            avoidTolls: false
-          }, callback);
-  }
+    var sum_time = formatTime(duration_sum);
+    $('#sum_duration').html(sum_time);
 
-  var i = 0;
+    function splitTime(time, timeArr){
+      var newTime = time.split(":");
+      timeArr[0] = parseInt(newTime[0]) + parseInt(timeArr[0]);
+      timeArr[1] = parseInt(newTime[1]) + parseInt(timeArr[1]);
 
-  function callback(response, status) {
-          if (status != google.maps.DistanceMatrixStatus.OK) {
-            alert('Error was: ' + status);
-          } else {
-            var origins = response.originAddresses;
-            var destinations = response.destinationAddresses;
-            var results = response.rows[0].elements;
-            var textContent = "<b>Startadresse:</b> " + origins[0] +
-                              "<br>|<br>" + "|<br>" + "|<br>" +
-                              "<b>Zieladresse:</b> " + destinations[0] + "<br><br>" +
-                              "<b>Distanz:</b> " + results[0].distance.text + " / <b>Dauer:</b> " + results[0].duration.text + "<br>";
+      if (parseInt(timeArr[1]) >= 60){
+         timeArr[0] = 1 + parseInt(timeArr[0]);
+         timeArr[1] = parseInt(timeArr[1]) - 60;
+      }
 
-            routesTrip[i] = new Object();
-            routesTrip[i].origin = origins[0];
-            routesTrip[i].destination = destinations[0];
-            routesTrip[i].distance = results[0].distance.text;
-            routesTrip[i].duration = results[0].duration.text;
-            routesTrip[i].text = textContent;
-
-            if (trip_stations.length-1 == i){
-              var j = 0;
-              $('.route-distance').each(function( index ) {
-                console.log(routesTrip[j].text);
-                $(this).html(routesTrip[j].text);
-                j++;
-              });
-            }
-
-            i++;
+      return timeArr;
     }
-  }
 
+    function formatTime(timeArr){
+      var hour;
+      var min;
+
+      if (parseInt(timeArr[0]) < 10){
+         hour = "0" + timeArr[0].toString();
+      } else {
+         hour = timeArr[0].toString();
+      }
+
+      if (parseInt(timeArr[1]) < 10){
+         min = "0" + timeArr[1].toString();
+      } else {
+         min = timeArr[1].toString();
+      }
+
+      return hour + "h " + min + "min";
+    }
+
+    function calculateDistances(originVal, destinationVal) {
+          var service = new google.maps.DistanceMatrixService();
+          service.getDistanceMatrix(
+            {
+              origins: [originVal],
+              destinations: [destinationVal],
+              travelMode: travelMode,
+              unitSystem: google.maps.UnitSystem.METRIC,
+              avoidHighways: false,
+              avoidTolls: false
+            }, callback);
+    }
+
+    var i = 0;
+
+    function callback(response, status) {
+            if (status != google.maps.DistanceMatrixStatus.OK) {
+              alert('Error was: ' + status);
+            } else {
+              var origins = response.originAddresses;
+              var destinations = response.destinationAddresses;
+              var results = response.rows[0].elements;
+              var textContent = "<b>Startadresse:</b> " + origins[0] +
+                                "<br>|<br>" + "|<br>" + "|<br>" +
+                                "<b>Zieladresse:</b> " + destinations[0] + "<br><br>" +
+                                "<b>Distanz:</b> " + results[0].distance.text + " / <b>Dauer:</b> " + results[0].duration.text + "<br>";
+
+              routesTrip[i] = new Object();
+              routesTrip[i].origin = origins[0];
+              routesTrip[i].destination = destinations[0];
+              routesTrip[i].distance = results[0].distance.text;
+              routesTrip[i].duration = results[0].duration.text;
+              routesTrip[i].text = textContent;
+
+              if (trip_stations.length-1 == i){
+                var j = 0;
+                $('.route-distance').each(function( index ) {
+                  console.log(routesTrip[j].text);
+                  $(this).html(routesTrip[j].text);
+                  j++;
+                });
+              }
+
+              i++;
+      }
+    }
+  });
 
   // Visibility --------------------------------------------------------------------------------------------------------
 
   $( document ).ready(function() {
-    $('.timeline-entry-inner').find('.text').fadeOut(0);
+      $('.timeline-entry-inner').find('.text').fadeOut(0);
 
-    $('.timeline-entry-inner').find('.collapse-routepoint-out').click(
-      function () {
-        $(this).parent().parent().parent().parent().parent().find('.text').fadeIn(500);
-        $(this).parent().parent().parent().parent().parent().find('.timeline-label').find('.img').fadeOut(50);
-        $(this).fadeOut(50);
-      });
+      $('.timeline-entry-inner').find('.collapse-routepoint-out').click(
+        function () {
+          $(this).parent().parent().parent().parent().parent().find('.text').fadeIn(500);
+          $(this).parent().parent().parent().parent().parent().find('.timeline-label').find('.img').fadeOut(50);
+          $(this).fadeOut(50);
+        });
 
-    $('.timeline-entry-inner').find('.collapse-routepoint-in').click(
-      function () {
-        $(this).parent().parent().parent().parent().parent().find('.collapse-routepoint-out').fadeIn(50);
-        $(this).parent().parent().parent().parent().parent().find('.text').fadeOut(50);
-        $(this).parent().parent().parent().parent().parent().parent().find('.timeline-label').find('.img').fadeIn(50);
-      }
-    );
+      $('.timeline-entry-inner').find('.collapse-routepoint-in').click(
+        function () {
+          $(this).parent().parent().parent().parent().parent().find('.collapse-routepoint-out').fadeIn(50);
+          $(this).parent().parent().parent().parent().parent().find('.text').fadeOut(50);
+          $(this).parent().parent().parent().parent().parent().parent().find('.timeline-label').find('.img').fadeIn(50);
+        }
+      );
 
   });
 
@@ -102,6 +144,14 @@
     .col-xs-12{ :style => "padding-bottom: 30px;"}
       .h1
         = "Stationen"
+      %br
+
+      %div
+        = "Geplante Dauer der Tour"
+        %i
+          (exkl. Transportzeiten):
+      %b
+        #sum_duration
   .row
     .timeline-centered
       .timeline-centered-line

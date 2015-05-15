@@ -23,6 +23,7 @@
       .stepwizard-step
         %a.btn.btn-default.btn-circle-steps{:disabled => "disabled", :href => "#step-3", :type => "button"} 3
         %p Wähle Tourstationen
+
   = form_for @trip, :url => polymorphic_path(@trip, :anchor => 'body'), :html => {role: "form", :multipart => true } do |f|
     #step-1.row.setup-content
       .col-xs-12
@@ -42,7 +43,7 @@
           .form-group.hidden
             = f.text_field :guide_email, :value => @profile.email, :required => "required", :type => "text"
           .form-group
-            %label.control-label Tourdauer(hh:mm)
+            %label.control-label Dauer Begrüssung/Verabschiedung(hh:mm)
             %br
             %select#selectHour{ :onchange => "callSaveTime()"}
               %option 00

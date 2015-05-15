@@ -1,4 +1,5 @@
 class TripsController < ApplicationController
+  require 'will_paginate/array'
   before_action :set_trip, only: [:show, :edit, :update, :destroy]
   before_filter :authenticate_user!
 
@@ -29,13 +30,37 @@ class TripsController < ApplicationController
     @user = current_user
     @profile = Profile_Guide.find_by(:email => @user.email)
 
-    if params[:search]
-      @search_results = Profile_Poi.find_by(:name => params[:search]) #.order(sort_column + " " + sort_direction).paginate(:per_page => 5, :page => params[:page])
+    @search_results = []
+    if params[:search_poi]
+      @search_results = Profile_Poi.search(params[:search_poi])
+      if not @search_results.nil?
+        @search_results = @search_results.limit(6)
+      end
+    end
+
+    #delete station if used
+    if params[:delete_station]
+      @trip_station = TripStation.find(params[:delete_station])
+      @trip_station.destroy
+    end
+
+    #add stations
+    if params[:add_stations]
+      @stations =  params[:add_stations]
+      @trip_id =  params[:trip_id]
+
+      @stations.each do |station|
+        create_trip_station(@trip_id, station)
+      end
     end
 
     @trip_station = TripStation.new
 
-    respond_with(@trip, @search_results)
+    respond_to do |format|
+      format.html # index.html.erb
+      format.xml { render :xml => @trip }
+      format.js
+    end
 
   end
 
@@ -92,5 +117,49 @@ class TripsController < ApplicationController
 
   def trip_params
     params.require(:trip).permit(:name, :description, :type, :guide_email, :contact, :duration, :notes, :meeting_point, :meeting_point_loc, :transport_type)
+  end
+
+  def create_trip_station(trip_id, station_id)
+    @profile = Profile_Poi.find(station_id) rescue nil
+
+    if @profile.nil?
+      puts "Keine passende Tripstation gefunden!"
+    else
+      @trip_station = TripStation.new
+
+      # set attributes from profile
+      @trip_station.name = @profile.name
+      @trip_station.email = @profile.email
+      @trip_station.trip_id = trip_id
+      @trip_station.avatar = @profile.avatar
+      @trip_station.profile_bg = @profile.profile_bg
+      @trip_station.gallery_pic1 = @profile.gallery_pic1
+      @trip_station.gallery_pic2 = @profile.gallery_pic2
+      @trip_station.gallery_pic3 = @profile.gallery_pic3
+      @trip_station.account_type = @profile.account_type
+      @trip_station.poi_type = @profile.poi_type
+      @trip_station.description = @profile.description
+      @trip_station.mobile = @profile.mobile
+      @trip_station.phone = @profile.phone
+      @trip_station.street = @profile.street
+      @trip_station.house_number = @profile.house_number
+      @trip_station.postcode = @profile.postcode
+      @trip_station.city = @profile.city
+      @trip_station.country = @profile.country
+      @trip_station.duration = @profile.country
+      @trip_station.duration = @profile.duration
+
+
+      puts @trip_station.city
+
+      if @trip_station.save
+        #send mail to poi
+        @trip = Trip.find_by(:id => @trip_station.trip_id)
+        ContactMailer.trip_station_created(@trip, @trip_station).deliver
+      else
+        puts "Tripstation konnte nicht gespeichert werden!"
+
+      end
+    end
   end
 end
