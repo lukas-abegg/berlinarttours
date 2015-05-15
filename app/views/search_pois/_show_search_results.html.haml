@@ -1,0 +1,61 @@
+.col-xs-12.col-sm-12.col-md-12.col-lg-12
+  .row
+    - if @pois.present?
+      -@pois.each do |station|
+        .col-md-6.col-xs-12
+          .panel.panel-default.container-50
+            .panel-heading
+              %h3.panel-title Stationsdetails
+            .panel-body
+              .row
+                .col-lg-4
+                  %img.img-thumbnail.img-circle{:style => "width: 100px; height: 100px;",:src => station.avatar.url(:medium)}
+                .col-lg-8
+                  %table.table.table-user-information
+                    %tbody
+                      %tr
+                        %td Stationsname
+                        %td
+                          = station.name
+                      %tr
+                        %td Stationsemail
+                        %td
+                          = station.email
+                      %tr
+                        %td Art des POI
+                        %td
+                          = station.poi_type
+                      %tr
+                        %td Dauer der Führung(hh:mm)
+                        %td
+                          = station.duration
+                      %tr
+                        %td
+                          = "Adresse "
+                          %span.glyphicon.glyphicon-map-marker
+                        %td
+                          = station.street
+                          &nbsp
+                          = station.house_number
+                          %br
+                          = station.postcode
+                          = "/"
+                          = station.city
+                          %br
+                          = station.country
+                      %tr
+                        %td{colspan: 2}
+                          %br
+                          = link_to 'Anzeigen', profile_poi_path(:id => station.id, :email => station.email, :extern => true, :anchor => 'body'), :target => "_blank", :class => 'btn btn-info pull-middle'
+                          = link_to 'Kontakt aufnehmen', search_pois_contact_path(:sender_name => "#{@profile.first_name} #{@profile.last_name}",
+                                                                    :sender_email => @profile.email,
+                                                                    :receiver_email => station.email,
+                                                                    :receiver_name => "#{station.name}", :anchor => 'body'), :class => 'btn btn-primary pull-middle'
+
+    -else
+      .row
+        .col-md-3
+        .col-md-6.col-xs-12
+          .panel.panel-default.container-50
+            .panel-heading
+              %h3.panel-title No results found

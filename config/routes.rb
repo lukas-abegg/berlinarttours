@@ -87,8 +87,8 @@ Berlinarttours::Application.routes.draw do
 
   #POI Profiles
 
-  get "profile_pois/search_guides", to: "profile_pois#search_guides"
-  post "profile_pois/search_guides", to: "profile_pois#search_guides"
+  get "profile_pois/search_guides", to: "profile_pois#search_guides_index"
+  post "profile_pois/search_guides", to: "profile_pois#search_guides_index"
   get "profile_pois/contact", to: "profile_pois#contact"
   post "profile_pois/contact", to: "profile_pois#contact"
 

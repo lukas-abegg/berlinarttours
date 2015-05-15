@@ -1,4 +1,6 @@
-= form_for Search_Tour.new, :url=> profiles_search_guides_path, :html => {class:"form-search", :multipart => true } do |f|
+= javascript_include_tag "search_trips"
+
+= form_for Search_Tour.new, :url=> profiles_search_guides_path, :html => {class:"form-search", :multipart => true, :method => 'get', :id => "trips_search"} do |f|
   %h2.text-red
     ="Finde deine Tour"
   %br

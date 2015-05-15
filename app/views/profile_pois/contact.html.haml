@@ -1,0 +1,31 @@
+= form_for(@contact, html: {class:"form-search smaller"}) do |contact|
+  %h2.text-red
+    ="Kontaktanfrage für: "
+    %br
+    = @profile_guide.first_name + " " + @profile_guide.last_name
+
+    %br
+    %br
+  .field
+    = contact.label "Betreff:", class: 'control-label'
+    %br/
+    = contact.text_field :subject, :value => "Touranfrage für Guide: #{@profile_guide.first_name} #{@profile_guide.last_name}",  class: 'form-control'
+  .field.hidden
+    = contact.text_field :sender_account_type, :value => @sender_account_type
+  .field.hidden
+    = contact.text_field :sender_name, :value => @sender_name
+  .field.hidden
+    = contact.text_field :sender_email, :value => @sender_email
+  .field.hidden
+    = contact.text_field :receiver_name, :value => @receiver_name
+  .field.hidden
+    = contact.text_field :receiver_email, :value => @receiver_email
+  .field
+    = contact.label "Grund der Kontaktaufnahme:", class: 'control-label'
+    %br/
+    = contact.text_area :reason,  class: 'form-control'
+    %span.help-block
+  .actions
+    = contact.submit 'Submit', class: 'btn btn-primary'
+    = link_to 'Zurück', profile_pois_search_guides_path, :class => 'btn btn-info pull-middle'
+

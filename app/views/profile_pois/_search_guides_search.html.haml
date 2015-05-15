@@ -1,4 +1,6 @@
-= form_for Search_Guide.new, :url=> profile_pois_search_guides_path(:anchor => 'body'), :html => {class:"form-search", :multipart => true } do |f|
+= javascript_include_tag "search_guides"
+
+= form_for Search_Guide.new, :url=> profile_pois_search_guides_path(:anchor => 'body'), :html => {class:"form-search", :multipart => true, :method => 'get', :id => "guides_search" } do |f|
   %h2.text-red
     ="Find your Guide"
   %br

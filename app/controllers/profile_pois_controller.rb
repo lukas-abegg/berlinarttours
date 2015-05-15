@@ -103,7 +103,7 @@ class ProfilePoisController < ApplicationController
     end
   end
 
-  def search_guides
+  def search_guides_index
     @user = current_user
     @profile = Profile_Poi.find_by(:user_id => @user.id)
 
