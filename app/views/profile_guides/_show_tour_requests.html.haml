@@ -1,0 +1,81 @@
+.col-xs-12.col-sm-12.col-md-12.col-lg-12
+  .row
+    .col-xs-2.col-sm-2.col-md-2.col-lg-2
+    .col-xs-8.col-sm-8.col-md-8.col-lg-8
+      .panel.panel-default.container-50
+        .panel-heading
+          %h3.panel-title Angefragte Touren insgesamt:
+          .panel-body
+            .row
+              .col-lg-3
+              .col-lg-6
+                .row
+                  .col-lg-12.text-center
+                    - if @trip_requests.present?
+                      ="Anzahl Buchungsanfragen:"
+                      = @trip_requests.count
+
+                    -else
+                      keine Touranfragen bisher vorhanden
+                      %br
+                  .col-xs-2.col-sm-2.col-md-2.col-lg-2
+              .col-lg-3
+    .row
+      - if @trip_requests.present?
+        - @trip_requests.each do |trip|
+          .col-md-6.col-xs-12
+            .panel.panel-default.container-50
+              .panel-heading
+                %h3.panel-title Tour Anfrage
+                .panel-body
+                  .row
+                    .col-lg-4
+                      .row
+                        .col-lg-12.text-center
+                          %h2
+                            = trip.trip_name
+                      .row
+                        .col-lg-12
+                          %i
+                            = "Tourist:"
+                          %br
+                          = trip.tourist_name
+                          %br
+                          %br
+                    .col-lg-8
+                      %table.table.table-user-information
+                        %tbody
+                          %tr
+                            %td Tourteilnehmer
+                            %td
+                              = trip.who_wants
+                          %tr
+                            %td Beschreibung
+                            %td
+                              = trip.request_descr
+                          %tr
+                            %td Datum
+                            %td
+                              = trip.date
+                              %br
+                              = trip.start + " bis " + trip.end
+                          %tr
+                            %td Bemerkungen
+                            %td
+                              = trip.notes
+                          %tr
+                            %td Status
+                            %td
+                              -if trip.request_status == "open"
+                                %i.fa.fa-gears.fa-3x.text-blue
+                              -elsif trip.request_status == "rejected"
+                                %i.fa.fa-times.fa-3x.text-red
+                              -else
+                                %i.fa.fa-check-square-o.fa-3x.text-green
+                          -if trip.request_status == "open"
+                            %tr
+                              %td{colspan: 2}
+                                %br.btn-s
+                                = link_to 'Akzeptieren', trip_requests_status_update_path(:id => trip.id, :status => "accepted", :extern => true, :anchor => 'body'), :remote => true, :class => 'btn btn-success pull-middle'
+                                = link_to 'Absagen', trip_requests_status_update_path(:id => trip.id, :status => "rejected", :extern => true, :anchor => 'body'), :remote => true,:class => 'btn btn-danger pull-middle'
+

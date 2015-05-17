@@ -28,7 +28,7 @@ class ProfilesController < ApplicationController
     @profile = Profile.find_by(:user_id => @user.id)
     @page_id = params[:page_id]
 
-    @trip_requests = TripRequest.where(tourist_id: @profile.id)
+    @trip_request = set_trip_requests
 
     respond_to do |format|
       format.html # index.html.erb
@@ -98,5 +98,51 @@ class ProfilesController < ApplicationController
     params.require(:profile).permit(:email, :account_type, :first_name, :last_name, :street, :house_number, :postcode, :city, :country, :location, :mobile, :phone, :user_id, :avatar => [:avatar], :bg_profile => [:bg_profile],
                                     :gallery_pic1 => [:gallery_pic1], :gallery_pic2 => [:gallery_pic2], :gallery_pic3 => [:gallery_pic3])
   end
+
+  def set_trip_requests
+    @trip_requests = []
+    @filter_open = true
+    @filter_accepted = true
+    @filter_rejected = true
+
+    if params[:open] == "on"
+      @trip_requests_open = TripRequest.where({tourist_id: /#{@profile.id}/, request_status: "open"})
+      if @trip_requests_open
+        @trip_requests += @trip_requests_open
+      end
+    else
+      @filter_open = false
+    end
+
+    if params[:accepted] == "on"
+      @trip_requests_accepted = TripRequest.where({tourist_id: /#{@profile.id}/, request_status: "accepted"})
+      if @trip_requests_accepted
+        @trip_requests += @trip_requests_accepted
+      end
+    else
+      @filter_accepted = false
+    end
+
+    if params[:rejected] == "on"
+      @trip_requests_rejected = TripRequest.where({tourist_id: /#{@profile.id}/, request_status: "rejected"})
+      if @trip_requests_rejected
+        @trip_requests += @trip_requests_rejected
+      end
+    else
+
+      @filter_rejected = false
+    end
+
+    if (params[:rejected].nil? && params[:accepted].nil? && params[:open].nil?)
+      @trip_requests = TripRequest.where(tourist_id: @profile.id)
+
+      @filter_open = true
+      @filter_accepted = true
+      @filter_rejected = true
+    end
+
+    return @trip_requests
+  end
+
 
 end

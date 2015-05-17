@@ -1,0 +1,80 @@
+.row
+  .col-xs-2.col-sm-2.col-md-2.col-lg-2
+  .col-xs-8.col-sm-8.col-md-8.col-lg-8
+    .panel.panel-default.container-50
+      .panel-heading
+        %h3.panel-title Angefragte Touren insgesamt:
+        .panel-body
+          .row
+            .col-lg-3
+            .col-lg-6
+              .row
+                .col-lg-12.text-center
+                  - if @trip_requests.present?
+                    ="Anzahl Buchungsanfragen:"
+                    = @trip_requests.count
+
+                  -else
+                    keine Touranfragen bisher vorhanden
+                    %br
+                .col-xs-2.col-sm-2.col-md-2.col-lg-2
+            .col-lg-3
+  .row
+    - if @trip_requests.present?
+      - @trip_requests.each do |trip|
+        .col-md-6.col-xs-12
+          .panel.panel-default.container-50
+            .panel-heading
+              %h3.panel-title Tour Anfrage
+              .panel-body
+                .row
+                  .col-lg-4
+                    .row
+                      .col-lg-12.text-center
+                        %h2
+                          = trip.trip_name
+                    .row
+                      .col-lg-12
+                        %i
+                          = "Guide:"
+                        %br
+                        = trip.guide_name
+                        %br
+                        %br
+                  .col-lg-8
+                    %table.table.table-user-information
+                      %tbody
+                        %tr
+                          %td Tourteilnehmer
+                          %td
+                            = trip.who_wants
+                        %tr
+                          %td Datum
+                          %td
+                            = trip.date
+                        %tr
+                          %td Bemerkungen
+                          %td
+                            = trip.notes
+                        %tr
+                          %td Status
+                          %td
+                            -if trip.request_status == "open"
+                              %i.fa.fa-gears.fa-3x.text-blue
+                            -elsif trip.request_status == "rejected"
+                              %i.fa.fa-times.fa-3x.text-red
+                            -else
+                              %i.fa.fa-check-square-o.fa-3x.text-green
+                        %tr
+                          %td{colspan: 2}
+                            %br
+                            -if trip.request_status == "open"
+                              = link_to 'Tour', trips_show_external_path(:id => trip.trip_id, :extern => true, :anchor => 'body'), :target => "_blank", :class => 'btn btn-info pull-middle'
+                              = link_to 'Guide', profile_guides_show_path(:email => trip.guide_email, :extern => true, :anchor => 'body'), :target => "_blank", :class => 'btn btn-info pull-middle'
+                              = link_to 'Löschen', trip, :method => :delete, :data => { :confirm => 'Bist du sicher?' }, :class => 'btn btn-danger'
+                            -else
+                              = link_to 'Tour', trips_show_external_path(:id => trip.trip_id, :extern => true, :anchor => 'body'), :target => "_blank", :class => 'btn btn-info pull-middle'
+                              = link_to 'Guide', profile_guides_show_path(:email => trip.guide_email, :extern => true, :anchor => 'body'), :target => "_blank", :class => 'btn btn-info pull-middle'
+    -else
+      %br
+      = link_to 'Suche deine erste Tour', profiles_search_guides_path(:anchor => 'body'), :class => 'btn btn-info pull-middle'

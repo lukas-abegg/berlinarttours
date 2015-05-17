@@ -78,7 +78,7 @@
               = "Touranfragen"
         .row
           .panel.panel-default.container-50
-            = form_tag(profile_pois_show_path(:page_id => "tours"), :multipart => true, :method => 'get', :id => "show_trip_requests") do
+            = form_tag(profile_guides_show_path(:page_id => "tours"), :multipart => true, :method => 'get', :id => "show_trip_requests") do
               .field.col-md-4
                 = label_tag "offene Requests", nil, class:'label-large'
                 %br
