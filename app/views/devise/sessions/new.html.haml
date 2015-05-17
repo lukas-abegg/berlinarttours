@@ -13,9 +13,11 @@
     %span.fa.fa-remove.text-red.hidden{:id => 'keywrong'}
     %span{:id => 'keycontent'}
   = f.password_field :password, :id => 'key', class:'input-block-level text-red', placeholder: 'Password', :onkeyUp => "checkPassword()"
-  .checkbox
-    %span.character-checkbox{:onclick => "showPassword()"}
-    %span.label Show password
+  %br
+  %input#box1{:type => "checkbox", :onclick => "showPassword()"}
+  %label{:for => "box1"} Passwort anzeigen
+  %br
+  %br
   = f.submit 'Sign in', class:'btn btn-large btn-primary'
   %hr
     = render 'devise/shared/links'

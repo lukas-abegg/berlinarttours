@@ -83,7 +83,8 @@ Berlinarttours::Application.routes.draw do
   get "profile_guides/show"
   get "profile_guides/edit", to: "users#edit"
 
-  resources :profile_guides
+  resources :profile_guides do
+  end
 
   #POI Profiles
 

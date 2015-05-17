@@ -5,9 +5,10 @@
       .h1
         = "Profildaten"
     .col-md-2
+
+.col-xs-12.col-sm-12.col-md-12.col-lg-12
   .row
-    .col-md-3
-    .col-md-6.col-xs-12
+    .col-lg-6.col-xs-12
       .panel.panel-default.container-50
         .panel-heading
           %h3.panel-title Userdaten
@@ -49,6 +50,7 @@
                       = "| " + f + " "
                   ="|"
 
+    .col-lg-6.col-xs-12
       .panel.panel-default.container-50
         .panel-heading
           %h3.panel-title Kontaktdaten
@@ -81,7 +83,12 @@
                   = profile.city
                   %br
                   = profile.country
-      - if @extern.blank?
+
+
+
+  - if @extern.blank?
+    .row
+      .col-lg-6.col-xs-12
         .panel.panel-default.container-50
           .panel-heading
             %h3.panel-title Logindaten

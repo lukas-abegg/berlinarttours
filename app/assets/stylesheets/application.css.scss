@@ -26,16 +26,16 @@
   border: solid 1px #C66;
 }
 
+// font awesome
+@import "font-awesome-sprockets";
+@import "font-awesome";
+
 // "bootstrap-sprockets" must be imported before "bootstrap" and "bootstrap/variables"
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
 // upload files
 @import "jasny-bootstrap";
-
-// font awesome
-@import "font-awesome-sprockets";
-@import "font-awesome";
 
 // forms
 @import "bootstrap_forms";

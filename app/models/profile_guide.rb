@@ -1,6 +1,7 @@
 class Profile_Guide
   include Mongoid::Document
   include Mongoid::Timestamps
+  include Mongoid::Commentable
   include Mongoid::Paperclip
   include Geocoder::Model::Mongoid
 
