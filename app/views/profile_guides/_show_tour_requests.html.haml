@@ -1,25 +1,27 @@
 .col-xs-12.col-sm-12.col-md-12.col-lg-12
   .row
-    .col-xs-2.col-sm-2.col-md-2.col-lg-2
-    .col-xs-8.col-sm-8.col-md-8.col-lg-8
-      .panel.panel-default.container-50
-        .panel-heading
-          %h3.panel-title Angefragte Touren insgesamt:
-          .panel-body
-            .row
-              .col-lg-3
-              .col-lg-6
-                .row
-                  .col-lg-12.text-center
-                    - if @trip_requests.present?
-                      ="Anzahl Buchungsanfragen:"
-                      = @trip_requests.count
 
-                    -else
-                      keine Touranfragen bisher vorhanden
-                      %br
-                  .col-xs-2.col-sm-2.col-md-2.col-lg-2
-              .col-lg-3
+    .row
+      .col-xs-2.col-sm-2.col-md-2.col-lg-2
+      .col-xs-8.col-sm-8.col-md-8.col-lg-8
+        .panel.panel-default.container-50
+          .panel-heading
+            %h3.panel-title Angefragte Touren insgesamt:
+            .panel-body
+              .row
+                .col-lg-3
+                .col-lg-6
+                  .row
+                    .col-lg-12.text-center
+                      - if @trip_requests.present?
+                        ="Anzahl Buchungsanfragen:"
+                        = @trip_requests.count
+
+                      -else
+                        keine Touranfragen bisher vorhanden
+                        %br
+                    .col-xs-2.col-sm-2.col-md-2.col-lg-2
+                .col-lg-3
     .row
       - if @trip_requests.present?
         - @trip_requests.each do |trip|
@@ -29,11 +31,13 @@
                 %h3.panel-title Tour Anfrage
                 .panel-body
                   .row
+                    .col-lg-12.text-center
+                      %h2
+                        = trip.trip_name
+                  .row
                     .col-lg-4
-                      .row
-                        .col-lg-12.text-center
-                          %h2
-                            = trip.trip_name
+                      %br
+                      %br
                       .row
                         .col-lg-12
                           %i

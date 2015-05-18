@@ -3,9 +3,13 @@ module ApplicationHelper
 
     if current_page?(tourist_home_path) || current_page?(poi_home_path) || current_page?(guide_home_path)
       return 'intro imageTouristIntroBG'
-    elsif current_page?(profiles_show_url) || current_page.start_with?('/profile_guides/show') || current_page.start_with?('/profile_pois/')
+    elsif current_page.start_with?('/profiles/show') || current_page.start_with?('/profile_guides/show') || current_page.start_with?('/profile_pois/')
       return 'intro imageTouristProfileBG'
-    elsif current_page.start_with?('/tourist_tours') || current_page.start_with?('/trips')
+    elsif current_page?(profiles_search_guides_path) || current_page?(profile_pois_search_guides_path)
+      return 'intro imageTouristToursBG'
+    elsif current_page.start_with?('/search_pois/contact')
+      return 'hidden'
+    elsif current_page.start_with?('/search_pois') || current_page.start_with?('/trips')
       return 'intro imageTouristToursBG'
     else
       return 'hidden'
@@ -16,15 +20,19 @@ module ApplicationHelper
 
     if current_page?(tourist_home_path) || current_page?(poi_home_path) || current_page?(guide_home_path)
       return ''
-    elsif current_page?(profiles_show_url) || current_page.start_with?('/profile_guides/show') || current_page.start_with?('/profile_pois/')
+    elsif current_page?(profiles_show_url) || current_page?(profile_guides_show_path) || current_page?(profile_pois_show_path)
       return ''
-    elsif current_page.start_with?('/tourist_tours') || current_page.start_with?('/trips')
+    #for external calls
+    elsif current_page.start_with?('/profiles/show') || current_page.start_with?('/profile_guides/show') || current_page.start_with?('/profile_pois/')
+      return ''
+    elsif current_page.start_with?(profiles_search_guides_path) || current_page.start_with?('/trips')
       return ''
     else
       return 'imageTouristToursBG' #bg-body improves may if doesn't work
     end
   end
 
+  #set header text
   def getHeaderText(current_page)
 
     if current_page?(tourist_home_path)
@@ -33,15 +41,31 @@ module ApplicationHelper
       return 'header_texts.poi_home'
     elsif current_page?(guide_home_path)
       return 'header_texts.guide_home'
-    elsif current_page?(profiles_show_url) || current_page.start_with?('/profile_guides/show') || current_page.start_with?('/profile_pois/')
+    elsif current_page?(profiles_show_url) || current_page?(profile_guides_show_path) || current_page?(profile_pois_show_path)
+      return 'header_texts.check_profile'
+      #for external calls
+    elsif current_page.start_with?('/profiles/show') || current_page.start_with?('/profile_guides/show') || current_page.start_with?('/profile_pois/')
+      return 'header_texts.external_profile'
+    elsif current_page?(profiles_search_guides_path)
+      return 'header_texts.search_tours'
+    elsif current_page?(profile_pois_search_guides_path)
+      return 'header_texts.search_guide'
+    elsif current_page.start_with?('/search_pois/contact')
+
+    elsif current_page.start_with?('/search_pois')
+      return 'header_texts.search_pois'
+    elsif current_page.start_with?('/trips_show_external')
+      return 'header_texts.show_tour'
+    elsif current_page.start_with?('/trips')
+      return 'header_texts.tour_booking'
+    elsif current_page?(profile_guides_path)
       return 'header_texts.profile'
-    elsif current_page.start_with?('/tourist_tours') || current_page.start_with?('/trips')
-      return 'header_texts.tours'
     else
-      #return 'header_texts.home'
+
     end
   end
 
+  #set home view
   def get_current_home(current_user)
     @session_type = session[:account_type]
     case @session_type
@@ -54,6 +78,7 @@ module ApplicationHelper
     end
   end
 
+  #set avatar
   def get_profile(current_user)
     @user_avatar = current_user
     if !@profile.blank? && @profile.user_id == @user_avatar.id

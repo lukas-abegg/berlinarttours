@@ -22,18 +22,20 @@
 de:
   header:
     letsstart: "Let's start"
-    myprofile: "Mein Profil"
-    tour_booking: "Touren"
-    wishlist: "Meine Wunschliste"
-    bookings: "Meine Buchungen"
-    search_pois: "Find POI's"
+    myprofile: "Verwalte dein Profile"
     create_tours: "Neue Tour"
   header_texts:
     profile: "Dein Profil"
     tourist_home: "Welcome Tourist"
     guide_home: "Welcome Guide"
     poi_home: "Welcome Point of Interest"
-    tours: "Get your Tour"
+    check_profile: "Zeige dein Profil"
+    external_profile: "Check it out"
+    tour_booking: "Manage your Tours"
+    show_tour: "Look at this Tour"
+    search_pois: "Get your POI's"
+    search_guide: "Get your Guide"
+    search_tours: "Get your Tour"
   intro:
     title: "Berlin Special - Tours"
     title2: "Wer bist du?..."

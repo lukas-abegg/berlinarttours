@@ -52,15 +52,17 @@
                 .h4
                   =submit_tag "Anzeigen", class:'btn btn-large btn-info', :id=> "show_touren"
                   =submit_tag "Ausblenden", class:'btn btn-large btn-danger', :id=> "hide_touren"
-          .col-xs-6.col-sm-6.col-md-6.col-lg-6
-            .row
-              .col-md-6.col-lg-6
-                .h3
-                  = "Touranfragen"
-              .col-md-6.col-lg-6
-                .h4
-                  =submit_tag "Anzeigen", class:'btn btn-large btn-info', :id=> "show_tourenanfragen"
-                  =submit_tag "Ausblenden", class:'btn btn-large btn-danger', :id=> "hide_tourenanfragen"
+
+          -if @extern != true
+            .col-xs-6.col-sm-6.col-md-6.col-lg-6
+              .row
+                .col-md-6.col-lg-6
+                  .h3
+                    = "Touranfragen"
+                .col-md-6.col-lg-6
+                  .h4
+                    =submit_tag "Anzeigen", class:'btn btn-large btn-info', :id=> "show_tourenanfragen"
+                    =submit_tag "Ausblenden", class:'btn btn-large btn-danger', :id=> "hide_tourenanfragen"
 
     .col-xs-12.col-sm-12.col-md-12.col-lg-12
       %div#show_touren_panel
@@ -71,29 +73,30 @@
         .row
           = render "show_touren_basics"
 
-      %div#show_tourenanfragen_panel
-        .row
-          .col-md-12.col-lg-12
-            .h3
-              = "Touranfragen"
-        .row
-          .panel.panel-default.container-50
-            = form_tag(profile_guides_show_path(:page_id => "tours"), :multipart => true, :method => 'get', :id => "show_trip_requests") do
-              .field.col-md-4
-                = label_tag "offene Requests", nil, class:'label-large'
-                %br
-                = check_box_tag "open", nil, @filter_open
-              .field.col-md-4
-                = label_tag "akzeptierte Requests", nil, class:'label-large'
-                %br
-                = check_box_tag "accepted", nil, @filter_accepted
-              .field.col-md-4
-                = label_tag "abgelehnte Requests", nil, class:'label-large'
-                %br
-                = check_box_tag "rejected", nil, @filter_rejected
-              .action
-                %br
-                %br
-                = submit_tag "Filter setzen", class:'btn btn-large btn-primary'
-          %div#show_tour_requests
-            = render "show_tour_requests"
+      -if @extern != true
+        %div#show_tourenanfragen_panel
+          .row
+            .col-md-12.col-lg-12
+              .h3
+                = "Touranfragen"
+          .row
+            .panel.panel-default.container-50
+              = form_tag(profile_guides_show_path(:page_id => "tours"), :multipart => true, :method => 'get', :id => "show_trip_requests") do
+                .field.col-md-4
+                  = label_tag "offene Requests", nil, class:'label-large'
+                  %br
+                  = check_box_tag "open", nil, @filter_open
+                .field.col-md-4
+                  = label_tag "akzeptierte Requests", nil, class:'label-large'
+                  %br
+                  = check_box_tag "accepted", nil, @filter_accepted
+                .field.col-md-4
+                  = label_tag "abgelehnte Requests", nil, class:'label-large'
+                  %br
+                  = check_box_tag "rejected", nil, @filter_rejected
+                .action
+                  %br
+                  %br
+                  = submit_tag "Filter setzen", class:'btn btn-large btn-primary'
+            %div#show_tour_requests
+              = render "show_tour_requests"

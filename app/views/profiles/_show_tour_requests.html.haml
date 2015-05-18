@@ -28,19 +28,19 @@
               %h3.panel-title Tour Anfrage
               .panel-body
                 .row
+                  .col-lg-12.text-center
+                    %h2
+                      = trip.trip_name
+                .row
                   .col-lg-4
-                    .row
-                      .col-lg-12.text-center
-                        %h2
-                          = trip.trip_name
-                    .row
-                      .col-lg-12
-                        %i
-                          = "Guide:"
-                        %br
-                        = trip.guide_name
-                        %br
-                        %br
+                    %br
+                    %br
+                    %i
+                      = "Guide:"
+                    %br
+                    = trip.guide_name
+                    %br
+                    %br
                   .col-lg-8
                     %table.table.table-user-information
                       %tbody

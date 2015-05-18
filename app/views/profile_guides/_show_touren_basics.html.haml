@@ -29,17 +29,19 @@
               %h3.panel-title Tour
             .panel-body
               .row
+                .col-lg-12.text-center
+                  %h2
+                    = t.name
+              .row
                 .col-lg-4
-                  .row
-                    .col-lg-10.text-center
-                      %h2
-                        = t.name
-                      %i
-                        = "Guide:"
-                      %br
-                      = "#{p.first_name} #{p.last_name}"
-                      %br
-                      %br
+                  %br
+                  %br
+                  %i
+                    = "Guide:"
+                  %br
+                  = p.first_name + " " + p.last_name
+                  %br
+                  %br
                 .col-lg-8
                   %table.table.table-user-information
                     %tbody

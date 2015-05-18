@@ -78,54 +78,68 @@
       }
     });
 
-
-
-
 .col-xs-12.col-sm-12.col-md-12.col-lg-12
   .row
     .col-md-12.col-lg-12
       .h1
         = "Gebuchte Touren"
-  .row
-    .col-xs-2.col-sm-2.col-md-2.col-lg-2
-    .col-xs-8.col-sm-8.col-md-8.col-lg-8
-      .panel.panel-default.container-50
-        .panel-heading
-          %h3.panel-title Anzahl gebuchte Touren:
-          .panel-body
-            .row
-              .col-lg-3
-              .col-lg-6
-                .row
-                  .col-lg-12.text-center
-                    - if @trips_booked.present?
-                      ="Anzahl Buchungen:"
-                      = @trips_booked.count
 
-                    -else
-                      keine gebuchten Touren vorhanden
-                      %br
-              .col-lg-3
-            .row
-              .col-lg-3
-              .col-lg-6
-                .row
-                  .col-lg-12.text-center
-                    - if @trips_open.present?
-                      ="Anzahl Buchungsanfragen:"
-                      = @trips_open.count
+  -if @extern != true
+    .row
+      .col-xs-2.col-sm-2.col-md-2.col-lg-2
+      .col-xs-8.col-sm-8.col-md-8.col-lg-8
+        .panel.panel-default.container-50
+          .panel-heading
+            %h3.panel-title Anzahl gebuchte Touren:
+            .panel-body
+              .row
+                .col-lg-3
+                .col-lg-6
+                  .row
+                    .col-lg-12.text-center
+                      - if @trips_booked.present?
+                        ="Anzahl Buchungen:"
+                        = @trips_booked.count
 
-                    -else
-                      keine Touranfragen vorhanden
-                      %br
-              .col-lg-3
-    .col-xs-2.col-sm-2.col-md-2.col-lg-2
+                      -else
+                        keine gebuchten Touren vorhanden
+                        %br
+                .col-lg-3
+              .row
+                .col-lg-3
+                .col-lg-6
+                  .row
+                    .col-lg-12.text-center
+                      - if @trips_open.present?
+                        ="Anzahl Buchungsanfragen:"
+                        = @trips_open.count
 
-  .row
-    .col-xs-2.col-sm-2.col-md-2.col-lg-2
-    .col-xs-8.col-sm-8.col-md-8.col-lg-8
-      %br
-      #calendar
-      %br
-      %br
-    .col-xs-2.col-sm-2.col-md-2.col-lg-2
+                      -else
+                        keine Touranfragen vorhanden
+                        %br
+                .col-lg-3
+      .col-xs-2.col-sm-2.col-md-2.col-lg-2
+
+    .row
+      .col-xs-2.col-sm-2.col-md-2.col-lg-2
+      .col-xs-8.col-sm-8.col-md-8.col-lg-8
+        %br
+        #calendar
+        %br
+        %br
+      .col-xs-2.col-sm-2.col-md-2.col-lg-2
+
+  -else
+    .row
+      .col-xs-2.col-sm-2.col-md-2.col-lg-2
+      .col-xs-8.col-sm-8.col-md-8.col-lg-8
+        .panel.panel-default.container-50
+          .panel-heading
+            .panel-body
+              .row
+                .col-lg-3
+                .col-lg-6
+                  .row
+                    .col-lg-12.text-center
+                      = "nicht sichtbar für Betrachter"
+                .col-lg-3
