@@ -62,7 +62,7 @@ class TripRequestsController < ApplicationController
 
     respond_to do |format|
       env["HTTP_REFERER"] += '#body'
-      format.html { redirect_to profile_guides_show_path(:page_id => "trip_requests") }
+      format.html { redirect_to profile_guides_show_path(:page_id => "tours") }
       format.xml
     end
   end

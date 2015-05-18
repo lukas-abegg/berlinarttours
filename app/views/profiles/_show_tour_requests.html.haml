@@ -76,5 +76,7 @@
                               = link_to 'Tour', trips_show_external_path(:id => trip.trip_id, :extern => true, :anchor => 'body'), :target => "_blank", :class => 'btn btn-info pull-middle'
                               = link_to 'Guide', profile_guides_show_path(:email => trip.guide_email, :extern => true, :anchor => 'body'), :target => "_blank", :class => 'btn btn-info pull-middle'
     -else
-      %br
-      = link_to 'Suche deine erste Tour', profiles_search_guides_path(:anchor => 'body'), :class => 'btn btn-info pull-middle'
+      .row
+        .col-lg-12
+          %br
+          = link_to 'Suche deine erste Tour', profiles_search_guides_path(:anchor => 'body'), :class => 'btn btn-info pull-middle'

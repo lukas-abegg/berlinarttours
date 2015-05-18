@@ -3,6 +3,22 @@
 - modal ||= false
 - remote = modal ? true : false
 = form_for Search_Poi.new, :url=> trip_path, :html => { :multipart => true, :method => 'get', :id => "pois_search" } do |f|
+  %br
+  .field.col-md-4
+    = f.label 'POI Name', class:'label-large text-red'
+  .field.col-md-4
+    = f.label :email, class:'label-large text-red'
+  .field.col-md-4
+    = f.label :poi_type, class:'label-large text-red'
+
+  .field.col-md-4
+    = f.text_field :name, class:'input-block-level text-red', placeholder: 'Name'
+  .field.col-md-4
+    = f.text_field :email, class:'input-block-level text-red', placeholder: 'Email'
+  .field.col-md-4
+    = f.select :poi_type, options_for_select([' ', 'Kutur/Geschichte', 'Kunst', 'Shopping', 'Deluxe']), {class:'form-control_bootsforms input-block-level text-red' }
+    %br
+    %br
   .field.col-md-4
     = f.label :postcode, class:'label-large text-red'
   .field.col-md-4

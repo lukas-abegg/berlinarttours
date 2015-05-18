@@ -72,7 +72,6 @@
                               -if trip.request_status == "open"
                                 = link_to 'Tour', trips_show_external_path(:id => trip.trip_id, :extern => true, :anchor => 'body'), :target => "_blank", :class => 'btn btn-info pull-middle'
                                 = link_to 'Guide', profile_guides_show_path(:email => trip.guide_email, :extern => true, :anchor => 'body'), :target => "_blank", :class => 'btn btn-info pull-middle'
-                                = link_to 'Löschen', trip, :method => :delete, :data => { :confirm => 'Bist du sicher?' }, :class => 'btn btn-danger'
                               -else
                                 = link_to 'Tour', trips_show_external_path(:id => trip.trip_id, :extern => true, :anchor => 'body'), :target => "_blank", :class => 'btn btn-info pull-middle'
                                 = link_to 'Guide', profile_guides_show_path(:email => trip.guide_email, :extern => true, :anchor => 'body'), :target => "_blank", :class => 'btn btn-info pull-middle'
