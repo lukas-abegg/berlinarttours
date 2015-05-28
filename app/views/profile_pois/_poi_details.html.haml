@@ -2,10 +2,6 @@
   = stylesheet_link_tag "carousel"
   .row
     .col-md-12.col-lg-12
-      .h1
-        = "Image Gallery of POI: " + @profile.name
-  .row
-    .col-md-12.col-lg-12
       #myCarousel.carousel.slide{"data-interval" => "3000", "data-ride" => "carousel"}
         / Carousel indicators
         %ol.carousel-indicators
@@ -39,5 +35,4 @@
           %span.glyphicon.glyphicon-chevron-right
   .row
     .col-md-12.col-lg-12
-      %br
       %br

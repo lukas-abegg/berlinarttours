@@ -40,6 +40,9 @@ class ProfileGuidesController < ApplicationController
     end
 
     @trips = Trip.where(guide_email: @profile.email)
+    @trip_ids = Trip.where(guide_email: @profile.email).pluck(:_id)
+    @trips_gallery = TripStation.in(trip_id: @trip_ids)
+
     @trip_requests_basics = TripRequest.where(guide_email: @profile.email)
 
     #open

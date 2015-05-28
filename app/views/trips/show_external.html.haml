@@ -1,42 +1,7 @@
 %script{ :src => "https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=false" }
 
 .col-xs-12.col-sm-12.col-md-12.col-lg-12
-  .row
-    .col-md-2
-    .col-md-8
-      .h1
-        = "Tourdaten"
-        %br
-        %br
-    .col-md-2
-  .row
-    .col-md-1
-    .col-md-10.col-xs-12
-      .panel.panel-default.container-50
-        .panel-heading
-          %h3.panel-title Tourbeschreibung
-        .panel-body
-          %table.table.table-user-information
-            %tbody
-              %tr
-                %td Name
-                %td
-                  = @trip.name
-              %tr
-                %td Description
-                %td
-                  = @trip.description
-              %tr
-                %td Type
-                %td
-                  = @trip.type
-              %tr
-                %td Guide
-                %td
-                  = @profile.first_name
-                  &nbsp;
-                  = @profile.last_name
-    .col-md-1
+  =render "show_header"
   .row
     .col-md-1
     .col-md-10.col-xs-12
@@ -61,9 +26,9 @@
                     %td
                       = @trip.notes
                   %tr
-                    %td Meeting Point
+                    %td Transportart
                     %td
-                      = @trip.meeting_point
+                      = @trip.transport_type
 
               =render partial: 'trip_map', :locals => { :trip => @trip}
     .col-md-1

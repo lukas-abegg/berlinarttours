@@ -1,46 +1,54 @@
 .col-xs-12.col-sm-12.col-md-12.col-lg-12
   .row
-    .col-md-2
-    .col-md-8
-      .h1
-        = "Profildaten"
-    .col-md-2
-  .row
-    .col-lg-6.col-xs-12
-      .panel.panel-default.container-50
-        .panel-heading
-          %h3.panel-title Userdaten
-        .panel-body
-          %table.table.table-user-information
-            %tbody
-              %tr
-                %td Name
-                %td
-                  = profile.name
-              %tr
-                %td
-                  = "Email "
-                  %span.glyphicon.glyphicon-envelope
-                %td
-                  = profile.email
-              %tr
-                %td Account Type
-                %td
-                  = profile.account_type
-              %tr
-                %td Art des POI
-                %td
-                  = profile.poi_type
-              %tr
-                %td Dauer der Führung(hh:mm)
-                %td
-                  = profile.duration
-              %tr
-                %td Description
-                %td
-                  = profile.description
+    .col-lg-12
+      .title_tour
+        = profile.name
 
-    .col-lg-6.col-xs-12
+  =render "poi_details"
+
+  .row
+    .col-lg-12.col-xs-12
+      .panel.panel-default.container-50
+        .panel-body
+          .row
+            .col-lg-12.text-center
+              %h2
+                = "POI-Beschreibung"
+          .row
+            .col-lg-4
+              %br
+              %br
+              .row
+                .col-lg-12
+                  %i
+                    = "Beschreibung:"
+                  %br
+                  = profile.description
+                  %br
+                  %br
+            .col-lg-8
+              %table.table.table-user-information
+                %tbody
+                  %tr
+                    %td
+                      = "Email "
+                      %span.glyphicon.glyphicon-envelope
+                    %td
+                      = profile.email
+                  %tr
+                    %td Account Type
+                    %td
+                      = profile.account_type
+                  %tr
+                    %td Art des POI
+                    %td
+                      = profile.poi_type
+                  %tr
+                    %td Dauer der Führung(hh:mm)
+                    %td
+                      = profile.duration
+  .row
+    .col-md-12.col-xs-12
       .panel.panel-default.container-50
         .panel-heading
           %h3.panel-title Kontaktdaten
@@ -74,8 +82,9 @@
                   %br
                   = profile.country
 
-    - if @extern.blank?
-      .col-lg-6.col-xs-12
+  - if @extern.blank?
+    .row
+      .col-md-12.col-xs-12
         .panel.panel-default.container-50
           .panel-heading
             %h3.panel-title Logindaten

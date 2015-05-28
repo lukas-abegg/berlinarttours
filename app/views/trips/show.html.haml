@@ -1,39 +1,8 @@
 .col-xs-12.col-sm-12.col-md-12.col-lg-12
-  .row
-    .col-md-2
-    .col-md-8
-      %h1
-        ="Tourdaten"
-
-    .col-md-2
+  =render "show_header"
   .row
     .col-md-3
     .col-md-6.col-xs-12
-      .panel.panel-default.container-50
-        .panel-heading
-          %h3.panel-title Tourbeschreibung
-        .panel-body
-          %table.table.table-user-information
-            %tbody
-              %tr
-                %td Name
-                %td
-                  = @trip.name
-              %tr
-                %td Description
-                %td
-                  = @trip.description
-              %tr
-                %td Type
-                %td
-                  = @trip.type
-              %tr
-                %td Guide
-                %td
-                  = @profile.first_name
-                  &nbsp;
-                  = @profile.last_name
-
       .panel.panel-default.container-50
         .panel-heading
           %h3.panel-title Tourdetails
@@ -53,9 +22,9 @@
                 %td
                   = @trip.notes
               %tr
-                %td Treffpunkt
+                %td Transportart
                 %td
-                  = @trip.meeting_point
+                  = @trip.transport_type
 
       = link_to 'Tour ändern', edit_trip_path(@trip), :class => 'btn btn-primary pull-middle'
       &nbsp

@@ -1,0 +1,90 @@
+= stylesheet_link_tag "carousel_tour_station"
+.row
+  .col-lg-12
+    .title_tour
+      = @trip.name
+
+.row
+  .col-md-1
+  .col-md-10.col-xs-10
+    #myCarousel.carousel.slide{"data-interval" => "3000", "data-ride" => "carousel"}
+      / Carousel indicators
+      %ol.carousel-indicators
+        - @trip.trip_stations.each_with_index do |station, index|
+          -if (index == 0)
+            %li.active{"data-slide-to" => index, "data-target" => "#myCarousel"}
+          -else
+            %li{"data-slide-to" => index, "data-target" => "#myCarousel"}
+      / Carousel items
+      .carousel-inner
+        - @trip.trip_stations.each_with_index do |station, index|
+          -if (index == 0)
+            .active.item
+              %img{:src => station.gallery_pic1.url(:medium)}
+                %h2
+                  = station.name
+                .carousel-caption
+                  %h3
+                    = station.name
+                    %br
+                  %h4
+                    = "#{station.street} #{station.house_number}"
+          -else
+            .item
+              %img{:src => station.gallery_pic1.url(:medium)}
+                %h2
+                  = station.name
+                .carousel-caption
+                  %h3
+                    = station.name
+                    %br
+                  %h4
+                    = "#{station.street} #{station.house_number}"
+
+      / Carousel nav
+      %a.carousel-control.left{"data-slide" => "prev", :href => "#myCarousel"}
+        %span.glyphicon.glyphicon-chevron-left
+      %a.carousel-control.right{"data-slide" => "next", :href => "#myCarousel"}
+        %span.glyphicon.glyphicon-chevron-right
+
+.row
+  .col-ls-12
+    %br
+.row
+  .col-md-1
+  .col-md-10.col-xs-12
+    .panel.panel-default.container-50
+      .panel-body
+        .row
+          .col-lg-12.text-center
+            %h2
+              = "Tourbeschreibung"
+        .row
+          .col-lg-4
+            %br
+            %br
+            .row
+              .col-lg-12
+                %i
+                  = "Beschreibung:"
+                %br
+                = @trip.description
+                %br
+                %br
+          .col-lg-8
+            %table.table.table-user-information
+              %tbody
+                %tr
+                  %td Type
+                  %td
+                    = @trip.type
+                %tr
+                  %td Treffpunkt
+                  %td
+                    = @trip.meeting_point
+                %tr
+                  %td Guide
+                  %td
+                    = @profile.first_name
+                    &nbsp;
+                    = @profile.last_name

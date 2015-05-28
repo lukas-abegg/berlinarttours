@@ -1,0 +1,44 @@
+= stylesheet_link_tag "carousel"
+.row
+  .col-md-12.col-xs-12
+    #myCarousel.carousel.slide{"data-interval" => "3000", "data-ride" => "carousel"}
+      / Carousel indicators
+      %ol.carousel-indicators
+        - @trips_gallery.each_with_index do |station, index|
+          -if (index == 0)
+            %li.active{"data-slide-to" => index, "data-target" => "#myCarousel"}
+          -else
+            %li{"data-slide-to" => index, "data-target" => "#myCarousel"}
+      / Carousel items
+      .carousel-inner
+        - @trips_gallery.each_with_index do |station, index|
+          -@trip_gallery = @trips.where(:_id => station.trip_id)
+          -@trip_gallery.each do |trip|
+            -if (index == 0)
+              .active.item
+                %img{:src => station.gallery_pic1.url(:medium)}
+                  %h2
+                    = station.name
+                  .carousel-caption
+                    %h3
+                      = "Tour: #{trip.name}"
+                      %br
+                    %h4
+                      = "POI: #{station.name} / #{station.street} #{station.house_number}"
+            -else
+              .item
+                %img{:src => station.gallery_pic1.url(:medium)}
+                  %h2
+                    = station.name
+                  .carousel-caption
+                    %h3
+                      = "Tour: #{trip.name}"
+                      %br
+                    %h4
+                      = "POI: #{station.name} / #{station.street} #{station.house_number}"
+
+      / Carousel nav
+      %a.carousel-control.left{"data-slide" => "prev", :href => "#myCarousel"}
+        %span.glyphicon.glyphicon-chevron-left
+      %a.carousel-control.right{"data-slide" => "next", :href => "#myCarousel"}
+        %span.glyphicon.glyphicon-chevron-right
