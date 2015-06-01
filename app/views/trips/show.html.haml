@@ -1,8 +1,8 @@
 .col-xs-12.col-sm-12.col-md-12.col-lg-12
   =render "show_header"
   .row
-    .col-md-3
-    .col-md-6.col-xs-12
+    .col-md-1
+    .col-md-10.col-xs-12
       .panel.panel-default.container-50
         .panel-heading
           %h3.panel-title Tourdetails
@@ -25,6 +25,19 @@
                 %td Transportart
                 %td
                   = @trip.transport_type
+              %tr
+                %td Endpunkt der Tour
+                %td
+                  = @trip.which_end_point
+              -if @trip.which_end_point == "Individuell"
+                %tr
+                  %td Ort des Endpunktes
+                  %td
+                    = @trip.end_point
+              %tr
+                %td Sichtbarkeit der Tourstationen
+                %td
+                  = @trip.stations_viewable
 
       = link_to 'Tour ändern', edit_trip_path(@trip), :class => 'btn btn-primary pull-middle'
       &nbsp

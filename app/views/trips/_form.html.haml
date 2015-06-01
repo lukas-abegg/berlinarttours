@@ -20,16 +20,19 @@
         %p Tourbeschreibung
       .stepwizard-step
         %a.btn.btn-default.btn-circle-steps{:disabled => "disabled", :href => "#step-2", :type => "button"} 2
-        %p Tourdetails
+        %p Tourdetails Teil 1
       .stepwizard-step
         %a.btn.btn-default.btn-circle-steps{:disabled => "disabled", :href => "#step-3", :type => "button"} 3
+        %p Tourdarstellung  Teil 2
+      .stepwizard-step
+        %a.btn.btn-default.btn-circle-steps{:disabled => "disabled", :href => "#step-4", :type => "button"} 4
         %p Wähle Tourstationen
 
   = form_for @trip, :url => polymorphic_path(@trip, :anchor => 'body'), :html => {role: "form", :multipart => true } do |f|
     #step-1.row.setup-content
       .col-xs-12
         .col-md-12
-          %h3 Tourbeschreibung
+          %h3 Tourdetails Teil 1
           .form-group
             %label.control-label Tourname
             = f.text_field :name, :placeholder => "Tourname", :required => "required", :type => "text", :class => "form-control"
@@ -75,9 +78,27 @@
             %label.control-label Treffpunkt der Tour(Adresse: Strasse, PLZ/Ort)
             %br
             = f.text_area :meeting_point, :placeholder => "Adresse: Strasse, PLZ/Ort", :required => "required", :class => "form-control"
-
           %button.btn.btn-primary.nextBtn.pull-right{:type => "button"} Next
     #step-3.row.setup-content
+      .col-xs-12
+        .col-md-12
+          %h3 Tourdetails Teil 2
+          .form-group
+            %label.control-label Wo endet die Tour?
+            %br
+              = "(am Treffpunkt / an der letzten Tourstation / anderer Endpunkt der Tour)"
+            = f.select :which_end_point, options_for_select(['Treffpunkt', 'Endstation', 'Individuell']), {class:'form-control', :required => true }
+          .form-group
+            %label.control-label Endpunkt der Tour Adresse:
+            %br
+            = f.text_field :end_point, :placeholder => "Tourendadresse(Haus/Platz, Strasse, PLZ/Ort)", :class => "form-control"
+          .form-group
+            %label.control-label Wann sollen die Tourstationen für Besucher sichtbar sein?
+            %br
+              = "(immer sichtbar / nur wenn eine Tourgebucht wurde / nie sichtbar)"
+            = f.select :stations_viewable, options_for_select(['immer', 'gebucht', 'nie']), {class:'form-control', :required => true }
+          %button.btn.btn-primary.nextBtn.pull-right{:type => "button"} Next
+    #step-4.row.setup-content
       .col-xs-12
         .col-md-12
           %h3 Tourstationen

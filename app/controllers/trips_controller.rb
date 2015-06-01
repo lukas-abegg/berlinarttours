@@ -20,6 +20,11 @@ class TripsController < ApplicationController
     @trip = Trip.find_by(:id => params[:id])
     @profile = Profile_Guide.find_by(:email => @trip.guide_email)
 
+    @profile_external = Profile.where(:user_id => current_user.id)
+    if !@profile_external.blank?
+      @trip_requests = TripRequest.where(:trip_id => @trip.id, :tourist_id => @profile_external.first.id)
+    end
+
     @trip_js = @trip.to_json
     @trip_stations_js = @trip.trip_stations.to_json
 

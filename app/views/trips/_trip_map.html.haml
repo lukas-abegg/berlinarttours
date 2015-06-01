@@ -117,8 +117,7 @@
         waypointsArr.push({
             location: pointStart,
             stopover: true
-            }
-        );
+        });
 
         origin = pointStart;
 
@@ -129,8 +128,10 @@
 
           // Endadresse
           if (i == trip_stations.length - 1) {
-            destination = point;
-            label = "<i>letzte Station</i><br> ";
+            if (trip_j.which_end_point == "Endstation"){
+              destination = point;
+            }
+            label = "<i>letzte Tourstation</i><br> ";
           }
 
           address = station.street + ' ' + station.house_number + ', ' + station.postcode + ' ' + station.city;
@@ -145,6 +146,31 @@
 
           i = i + 1;
         });
+
+        if (trip_j.which_end_point == "Treffpunkt"){
+          // Endadresse Treffpunkt Waypoints
+          labelStart = "Treffpunkt / Endziel der Tour: ";
+          destination = pointStart;
+          addStartMarker(pointStart, labelStart + '<i>' + trip_j.meeting_point + '</i>');
+          waypointsArr.push({
+              location: pointStart,
+              stopover: true
+          });
+        }
+
+        if (trip_j.which_end_point == "Individuell"){
+          // Endadresse Treffpunkt Waypoints
+          var labelEnd = "Endziel der Tour: ";
+          var pointEnd = new google.maps.LatLng(trip_j.end_point_loc[1], trip_j.end_point_loc[0]);
+          destination = pointEnd;
+          address = trip_j.end_point;
+          addStartMarker(pointEnd, labelEnd + '<i>' + trip_j.end_point + '</i>');
+          waypointsArr.push({
+              location: pointEnd,
+              stopover: true
+          });
+          console.log(trip_j.end_point + trip_j.end_point_loc);
+        }
 
         var request = {
           origin: origin,

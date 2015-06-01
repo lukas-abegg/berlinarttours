@@ -15,10 +15,15 @@ class   Trip
   field :meeting_point, type: String
   field :meeting_point_loc, type: Array
   field :transport_type, type: String
+  field :stations_viewable, type: String
+  field :which_end_point, type: String
+  field :end_point, type: String
+  field :end_point_loc, type: Array
 
   has_many :trip_stations
 
   geocoded_by :meeting_point, :coordinates => :meeting_point_loc
+  geocoded_by :end_point, :coordinates => :end_point_loc
 
   after_validation :geocode          # auto-fetch coordinates
 

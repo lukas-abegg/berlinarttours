@@ -30,12 +30,50 @@
                     %td
                       = @trip.transport_type
 
-              =render partial: 'trip_map', :locals => { :trip => @trip}
+              -if (@trip.stations_viewable == "immer")
+                =render partial: 'trip_map', :locals => { :trip => @trip}
+              -elsif (@trip.stations_viewable == "gebucht")
+                -if not @trip_requests.blank?
+                  =render partial: 'trip_map', :locals => { :trip => @trip}
     .col-md-1
 
-.col-xs-12.col-sm-12.col-md-12.col-lg-12
-  .row
-    .col-md-2
-    .col-md-8
-      =render partial: 'show_trip_stations_tabs', :locals => { :trip => @trip}
-    .col-md-2
+-if (@trip.stations_viewable == "immer")
+  .col-xs-12.col-sm-12.col-md-12.col-lg-12
+    .row
+      .col-md-2
+      .col-md-8
+        =render partial: 'show_trip_stations_tabs', :locals => { :trip => @trip}
+      .col-md-2
+-elsif (@trip.stations_viewable == "gebucht" )
+  -if not @trip_requests.blank?
+    .col-xs-12.col-sm-12.col-md-12.col-lg-12
+      .row
+        .col-md-2
+        .col-md-8
+          =render partial: 'show_trip_stations_tabs', :locals => { :trip => @trip}
+        .col-md-2
+  -else
+    .container
+      .row.text-center
+        .col-xs-12{ :style => "padding-bottom: 30px;"}
+          .h1
+            = "Stationen"
+          %br
+
+          %div
+            = "Die Tourstationen werden erst angezeigt, wenn die Tour gebucht wurde. Wenn deine Touranfrage akzeptiert wurde, erfahrst du mehr über die Tourstationen."
+          %br
+          %br
+
+-else
+  .container
+    .row.text-center
+      .col-xs-12{ :style => "padding-bottom: 30px;"}
+        .h1
+          = "Stationen"
+        %br
+
+        %div
+          = "Der Guide möchte die Tourstationen nicht angezeigt haben. Bei Fragen zu einzelnen Tourstationen, bitte direkte Anfrage beim Guide."
+        %br
+        %br
