@@ -121,7 +121,7 @@ class TripsController < ApplicationController
   end
 
   def trip_params
-    params.require(:trip).permit(:name, :description, :type, :guide_email, :contact, :duration, :notes, :meeting_point, :meeting_point_loc, :transport_type)
+    params.require(:trip).permit(:name, :description, :type, :guide_email, :contact, :duration, :notes, :meeting_point, :meeting_point_loc, :transport_type, :end_point, :end_point_loc)
   end
 
   def create_trip_station(trip_id, station_id)

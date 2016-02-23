@@ -23,7 +23,7 @@ class   Trip
   has_many :trip_stations
 
   geocoded_by :meeting_point, :coordinates => :meeting_point_loc
-  geocoded_by :end_point, :coordinates => :end_point_loc
+  #geocoded_by :end_point, :coordinates => :end_point_loc
 
   after_validation :geocode          # auto-fetch coordinates
 
